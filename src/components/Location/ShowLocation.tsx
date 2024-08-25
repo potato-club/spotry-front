@@ -6,12 +6,33 @@ import { LocationData } from './LocationData';
 const ShowLocation: React.FC= () => {
 
     const [selectCity,setSelectCity] = useState<string>('');
+    const [isCitySelected, setIsCitySelected] = useState<boolean>(false);
+
 
     const cities = LocationData.map(location => location.city);
 
+    const handleSelectCity = (e: React.MouseEvent<HTMLDivElement>) => {
+        const selectedCity = e.currentTarget.textContent;
+        if(selectedCity){
+            setSelectCity(selectedCity)}
+            setIsCitySelected(prev=>!prev);
+    }
+
+    {/* 얘는 시 이름 이중 배열*/}
+    const districts = LocationData
+    .filter(location => location.city === selectCity)
+    .map(location=>location.districts.map(location=>location.district))
+    .flat();
+
+    console.log(districts);
+
     return (
         <LocaWrapper>
-            {cities.map(city=><LocaInfo>{city}</LocaInfo>)}
+            {
+                !isCitySelected ? cities.map(city=>
+                    <LocaInfo key={city} onClick={handleSelectCity}>{city}</LocaInfo>) 
+                    : districts.map(dis =><LocaInfo>{dis}</LocaInfo>)
+            }
         </LocaWrapper>
     );
 };
