@@ -1,5 +1,5 @@
 import { Btn, Container } from "./styles/Container";
-import LoginPage from "./components/LoginPage";
+import LoginPage from "./components/Login/LoginPage";
 
 function App() {
   return (
