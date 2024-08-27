@@ -1,4 +1,4 @@
-import { Btn, Container } from "./styles/Container";
+import { Container } from "./styles/Container";
 import LoginPage from "./components/Login/LoginPage";
 
 function App() {

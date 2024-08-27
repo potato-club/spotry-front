@@ -25,8 +25,7 @@ const KakaoIcon = styled.div`
   height: 48px;
   background-position: center;
   background-size: cover;
-  background-image: url("");
-  background-color: white;
+  background-image: url("/images/kakao1.png");
   &:hover {
     cursor: pointer;
   }
