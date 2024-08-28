@@ -13,6 +13,7 @@ const LotacionHeader = () => {
 export default LotacionHeader;
 
 const BackContainer = styled.div`
+margin-top: 20px;
 display: flex;
 flex-direction:row;
 width: 80%;

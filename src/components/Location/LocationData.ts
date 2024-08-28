@@ -76,6 +76,57 @@ export const LocationData = [
                         "address": "경기도 부천시 중동 456-78"
                     }
                 ]
+            },
+            {
+                "district": "안양시 동안구",
+                "neighborhoods": [
+                    {
+                        "neighborhood": "평촌동",
+                        "address": "경기도 안양시 동안구 평촌동 123-45"
+                    },
+                    {
+                        "neighborhood": "호계동",
+                        "address": "경기도 안양시 동안구 호계동 234-56"
+                    },
+                    {
+                        "neighborhood": "범계동",
+                        "address": "경기도 안양시 동안구 범계동 345-67"
+                    }
+                ]
+            },
+            {
+                "district": "남양주시",
+                "neighborhoods": [
+                    {
+                        "neighborhood": "화도읍",
+                        "address": "경기도 남양주시 화도읍 456-78"
+                    },
+                    {
+                        "neighborhood": "평내동",
+                        "address": "경기도 남양주시 평내동 567-89"
+                    },
+                    {
+                        "neighborhood": "호평동",
+                        "address": "경기도 남양주시 호평동 678-90"
+                    }
+                ]
+            },
+            {
+                "district": "의정부시",
+                "neighborhoods": [
+                    {
+                        "neighborhood": "의정부동",
+                        "address": "경기도 의정부시 의정부동 789-01"
+                    },
+                    {
+                        "neighborhood": "호원동",
+                        "address": "경기도 의정부시 호원동 890-12"
+                    },
+                    {
+                        "neighborhood": "신곡동",
+                        "address": "경기도 의정부시 신곡동 901-23"
+                    }
+                ]
             }
         ]
     },
@@ -124,6 +175,57 @@ export const LocationData = [
                     {
                         "neighborhood": "평화동",
                         "address": "경상북도 김천시 평화동 901-23"
+                    }
+                ]
+            },
+            {
+                "district": "영주시",
+                "neighborhoods": [
+                    {
+                        "neighborhood": "가흥동",
+                        "address": "경상북도 영주시 가흥동 101-23"
+                    },
+                    {
+                        "neighborhood": "휴천동",
+                        "address": "경상북도 영주시 휴천동 202-34"
+                    },
+                    {
+                        "neighborhood": "상망동",
+                        "address": "경상북도 영주시 상망동 303-45"
+                    }
+                ]
+            },
+            {
+                "district": "문경시",
+                "neighborhoods": [
+                    {
+                        "neighborhood": "모전동",
+                        "address": "경상북도 문경시 모전동 404-56"
+                    },
+                    {
+                        "neighborhood": "흥덕동",
+                        "address": "경상북도 문경시 흥덕동 505-67"
+                    },
+                    {
+                        "neighborhood": "점촌동",
+                        "address": "경상북도 문경시 점촌동 606-78"
+                    }
+                ]
+            },
+            {
+                "district": "상주시",
+                "neighborhoods": [
+                    {
+                        "neighborhood": "무양동",
+                        "address": "경상북도 상주시 무양동 707-89"
+                    },
+                    {
+                        "neighborhood": "동문동",
+                        "address": "경상북도 상주시 동문동 808-90"
+                    },
+                    {
+                        "neighborhood": "남성동",
+                        "address": "경상북도 상주시 남성동 909-01"
                     }
                 ]
             }
@@ -206,6 +308,14 @@ export const LocationData = [
                     {
                         "neighborhood": "사직동",
                         "address": "부산광역시 동래구 사직동 234-56"
+                    },
+                    {
+                        "neighborhood": "명륜동",
+                        "address": "부산광역시 동래구 명륜동 345-67"
+                    },
+                    {
+                        "neighborhood": "온천동",
+                        "address": "부산광역시 동래구 온천동 456-78"
                     }
                 ]
             },
@@ -215,6 +325,14 @@ export const LocationData = [
                     {
                         "neighborhood": "동대신동",
                         "address": "부산광역시 서구 동대신동 345-67"
+                    },
+                    {
+                        "neighborhood": "서대신동",
+                        "address": "부산광역시 서구 서대신동 456-78"
+                    },
+                    {
+                        "neighborhood": "아미동",
+                        "address": "부산광역시 서구 아미동 567-89"
                     }
                 ]
             },
@@ -224,6 +342,14 @@ export const LocationData = [
                     {
                         "neighborhood": "대연동",
                         "address": "부산광역시 남구 대연동 456-78"
+                    },
+                    {
+                        "neighborhood": "용호동",
+                        "address": "부산광역시 남구 용호동 567-89"
+                    },
+                    {
+                        "neighborhood": "문현동",
+                        "address": "부산광역시 남구 문현동 678-90"
                     }
                 ]
             }
