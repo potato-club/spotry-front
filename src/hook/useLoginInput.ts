@@ -1,32 +1,32 @@
 import { useState, useCallback } from "react";
 import { UseInputFieldResult } from "../types/Login";
 
-const useLoginInput = (placeholder: string): UseInputFieldResult => {
+const useLoginInput = (initialPlaceholder: string): UseInputFieldResult => {
   const [value, setValue] = useState<string>("");
+  const [placeholder, setPlaceholder] = useState<string>(initialPlaceholder);
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
-  // 포커스 상태를 설정하는 함수
   const onFocus = useCallback(() => {
-    if (value === placeholder) {
-      setValue("");
+    if (!isFocused) {
+      setPlaceholder("");
     }
     setIsFocused(true);
-  }, [value, placeholder]);
+  }, [isFocused]);
 
-  // 블러 상태를 설정하는 함수
   const onBlur = useCallback(() => {
     if (value === "") {
-      setValue(placeholder);
+      setPlaceholder(initialPlaceholder);
     }
     setIsFocused(false);
-  }, [value, placeholder]);
+  }, [value, initialPlaceholder]);
 
   return {
     value,
     setValue,
-    isFocused,
+    placeholder,
     onFocus,
     onBlur,
+    isFocused,
   };
 };
 

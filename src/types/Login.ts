@@ -4,4 +4,5 @@ export interface UseInputFieldResult {
   isFocused: boolean;
   onFocus: () => void;
   onBlur: () => void;
+  placeholder: string;
 }

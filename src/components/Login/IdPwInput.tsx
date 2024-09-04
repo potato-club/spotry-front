@@ -9,14 +9,15 @@ const IdPwInput: React.FC = () => {
   return (
     <LoginInput>
       <IdInput
-        placeholder="아이디 입력"
+        placeholder={idInput.placeholder}
         value={idInput.value}
         onChange={(e) => idInput.setValue(e.target.value)}
         onFocus={idInput.onFocus}
         onBlur={idInput.onBlur}
       />
       <PasswordInput
-        placeholder="비밀번호 입력"
+        type="password"
+        placeholder={passwordInput.placeholder}
         value={passwordInput.value}
         onChange={(e) => passwordInput.setValue(e.target.value)}
         onFocus={passwordInput.onFocus}
@@ -49,7 +50,7 @@ const IdInput = styled.input`
     outline: none;
   }
 `;
-const PasswordInput = styled.input.attrs({ type: "password" })`
+const PasswordInput = styled.input`
   width: 100%;
   height: 56px;
   margin-bottom: 16px;
