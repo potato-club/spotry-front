@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const LotacionHeader = () => {
     return (
         <BackContainer>
-            <BackBtn>&lt;</BackBtn>
+            <BackBtn/>
             <ContentDiv>내 동네 설정하기</ContentDiv>
         </BackContainer>
     );
@@ -28,6 +28,11 @@ cursor: pointer;
 justify-self: left;
 position: absolute;
 left: 0%;
+background-image: url('images/backBtn.png');
+width: 32px;
+height: 32px;
+background-position: center;
+background-size: cover;
 `
 
 const ContentDiv = styled.span`

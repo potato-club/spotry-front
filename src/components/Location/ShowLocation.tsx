@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, {useState } from "react";
 import styled from "styled-components";
 import { LocationData } from "./LocationData";
 import { Btn } from "../../styles/Container";
+import LocaTag from "./LocaTag";
+
+interface HouseAddress {
+    city:string;
+    district:string;
+    neighbor:string;
+}
 
 const ShowLocation: React.FC = () => {
+
+    const [House,setHouse] = useState<HouseAddress[]>([]);
+
     const [selectCity, setSelectCity] = useState<string>("");  // 도시
     const [isCitySelected, setIsCitySelected] = useState<boolean>(false);
     const [selectDistrict, setSelectDistrict] = useState<string>(""); // 구
@@ -13,7 +23,25 @@ const ShowLocation: React.FC = () => {
 
     const cities = LocationData.map((location) => location.city);
 
-    const handleNotYet = (e:React.MouseEvent<HTMLDivElement>) => {
+    const handleHouse = () => {
+        const newHouse: HouseAddress = {
+            city:selectCity,
+            district:selectDistrict,
+            neighbor:selectNeighborhood,
+        }
+        if(House.length < 2 && newHouse.city !== "" && checkJungbog([...House,newHouse])){
+            setHouse((prev) => [...prev, newHouse]);
+        }
+        if(House.length === 2){
+            alert('최대 2개의 주소만 선택 가능합니다');
+        }
+    }
+
+    const DeleteHouse = (idx:number) => {
+        setHouse(prev => prev.filter((HouseAddress, i) => i !== idx));
+    }
+
+    const handleNotYet = () => {
         setIsCitySelected(false);
         setIsDistrictSelected(false);
         setIsNeighboorhood(false);
@@ -22,6 +50,22 @@ const ShowLocation: React.FC = () => {
         setSelectNeighboorhood("");
     }
 
+    const checkJungbog = (arr:HouseAddress[]) => {
+        
+        if(arr.length <= 1) return true;
+
+        const [frist, second] = arr;
+
+        if(frist.city === second.city 
+            && frist.district === second.district 
+            && frist.neighbor === second.neighbor){
+                alert('중복입니다');
+                return false;
+            };
+        return true;
+    };
+
+    // handle 도시들 로직이 너무 복잡함, 근데 어떻게 줄일지 모르겠음
     const handleSelectCity = (e: React.MouseEvent<HTMLDivElement>) => {
         const selectedCity = e.currentTarget.textContent;
         if (selectedCity && selectedCity !== selectDistrict) {
@@ -34,6 +78,7 @@ const ShowLocation: React.FC = () => {
             setIsNeighboorhood(false);
             setSelectNeighboorhood("");
             setSelectDistrict("");
+            
         }
         setIsCitySelected(true);
     };
@@ -59,10 +104,6 @@ const ShowLocation: React.FC = () => {
         setIsNeighboorhood(true);
     }
 
-    {
-        /* 얘는 시 이름 이중 배열*/
-    }
-
     const districts = LocationData.filter(
         (location) => location.city === selectCity
     )
@@ -82,36 +123,53 @@ const ShowLocation: React.FC = () => {
         <BackWrapper>
             <ProDiv>
                 <Progress>
-                    <ProgressDiv isSelect={isCitySelected} onClick={handleNotYet}>{selectCity ? `${selectCity}` : "시/도"}</ProgressDiv>
-                    &gt; 
-                    <ProgressDiv isSelect={isDistrictSelected} onClick={handleSelectCity}>{selectDistrict ? `${selectDistrict}` : "시/군/구"}</ProgressDiv>
-                    &gt; 
-                    <ProgressDiv isSelect={isNeightboorhood} onClick={handleSelectDistrict}>{selectNeighborhood ? `${selectNeighborhood}` : "읍/면/동"}</ProgressDiv>
+                    <ProgressDiv 
+                        isSelect={isCitySelected} 
+                        onClick={handleNotYet}> {selectCity ? `${selectCity}` : "시/도"}
+                        </ProgressDiv>
+                    <ToDiv/>
+                    <ProgressDiv 
+                        isSelect={isDistrictSelected} 
+                        onClick={handleSelectCity}>{selectDistrict ? `${selectDistrict}` : "시/군/구"}</ProgressDiv>
+                    <ToDiv/>
+                    <ProgressDiv 
+                        isSelect={isNeightboorhood} 
+                        onClick={handleSelectDistrict}>{selectNeighborhood ? `${selectNeighborhood}` : "읍/면/동"}</ProgressDiv>
                 </Progress>
-                <LocaIcon/>
+                <LocaIcon onClick={handleHouse}/>
             </ProDiv>
-            
+
+            <LocaTag Houses={House} DeleteHouse={DeleteHouse}/>
+
             <LocaWrapper>
                 {!isCitySelected
-                ? cities.map((city) => (
-                    <LocaInfo key={city} onClick={handleSelectCity}>
-                        {city}
-                    </LocaInfo>
-                    ))
-                :  !isDistrictSelected 
-                ? districts.map((dis) => (
-                    <LocaInfo key={dis} onClick={handleSelectDistrict}>
-                        {dis}
-                    </LocaInfo>)) 
-                : neighboorhood.map((neigh) => (
-                    <LocaInfo key={neigh.neighborhood} onClick={handleSelectNeighboorhood}>
-                        {neigh.neighborhood}
-                    </LocaInfo>
-                ))}
+                    ? cities.map((city) => (
+                        <LocaInfo 
+                            key={city} 
+                            onClick={handleSelectCity}
+                            isSelected={selectCity===city}>
+                            {city}
+                        </LocaInfo>
+                        ))
+                        :  !isDistrictSelected 
+                        ? districts.map((dis) => (
+                            <LocaInfo 
+                            key={dis} 
+                            onClick={handleSelectDistrict}
+                            isSelected={selectDistrict===dis}>
+                                {dis}
+                            </LocaInfo>)) 
+                        : neighboorhood.map((neigh) => (
+                            <LocaInfo 
+                                key={neigh.neighborhood} 
+                                onClick={handleSelectNeighboorhood}
+                                isSelected={selectNeighborhood===neigh.neighborhood}>
+                                {neigh.neighborhood}
+                            </LocaInfo>))
+                }
             </LocaWrapper>
-            {
-                isNeightboorhood ? <DoneBtn>선택 완료</DoneBtn> : " "
-            }
+            <DoneBtn>완료하기</DoneBtn>
+            {/* {isNeightboorhood ? <DoneBtn>선택 완료</DoneBtn> : " "} */}
         </BackWrapper>
     );
 };
@@ -148,10 +206,11 @@ flex-direction: row;
 justify-content: center;
 align-items: center;
 color: ${(props)=>(props.isSelect) ? "white" : "#BBBBBB"};
+pointer-events: ${(props)=>(props.isSelect ? "auto" : "none")};
 `
 
 const LocaWrapper = styled.div`
-margin-top: 20px;
+margin-top: 10px;
 width: 90%;
 display: flex;
 flex-direction: row;
@@ -160,24 +219,26 @@ justify-content: flex-start;
 `
 
 const LocaIcon = styled.div`
-background-image: url('images/gps.png');
+cursor: pointer;
+background-image: url('images/plus.png');
 width: 48px;
 height: 48px;
 background-position: center;
 background-size: cover;
 `
 
-const LocaInfo = styled.div`
+const LocaInfo = styled.div<{isSelected:boolean}>`
 cursor: pointer;
 width: 30%;
 height: 30px;
-color: #BBBBBB;
+color: ${(props)=>(props.isSelected) ? "white" : "#BBBBBB"};
 margin: 1px;
 display: flex;
 justify-content: center;
 align-items: center;
 background-color: #444444;
 box-sizing: border-box;
+border: ${(props)=>(props.isSelected) ? "1px solid #c1f84d" : "none"};
 &:hover {
     border: 1px solid #c1f84d;
     color: white;
@@ -190,6 +251,8 @@ height: 45px;
 border-radius: 14px;
 margin-top: auto;
 margin-bottom: 20px;
+background-color: #555555;
+color: #CDCDCD;
 `
 
 const ProDiv = styled.div`
@@ -197,4 +260,12 @@ width: 100%;
 display: flex;
 flex-direction: row;
 justify-content: space-evenly;
+`
+
+const ToDiv = styled.div`
+background-image: url('images/arrow.png');
+width: 4px;
+height: 8px;
+background-position: center;
+background-size: cover;
 `
