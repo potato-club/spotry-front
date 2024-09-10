@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useEffect, useState } from "react";
 import styled from "styled-components";
 import { LocationData } from "./LocationData";
 import { Btn } from "../../styles/Container";
@@ -20,6 +20,15 @@ const ShowLocation: React.FC = () => {
     const [isDistrictSelected, setIsDistrictSelected] = useState<boolean>(false);
     const [selectNeighborhood, setSelectNeighboorhood] = useState<string>(""); // 동
     const [isNeightboorhood, setIsNeighboorhood] = useState<boolean>(false);
+    const [isFull,setIsFull] = useState<boolean>(false);
+
+    useEffect(()=>{
+        if(House.length < 2){
+            setIsFull(false);
+        } else{
+            setIsFull(true);
+        }
+    },[House])
 
     const cities = LocationData.map((location) => location.city);
 
@@ -31,6 +40,7 @@ const ShowLocation: React.FC = () => {
         }
         if(House.length < 2 && newHouse.city !== "" && checkJungbog([...House,newHouse])){
             setHouse((prev) => [...prev, newHouse]);
+            handleNotYet();
         }
         if(House.length === 2){
             alert('최대 2개의 주소만 선택 가능합니다');
@@ -59,6 +69,7 @@ const ShowLocation: React.FC = () => {
         if(frist.city === second.city 
             && frist.district === second.district 
             && frist.neighbor === second.neighbor){
+            handleNotYet();
                 alert('중복입니다');
                 return false;
             };
@@ -168,7 +179,7 @@ const ShowLocation: React.FC = () => {
                             </LocaInfo>))
                 }
             </LocaWrapper>
-            <DoneBtn>완료하기</DoneBtn>
+            <DoneBtn isFull={isFull}>완료하기</DoneBtn>
             {/* {isNeightboorhood ? <DoneBtn>선택 완료</DoneBtn> : " "} */}
         </BackWrapper>
     );
@@ -225,6 +236,10 @@ width: 48px;
 height: 48px;
 background-position: center;
 background-size: cover;
+transition: transform 0.1s;
+&:active{
+    transform: scale(0.9);
+}
 `
 
 const LocaInfo = styled.div<{isSelected:boolean}>`
@@ -245,14 +260,14 @@ border: ${(props)=>(props.isSelected) ? "1px solid #c1f84d" : "none"};
 }
 `
 
-const DoneBtn = styled(Btn)`
+const DoneBtn = styled(Btn)<{isFull:boolean}>`
 width: 80%;
 height: 45px;
 border-radius: 14px;
 margin-top: auto;
 margin-bottom: 20px;
 background-color: #555555;
-color: #CDCDCD;
+color: ${(props)=>(props.isFull) ? "white": "#CDCDCD"}
 `
 
 const ProDiv = styled.div`

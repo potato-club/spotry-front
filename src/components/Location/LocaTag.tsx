@@ -18,8 +18,6 @@ const LocaTag:React.FC<LocaTagProps> = ({Houses, DeleteHouse}) => {
 
     const [isReal,setIsReal] = useState<boolean>(false);
 
-
-
     useEffect(()=>{
         setLength(Houses.length);
         if(Length !== 0){
