@@ -1,6 +1,6 @@
 import React, {useEffect, useState } from "react";
 import styled from "styled-components";
-import { LocationData } from "./LocationData";
+import { LocationData } from "../../tableData/LocationData";
 import { Btn } from "../../styles/Container";
 import LocaTag from "./LocaTag";
 
@@ -267,7 +267,12 @@ border-radius: 14px;
 margin-top: auto;
 margin-bottom: 20px;
 background-color: #555555;
-color: ${(props)=>(props.isFull) ? "white": "#CDCDCD"}
+color: ${(props)=>(props.isFull) ? "white": "#CDCDCD"};
+transition: transform 0.1s;
+&:active{
+    transform: scale(0.9);
+};
+pointer-events: ${(props)=>(props.isFull ? "auto" : "none")};
 `
 
 const ProDiv = styled.div`

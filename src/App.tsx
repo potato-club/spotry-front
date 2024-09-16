@@ -1,4 +1,5 @@
-import MainLocation from "./components/Location/MainLocation";
+
+import MainLocation from "./container/Location/MainLocation";
 import {Container } from "./styles/Container";
 
 function App() {
