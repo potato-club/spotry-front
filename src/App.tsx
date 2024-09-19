@@ -1,17 +1,21 @@
-
 import MainLocation from "./container/Location/MainLocation";
-import {Container } from "./styles/Container";
+import Main from "./container/MainPage/Main";
+import { Container } from "./styles/Container";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="main">
-      {/*Container 안에 넣어주세요*/}
-      <Container>
-        <MainLocation/>
-      </Container>
-    </div>
+    <Router>
+      <div className="main">
+        <Container>
+          <Routes>
+            <Route path="/" element={<MainLocation/>}></Route>
+            <Route path="/main" element={<Main/>}></Route>
+          </Routes>
+        </Container>
+      </div>
+    </Router>
   );
 }
 
 export default App;
-
