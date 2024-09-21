@@ -231,7 +231,7 @@ justify-content: flex-start;
 
 const LocaIcon = styled.div`
 cursor: pointer;
-background-image: url('images/plus.png');
+background-image: url('/images/plus.png');
 width: 48px;
 height: 48px;
 background-position: center;
@@ -283,7 +283,7 @@ justify-content: space-evenly;
 `
 
 const ToDiv = styled.div`
-background-image: url('images/arrow.png');
+background-image: url('/images/arrow.png');
 width: 4px;
 height: 8px;
 background-position: center;

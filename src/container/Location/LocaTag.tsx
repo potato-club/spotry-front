@@ -71,7 +71,7 @@ span{
 `
 
 const InfoIcon = styled.div`
-background-image: url('images/Info.png');
+background-image: url('/images/Info.png');
 width: 10px;
 height: 10px;
 background-position:center;
@@ -100,7 +100,7 @@ div{
 
 const Delete = styled.div`
 cursor: pointer;
-background-image: url('images/X.png');
+background-image: url('/images/X.png');
 width: 12px;
 height: 12px;
 background-position: center;

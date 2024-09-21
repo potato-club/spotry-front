@@ -28,7 +28,7 @@ cursor: pointer;
 justify-self: left;
 position: absolute;
 left: 0%;
-background-image: url('images/backBtn.png');
+background-image: url('/images/backBtn.png');
 width: 32px;
 height: 32px;
 background-position: center;

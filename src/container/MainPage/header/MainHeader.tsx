@@ -12,7 +12,7 @@ const MainHeader = () => {
                 <select>
                     <option>종로</option>
                 </select>        
-                <img src='images/Search.png' alt='검색' onClick={handleSearch}/>
+                <img src='/images/Search.png' alt='검색' onClick={handleSearch}/>
             </div>
         </HeadWrapper>
     );
