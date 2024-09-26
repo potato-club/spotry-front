@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { LocationData } from "../../tableData/LocationData";
 import { Btn } from "../../styles/Container";
 import LocaTag from "./LocaTag";
+import { useNavigate } from "react-router-dom";
 
 interface HouseAddress {
     city:string;
@@ -12,7 +13,17 @@ interface HouseAddress {
 
 const ShowLocation: React.FC = () => {
 
+    const navigate = useNavigate();
+
+    const handleDone = () => {
+        if(House.length > 0){
+            navigate("/main", {state : House});
+        }
+    }
+
     const [House,setHouse] = useState<HouseAddress[]>([]);
+
+    console.log(House);
 
     const [selectCity, setSelectCity] = useState<string>("");  // 도시
     const [isCitySelected, setIsCitySelected] = useState<boolean>(false);
@@ -179,7 +190,10 @@ const ShowLocation: React.FC = () => {
                             </LocaInfo>))
                 }
             </LocaWrapper>
-            <DoneBtn isFull={isFull}>완료하기</DoneBtn>
+            <DoneBtn 
+            isFull={isFull}
+            onClick={handleDone}
+            >완료하기</DoneBtn>
             {/* {isNeightboorhood ? <DoneBtn>선택 완료</DoneBtn> : " "} */}
         </BackWrapper>
     );

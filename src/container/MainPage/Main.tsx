@@ -3,14 +3,19 @@ import styled from 'styled-components';
 import MainHeader from './header/MainHeader';
 import Hot from './Hot';
 import Popular from './Popular';
+import AddBtn from './AddBtn';
+import UpComing from './UpComing';
 
-const Main = () => {
+const Main:React.FC = () => {
+
     return (
         <Wrapper>
             <MainHeader/>
             <StyledHr/>
             <Hot/>
             <Popular/>
+            <UpComing/>
+            <AddBtn/>
         </Wrapper>
     );
 };
