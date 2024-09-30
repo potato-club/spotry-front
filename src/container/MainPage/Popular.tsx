@@ -9,9 +9,8 @@ const Popular = () => {
 
     const [Populars,setPopulars] = useState(PopularData);
 
-    console.log(Populars);
-    console.log(typeof(Populars));
-    console.log(Array.isArray(Populars));
+    // console.log(typeof(Populars));
+    // console.log(Array.isArray(Populars));
 
     return (
         <PopularWrapper>

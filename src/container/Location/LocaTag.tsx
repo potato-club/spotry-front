@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
-interface House {
-    city:string;
-    district:string;
-    neighbor:string;
-}
+import { HouseAddress } from "../../types/HouseAddress";
 
 interface LocaTagProps{
-    Houses: House[];
+    Houses: HouseAddress[];
     DeleteHouse: (idx:number) => void;
 }
 

@@ -4,26 +4,23 @@ import { LocationData } from "../../tableData/LocationData";
 import { Btn } from "../../styles/Container";
 import LocaTag from "./LocaTag";
 import { useNavigate } from "react-router-dom";
-
-interface HouseAddress {
-    city:string;
-    district:string;
-    neighbor:string;
-}
+import { useLocationStore } from "../../zustand/useLocationStore";
+import { HouseAddress } from "../../types/HouseAddress";
+import useCheckOverlap from "../../hook/useCheckOverlap";
 
 const ShowLocation: React.FC = () => {
+
+    const {setTown,DeleteTown} = useLocationStore();
 
     const navigate = useNavigate();
 
     const handleDone = () => {
         if(House.length > 0){
-            navigate("/main", {state : House});
+            navigate("/main");
         }
     }
 
     const [House,setHouse] = useState<HouseAddress[]>([]);
-
-    console.log(House);
 
     const [selectCity, setSelectCity] = useState<string>("");  // 도시
     const [isCitySelected, setIsCitySelected] = useState<boolean>(false);
@@ -32,6 +29,8 @@ const ShowLocation: React.FC = () => {
     const [selectNeighborhood, setSelectNeighboorhood] = useState<string>(""); // 동
     const [isNeightboorhood, setIsNeighboorhood] = useState<boolean>(false);
     const [isFull,setIsFull] = useState<boolean>(false);
+
+    const {isOverlap} = useCheckOverlap(House);
 
     useEffect(()=>{
         if(House.length < 2){
@@ -49,8 +48,9 @@ const ShowLocation: React.FC = () => {
             district:selectDistrict,
             neighbor:selectNeighborhood,
         }
-        if(House.length < 2 && newHouse.city !== "" && checkJungbog([...House,newHouse])){
+        if(House.length < 2 && newHouse.city !== "" && isOverlap){
             setHouse((prev) => [...prev, newHouse]);
+            setTown(newHouse);
             handleNotYet();
         }
         if(House.length === 2){
@@ -60,6 +60,7 @@ const ShowLocation: React.FC = () => {
 
     const DeleteHouse = (idx:number) => {
         setHouse(prev => prev.filter((HouseAddress, i) => i !== idx));
+        DeleteTown(idx);
     }
 
     const handleNotYet = () => {
@@ -70,22 +71,6 @@ const ShowLocation: React.FC = () => {
         setSelectDistrict("");
         setSelectNeighboorhood("");
     }
-
-    const checkJungbog = (arr:HouseAddress[]) => {
-        
-        if(arr.length <= 1) return true;
-
-        const [frist, second] = arr;
-
-        if(frist.city === second.city 
-            && frist.district === second.district 
-            && frist.neighbor === second.neighbor){
-            handleNotYet();
-                alert('중복입니다');
-                return false;
-            };
-        return true;
-    };
 
     // handle 도시들 로직이 너무 복잡함, 근데 어떻게 줄일지 모르겠음
     const handleSelectCity = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -126,6 +111,7 @@ const ShowLocation: React.FC = () => {
         setIsNeighboorhood(true);
     }
 
+    // 주소 배열로 관리
     const districts = LocationData.filter(
         (location) => location.city === selectCity
     )

@@ -1,30 +1,26 @@
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-
-interface HouseAddress {
-    city: string;
-    district: string;
-    neighbor: string;
-}
+import { usePrevPathStore } from '../../../zustand/usePrevPathStore';
+import { useLocationStore } from '../../../zustand/useLocationStore';
 
 const MainHeader: React.FC = () => {
-    
-    const location = useLocation();
-    const House = location.state as HouseAddress[];
-    
-    const handleSearch = () => {
-        console.log('검색');
-    }
 
-    // console.log(House);
-    // console.log(typeof(House));
-    // console.log(Array.isArray(House));
+    const {towns} = useLocationStore();
+    
+    const {setPrevPath} = usePrevPathStore();
+
+    const navigation =useNavigate();
+
+    const handleToSearch = () => {
+        setPrevPath("/main");
+        navigation("/Search");
+    }
 
     return (
         <HeadWrapper>
             <div>
                 <TownSelect>
-                    {House.map((house,idx) => {
+                    {towns.map((house,idx) => {
                         if(house.neighbor){
                             return(
                                 <TownOption 
@@ -39,17 +35,21 @@ const MainHeader: React.FC = () => {
                                     {house.district}
                                 </TownOption>
                             );
-                        } else{
+                        } else if(house.city){
                             return(
                                 <TownOption
                                 key={idx}>
                                     {house.city}
                                 </TownOption>
                             );
+                        } else{
+                            return(
+                                <div>데이터가 없습니다</div>
+                            )
                         }
                     })}
                 </TownSelect>        
-                <img src='/images/Search.png' alt='검색' onClick={handleSearch}/>
+                <img src='/images/Search.png' alt='검색' onClick={handleToSearch}/>
             </div>
         </HeadWrapper>
     );
