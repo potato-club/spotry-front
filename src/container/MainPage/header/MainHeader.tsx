@@ -14,7 +14,7 @@ const MainHeader: React.FC = () => {
     const handleToSearch = () => {
         setPrevPath("/main");
         navigation("/Search");
-    }
+    };
 
     return (
         <HeadWrapper>

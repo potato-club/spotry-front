@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import MainHeader from './header/MainHeader';
 import Hot from './Hot';
 import Popular from './Popular';
-import AddBtn from './AddBtn';
 import UpComing from './UpComing';
+import WrittenBtn from './WrittenBtn';
 
 const Main:React.FC = () => {
 
@@ -15,7 +15,7 @@ const Main:React.FC = () => {
             <Hot/>
             <Popular/>
             <UpComing/>
-            <AddBtn/>
+            <WrittenBtn/>
         </Wrapper>
     );
 };
