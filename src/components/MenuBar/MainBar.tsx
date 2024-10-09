@@ -39,32 +39,34 @@ const BarBtn = styled.div`
   justify-content: center;
   border-radius: 4px;
 
-  &:hover {
-    background-color: #373934;
-    cursor: pointer;
-    svg {
-      stroke: #c1f84d;
-      fill: #c1f84d;
-    }
+  background-color: ${({ isActive }) => (isActive ? "#373934" : "transparent")};
 
-    svg #postLine1,
-    svg #postLine2 {
-      stroke: #666666;
-    }
-
-    svg #circle4 {
-      fill: #c1f84d;
-    }
-    svg #circle1,
-    svg #circle3,
-    svg #circle5 {
-      fill: #333333;
-    }
-
-    div {
-      color: #c1f84d;
-    }
+  ${({ isActive }) =>
+    isActive &&
+    `
+  svg {
+    stroke: #c1f84d;
+    fill: #c1f84d;
   }
+
+  svg #postLine1,
+  svg #postLine2 {
+    stroke: #666666;
+  }
+
+  svg #circle4 {
+    fill: #c1f84d;
+  }
+  svg #circle1,
+  svg #circle3,
+  svg #circle5 {
+    fill: #333333;
+  }
+
+  div {
+    color: #c1f84d;
+  }
+`}
 `;
 
 const IconWrapper = styled.div`
