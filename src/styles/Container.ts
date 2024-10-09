@@ -7,6 +7,7 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     height: 100vh;
+    box-sizing: border-box;
 `
 
 export const Btn = styled.div`
