@@ -51,3 +51,8 @@ display: flex;
 flex-direction: row;
 font-size: 12px;
 `
+
+const InfoBox = styled.div`
+display: flex;
+flex-direction: row;
+`
