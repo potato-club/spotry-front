@@ -1,13 +1,20 @@
 import styled from "styled-components";
 import { BarList } from "../Data/BarSvg";
+import useBarActive from "../../hook/useBarActive";
 
 const MainBar = () => {
+  const { barActive, handlePageClick } = useBarActive();
+
   return (
     <MenuBar>
-      {BarList.map(({ name, icon }) => (
-        <BarBtn>
-          <IconWrapper>{icon()}</IconWrapper>
-          <Name>{name}</Name>
+      {BarList.map(({ name, icon, path }) => (
+        <BarBtn
+          key={name}
+          isActive={barActive === path}
+          onClick={() => handlePageClick(path)}
+        >
+          <IconWrapper isActive={barActive === path}>{icon()}</IconWrapper>
+          <Name isActive={barActive === path}>{name}</Name>
         </BarBtn>
       ))}
     </MenuBar>
