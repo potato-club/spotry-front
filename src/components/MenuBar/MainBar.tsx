@@ -36,12 +36,15 @@ const MainBar = () => {
 
 const MenuBar = styled.div`
   display: flex;
-  width: 357px;
+  width: 375px;
   height: 58px;
   justify-content: space-around;
   align-content: center;
   flex-wrap: wrap;
   background-color: #333333;
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
 `;
 
 const BarBtn = styled.div<BarBtnProps>`
@@ -57,42 +60,35 @@ const BarBtn = styled.div<BarBtnProps>`
   ${({ isActive }) =>
     isActive &&
     `
-  svg {
-    stroke: #c1f84d;
-    fill: #c1f84d;
-  }
-
-  svg #postLine1,
-  svg #postLine2 {
-    stroke: #666666;
-  }
-
-  svg #circle4 {
-    fill: #c1f84d;
-  }
-  svg #circle1,
-  svg #circle3,
-  svg #circle5 {
-    fill: #333333;
-  }
+  
 
   div {
     color: #c1f84d;
   }
 `}
 `;
-
 const IconWrapper = styled.div<{ isActive: boolean }>`
   width: 28px;
   height: 28px;
 
   svg {
-    stroke: #666666;
-    fill: none;
-  }
+    stroke: ${({ isActive }) => (isActive ? "#c1f84d" : "#666666")};
+    fill: ${({ isActive }) => (isActive ? "#c1f84d" : "none")};
 
-  svg #circle4 {
-    fill: #666666;
+    #postLine1,
+    #postLine2 {
+      stroke: ${({ isActive }) => (isActive ? "#666666" : "#666666")};
+    }
+
+    #circle4 {
+      fill: ${({ isActive }) => (isActive ? "#c1f84d" : "#666666")};
+    }
+
+    #circle1,
+    #circle3,
+    #circle5 {
+      fill: ${({ isActive }) => (isActive ? "#333333" : "#666666")};
+    }
   }
 `;
 
