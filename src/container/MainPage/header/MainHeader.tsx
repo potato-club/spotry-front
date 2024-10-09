@@ -13,7 +13,7 @@ const MainHeader: React.FC = () => {
 
     const handleToSearch = () => {
         setPrevPath("/main");
-        navigation("/Search");
+        navigation("/search");
     };
 
     return (

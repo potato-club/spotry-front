@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { PopularData } from "../../tableData/PopularData";
-import useDargX from "../../hook/useDargX";
+import { PopularData } from "../../../tableData/PopularData";
+import useDargX from "../../../hook/useDargX";
 
 const UpComing = () => {
 

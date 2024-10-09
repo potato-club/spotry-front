@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import MainHeader from './header/MainHeader';
-import Hot from './Hot';
-import Popular from './Popular';
-import UpComing from './UpComing';
-import WrittenBtn from './WrittenBtn';
+import MainDocu from './mainDocument/MainDocu';
 
 const Main:React.FC = () => {
 
@@ -12,10 +9,7 @@ const Main:React.FC = () => {
         <Wrapper>
             <MainHeader/>
             <StyledHr/>
-            <Hot/>
-            <Popular/>
-            <UpComing/>
-            <WrittenBtn/>
+            <MainDocu/>
         </Wrapper>
     );
 };

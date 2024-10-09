@@ -1,9 +1,32 @@
 import styled from 'styled-components';
-import useDargX from '../../hook/useDargX';
+import useDargX from '../../../hook/useDargX';
+import { useEffect, useState } from 'react';
+import { fetchSport } from '../../../api/fetchSport';
+
+interface Sport{
+    id:number,
+    name:string,
+}
 
 const Hot = () => {
 
     const {DivRef,handleMouseDown,handleMouseUp,handleMouseMove} = useDargX();
+
+    // const[sport,setSport] = useState<Sport[]>([]);
+
+    // useEffect(()=> {
+    //     const fetchSportData = async() => {
+    //         try {
+    //             const data = await fetchSport();
+    //             setSport(data);
+    //         } catch (error) {
+    //             console.log(" 스포츠 에러입니다 : ",error);
+    //         }
+    //     }
+    //     fetchSportData();
+    // },[]);
+
+    // console.log(sport);
 
     return (
         <HotWrpaaer>
@@ -14,6 +37,9 @@ const Hot = () => {
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
             onMouseMove={handleMouseMove}>
+                {/* {sport.map((Item) => (
+                    <ExIcon>{Item.name}</ExIcon>
+                ))} */}
                 <ExIcon src='/images/football.png' alt='축구'/>
                 <ExIcon src='/images/running.png' alt='런닝'/>
                 <ExIcon src='/images/baseball.png' alt='야구'/>

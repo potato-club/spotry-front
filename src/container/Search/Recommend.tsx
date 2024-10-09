@@ -1,15 +1,25 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const Recommend = () => {
+interface RecommenProps{
+    UpdateInput: (input:string) => void;
+}
+
+const Recommend:React.FC<RecommenProps> = ({UpdateInput}) => {
+
+    const word = ['서울','축구인원모집','러닝크루모집','브랜드 추천','검색어 추천','신고합니다','민폐','부산'];
+
     return (
         <Wrapper>
             <p>추천 검색어</p>
             <RecoWordDiv>
-                <RecoWord>2</RecoWord>
-                <RecoWord>3214</RecoWord>
-                <RecoWord>421624237</RecoWord>
-                <RecoWord>12135</RecoWord>
+                {word.map((value,idx) => (
+                    <RecoWord 
+                    key={idx}
+                    onClick={() => UpdateInput(value)}
+                    >
+                        {value}
+                    </RecoWord>
+                ))}
             </RecoWordDiv>
         </Wrapper>
     );
@@ -29,6 +39,7 @@ const Wrapper = styled.div`
 const RecoWordDiv = styled.div`
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 `
 
 const RecoWord = styled.div`
@@ -44,4 +55,6 @@ const RecoWord = styled.div`
     box-sizing: content-box;
     font-size: 14px;
     cursor: pointer;
+    flex-shrink: 0;
+    margin-bottom: 8px;
 `

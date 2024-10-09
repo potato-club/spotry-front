@@ -30,6 +30,7 @@ const ShowLocation: React.FC = () => {
     const [isNeightboorhood, setIsNeighboorhood] = useState<boolean>(false);
     const [isFull,setIsFull] = useState<boolean>(false);
 
+    // 중복 확인 로직
     const {isOverlap} = useCheckOverlap(House);
 
     useEffect(()=>{
@@ -180,7 +181,6 @@ const ShowLocation: React.FC = () => {
             isFull={isFull}
             onClick={handleDone}
             >완료하기</DoneBtn>
-            {/* {isNeightboorhood ? <DoneBtn>선택 완료</DoneBtn> : " "} */}
         </BackWrapper>
     );
 };

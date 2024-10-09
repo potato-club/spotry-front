@@ -1,8 +1,8 @@
-import React from 'react';
 import styled from 'styled-components';
 import { usePrevPathStore } from '../../zustand/usePrevPathStore';
 import { useNavigate } from 'react-router-dom';
 import Recommend from './Recommend';
+import useClickSearchInput from '../../hook/useClickSearchInput';
 
 const SearchPage = () => {
 
@@ -14,16 +14,20 @@ const SearchPage = () => {
         navigate(prevPath);
     }
 
+    const {clickSearchInput,UpdateInput} = useClickSearchInput();
+
     return (
         <Wrapper>
             <CloseBtn src='/images/X_2.png' alt='닫기' onClick={handleClose}/>
             <Container>
                 <SearchBar
                 placeholder='검색어를 입력하세요'
+                value={clickSearchInput}
+                onChange={(e) => UpdateInput(e.target.value)}
                 />
                 <SearhIcon src='/images/Search.png' alt='돋보기'/>
             </Container>
-            <Recommend/>
+            <Recommend UpdateInput={UpdateInput}/>
         </Wrapper>
     );
 };
@@ -40,6 +44,7 @@ const Wrapper = styled.div`
 const CloseBtn = styled.img`
 position: relative;
 left: -42%;
+cursor: pointer;
 `
 
 const Container = styled.div`
@@ -52,6 +57,7 @@ const Container = styled.div`
 
 const SearchBar = styled.input`
     background-color: #444444;
+    color: white;
     border-radius: 8px;
     width: 100%;
     height: 48px;

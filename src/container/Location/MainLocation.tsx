@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import LotacionHeader from './LotacionHeader';
 import ShowLocation from './ShowLocation';
+import RegionData from './RegionData';
 
 const MainLocation = () => {
     return (
         <Wrapper>
             <LotacionHeader/>
             <ShowLocation/>
+            {/* <RegionData/> */}
         </Wrapper>
     );
 };
