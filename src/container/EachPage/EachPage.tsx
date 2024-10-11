@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import MainHeader from '../MainPage/header/MainHeader';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { PopularData } from '../../tableData/PopularData';
@@ -12,7 +11,6 @@ const EachPage = () => {
 
     return (
         <>
-            <MainHeader/>
             <StyledHr/>
             {resultPost.map((value,idx) => (
                 <PostInfoDiv key={idx}>
@@ -42,8 +40,8 @@ border-bottom: 1px solid #8D8D8D;
 `
 
 const StyledHr = styled.hr`
-    width: 100%;
-    color: white;
+width: 100%;
+color: white;
 `
 
 const Category = styled.div`

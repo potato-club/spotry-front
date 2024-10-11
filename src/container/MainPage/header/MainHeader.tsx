@@ -51,6 +51,7 @@ const MainHeader: React.FC = () => {
                 </TownSelect>        
                 <img src='/images/Search.png' alt='검색' onClick={handleToSearch}/>
             </div>
+            <StyledHr/>
         </HeadWrapper>
     );
 };
@@ -58,9 +59,11 @@ const MainHeader: React.FC = () => {
 export default MainHeader;
 
 const HeadWrapper = styled.div`
+    background-color:  #333333;
+    position: fixed;
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 100%;
+    width: 375px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -74,6 +77,8 @@ const HeadWrapper = styled.div`
         }
         align-items: center;
     }
+    left: calc(50%);
+    transform: translateX(-50%);
 `               
 
 const TownSelect = styled.select`
@@ -84,4 +89,9 @@ const TownSelect = styled.select`
 
 const TownOption = styled.option`
     background-color: #555555;
+`
+
+const StyledHr = styled.hr`
+    width: 100%;
+    color: white;
 `

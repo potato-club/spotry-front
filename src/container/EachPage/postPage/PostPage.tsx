@@ -1,10 +1,11 @@
 import React from 'react';
+import { EachWrapper } from '../../../styles/EachWrapper';
 
 const PostPage = () => {
     return (
-        <div>
+        <EachWrapper>
             게시글 페이지
-        </div>
+        </EachWrapper>
     );
 };
 
