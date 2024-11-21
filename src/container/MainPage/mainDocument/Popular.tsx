@@ -24,17 +24,17 @@ const Popular = () => {
             onMouseUp={handleMouseUp}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseUp}>
-                {Populars.map(post => 
-                    <PostInfo key={post.id}>
-                        <Category>{post.category}</Category>
+                {Populars.map((post,idx) => 
+                    <PostInfo key={idx}>
+                        <Category>{post.sport}</Category>
                         <PostTitle>{post.title}</PostTitle>
                         <InfoDiv>
                             <img src='/images/View_fill.png' alt='눈'/>
-                            <span>{post.views}</span>
+                            <span>{post.viewCount}</span>
                             <img src='/images/thumb_up.png' alt='코'/>
-                            <span>{post.likes}</span>
+                            <span>{post.likeCount}</span>
                             <img src='/images/Chat_alt.png' alt='입'/>
-                            <span>{post.comments}</span>
+                            <span>{post.commentCount}</span>
                         </InfoDiv>
                         <PostImg src= {post.image} alt='post image'/>
                     </PostInfo>
@@ -45,6 +45,31 @@ const Popular = () => {
 };
 
 export default Popular;
+
+const PostInfo = styled.div`
+width: 250px;
+height: 100px;
+background-color: #444444;
+border-radius: 12px;
+margin-right: 10px;
+margin-bottom: 10px;
+flex-shrink: 0;
+cursor: pointer;
+color: white;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+justify-content: space-between;
+padding: 10px;
+box-sizing: border-box;
+overflow: hidden;
+position: relative;
+span{
+    margin-left: 3px;
+    margin-right: 2px;
+    font-size: 14px;
+}
+`
 
 const PopularWrapper = styled.div`
     width: 90%;
@@ -78,31 +103,6 @@ overflow-x:auto;
 cursor: grab;
 `
 
-const PostInfo = styled.div`
-width: 250px;
-height: 100px;
-background-color: #444444;
-border-radius: 12px;
-margin-right: 10px;
-margin-bottom: 10px;
-flex-shrink: 0;
-cursor: pointer;
-color: white;
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-justify-content: space-between;
-padding: 10px;
-box-sizing: border-box;
-overflow: hidden;
-position: relative;
-span{
-    margin-left: 3px;
-    margin-right: 2px;
-    font-size: 14px;
-}
-`
-
 const Category = styled.div`
 display: flex;
 flex-direction: row;
@@ -114,7 +114,6 @@ color: white;
 padding: 4px;
 box-sizing: border-box;
 font-size: 12px;
-/* color: #A2A2A2; */
 `
 
 const PostTitle = styled.div`

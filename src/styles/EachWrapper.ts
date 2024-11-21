@@ -6,8 +6,9 @@ export const EachWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
-    padding-bottom: 50px;
+    height: 100%;
+    overflow-y: hidden;
+    padding-bottom: 58px;
 `
 
 

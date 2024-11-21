@@ -1,10 +1,13 @@
-import React from 'react';
+import EachPage from '../EachPage';
+import { SportData } from '../../../tableData/SportData';
+import { useState } from 'react';
 
 const CrewPage = () => {
+
+    const [resultPost,setResultPost] = useState(SportData);
+
     return (
-        <div>
-            <h1>크루 페이지</h1>
-        </div>
+        <EachPage resultPost={resultPost}/>
     );
 };
 

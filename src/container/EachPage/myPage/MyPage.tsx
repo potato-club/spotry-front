@@ -1,10 +1,29 @@
-import React from 'react';
-
 const MyPage = () => {
     return (
-        <div>
-            <h1>개인 페이지</h1>
-        </div>
+        <>
+            <div>
+                my 페이지 입니다
+            </div>
+            <div>
+                my 페이지 입니다
+            </div>
+            <div>
+                my 페이지 입니다
+            </div>
+            <div>
+                my 페이지 입니다
+            </div>
+            <div>
+                my 페이지 입니다
+            </div>
+            <div>
+                my 페이지 입니다
+            </div>
+            <div>
+                my 페이지 입니다
+            </div>
+        </>
+        
     );
 };
 

@@ -1,11 +1,14 @@
 import React from 'react';
-import { EachWrapper } from '../../../styles/EachWrapper';
+import EachPage from '../EachPage';
+import { PopularData } from '../../../tableData/PopularData';
+import { useState } from 'react';
 
 const PostPage = () => {
+    
+    const [resultPost,setResultPost] = useState(PopularData);
+
     return (
-        <EachWrapper>
-            게시글 페이지
-        </EachWrapper>
+            <EachPage resultPost={resultPost}/>
     );
 };
 
