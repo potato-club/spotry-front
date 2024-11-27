@@ -26,11 +26,16 @@ const EachPage:React.FC<EachPageProps> = ({resultPost}) => {
 
     const [posts, setPosts] = useState(resultPost);
 
-    const navigation = useNavigate();
+    const navigate = useNavigate();
 
     const {divRef,handleMouseDown,handleMouseUp,handleMouseMove} = useDragY();
 
     const {isEnd} = useInfiniteScroll(divRef);
+
+    const handleClickPost = (postId:number) => {
+        navigate(`/eachPost/${postId}`);
+        console.log('클릭!');
+    };
 
     const checkRelativeTime = (createDate:string) => {
         const created = new Date(createDate).getTime();
@@ -84,6 +89,7 @@ const EachPage:React.FC<EachPageProps> = ({resultPost}) => {
         }
     },[isEnd]);
 
+
     return (
         <EachWrapper
         ref={divRef}
@@ -93,7 +99,7 @@ const EachPage:React.FC<EachPageProps> = ({resultPost}) => {
         onMouseMove={handleMouseMove}
         >
             {posts.map((value,idx) => (
-                <PostInfoDiv key={idx}>
+                <PostInfoDiv key={idx} onClick={() => handleClickPost(idx)}>
                     <Category>
                         {value.sport}
                     </Category>

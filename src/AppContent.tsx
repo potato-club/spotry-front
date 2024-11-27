@@ -9,6 +9,7 @@ import MyPage from "./container/EachPage/myPage/MyPage";
 import SearchResult from "./container/EachPage/searchResult/SearchResult";
 import MainHeader from "./container/MainPage/header/MainHeader";
 import MainBar from "./components/MenuBar/MainBar";
+import EachPost from "./components/eachPost/EachPost";
 
 const AppContent = () => {
 
@@ -31,6 +32,7 @@ const AppContent = () => {
                     <Route path="/post" element={<PostPage/>}/>
                     <Route path="/mypage" element={<MyPage/>}/>
                     <Route path="/result" element={<SearchResult/>}/>
+                    <Route path="/eachPost/:postId" element={<EachPost/>}/>
                 </Routes>
             </Container>
         </div>
