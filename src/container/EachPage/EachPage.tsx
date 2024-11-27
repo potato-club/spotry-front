@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { PopularData } from '../../tableData/PopularData';
 import { EachWrapper } from '../../styles/EachWrapper';
 import useDragY from '../../hook/useDragY';
 import useInfiniteScroll from '../../hook/useInfiniteScroll';
+import { useEffect, useState } from 'react';
 
 interface post{
     createdDate: string,
@@ -25,17 +24,13 @@ interface EachPageProps{
 
 const EachPage:React.FC<EachPageProps> = ({resultPost}) => {
 
+    const [posts, setPosts] = useState(resultPost);
+
     const navigation = useNavigate();
 
     const {divRef,handleMouseDown,handleMouseUp,handleMouseMove} = useDragY();
 
-    const isEnd = useInfiniteScroll();
-
-    useEffect(() => {
-        if (isEnd) {
-            alert('스크롤이 닿았습니다!');
-        }
-    },[isEnd])
+    const {isEnd} = useInfiniteScroll(divRef);
 
     const checkRelativeTime = (createDate:string) => {
         const created = new Date(createDate).getTime();
@@ -64,6 +59,31 @@ const EachPage:React.FC<EachPageProps> = ({resultPost}) => {
         }
     };
 
+    const fetchMore = () => {
+        setTimeout(() => {
+                console.log('추가 데이터 불러오기');
+                const newPosts = Array.from({ length: 10 }, (_, i) => ({
+                createdDate: new Date().toISOString(),
+                title: `New Post ${i + 1}`,
+                content: "새로운 게시물",
+                postState: "active",
+                sport: "soccer",
+                viewCount: Math.floor(Math.random() * 100),
+                likeCount: Math.floor(Math.random() * 50),
+                commentCount: Math.floor(Math.random() * 20),
+                tag: ["#new", "#post"],
+                image: "",
+            }));
+        setPosts((prev) => [...prev,...newPosts]);
+        },3000);
+    };
+
+    useEffect(() => {
+        if(isEnd){
+            fetchMore();
+        }
+    },[isEnd]);
+
     return (
         <EachWrapper
         ref={divRef}
@@ -72,7 +92,7 @@ const EachPage:React.FC<EachPageProps> = ({resultPost}) => {
         onMouseLeave={handleMouseUp}
         onMouseMove={handleMouseMove}
         >
-            {resultPost.map((value,idx) => (
+            {posts.map((value,idx) => (
                 <PostInfoDiv key={idx}>
                     <Category>
                         {value.sport}

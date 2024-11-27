@@ -13,6 +13,7 @@ const useDragY = () => {
             setIsDragY(true);
             setClickPoint(e.pageY - scroll.offsetTop);
             setScrollTop(scroll.scrollTop);
+            // console.log('여기는 클릭 가능 영역');
         }
     };
 
