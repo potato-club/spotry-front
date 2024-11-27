@@ -1,14 +1,12 @@
 import styled from 'styled-components';
-import LotacionHeader from './LotacionHeader';
-import ShowLocation from './ShowLocation';
-import RegionData from './RegionData';
+import LocationHeader from './header/LocationHeader';
+import ShowingRegion from './showing/ShowingRegion';
 
 const MainLocation = () => {
     return (
         <Wrapper>
-            <LotacionHeader/>
-            <ShowLocation/>
-            {/* <RegionData/> */}
+                <LocationHeader/>
+                <ShowingRegion/>
         </Wrapper>
     );
 };
@@ -20,5 +18,4 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
 `

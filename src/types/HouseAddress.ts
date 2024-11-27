@@ -3,3 +3,5 @@ export interface HouseAddress {
     district:string;
     neighbor:string;
 }
+
+// 이거 지워야함

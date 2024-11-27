@@ -58,6 +58,7 @@ export default Hot;
 
 const HotWrpaaer = styled.div`
     width: 90%;
+    overflow: hidden;
 `
 
 const SectionTitle = styled.p`
@@ -65,7 +66,6 @@ const SectionTitle = styled.p`
 `
 
 const HotIconsDiv = styled.div`
-    /* width: 100%; */
     display: flex;
     flex-direction: row;
     overflow-x: auto;

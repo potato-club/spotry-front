@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    width: 375px;
-    background-color: #333333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    box-sizing: border-box;
+width: 375px;
+background-color: #333333;
+display: flex;
+flex-direction: column;
+align-items: center;
+box-sizing: border-box;
+height: 100vh;
 `
 
 export const Btn = styled.div`

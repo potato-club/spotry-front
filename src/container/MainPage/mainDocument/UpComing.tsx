@@ -23,16 +23,16 @@ const UpComing = () => {
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         >
-        {upComingPost.map((post) => (
-            <UpcomingPost key={post.id}>
+        {upComingPost.map((post,idx) => (
+            <UpcomingPost key={idx}>
                 <CategoryDiv>
-                    <Category>{post.category}</Category>
+                    <Category>{post.sport}</Category>
                 </CategoryDiv>
                 <div>
                     <Titlediv>{post.title}</Titlediv>
                     <InfoDiv>
                         <img src="/images/thumb_up.png" alt="북바크" />
-                        <span>{post.likes}</span>
+                        <span>{post.likeCount}</span>
                     </InfoDiv>
                 </div>
             </UpcomingPost>

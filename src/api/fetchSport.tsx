@@ -9,3 +9,4 @@ export const fetchSport = async() => {
         throw error;
     }
 };
+
