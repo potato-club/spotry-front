@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const url = axios.create({
-    baseURL: "http://sportry.site",
+const url = axios.create({
+  baseURL: "http://sportry.site",
 });
 
+export default url;
