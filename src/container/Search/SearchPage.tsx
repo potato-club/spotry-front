@@ -2,19 +2,23 @@ import styled from 'styled-components';
 import { usePrevPathStore } from '../../zustand/usePrevPathStore';
 import { useNavigate } from 'react-router-dom';
 import Recommend from './Recommend';
-import useClickSearchInput from '../../hook/useClickSearchInput';
+import { useState } from 'react';
 
 const SearchPage = () => {
 
     const navigate = useNavigate();
-
     const {prevPath} = usePrevPathStore();
 
     const handleClose = () => {
         navigate(prevPath);
     }
 
-    const {clickSearchInput,UpdateInput} = useClickSearchInput();
+    const [searchWord,setSearchWord] = useState<string>('');
+
+    const handleChangehWord = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setSearchWord(e.target.value);
+
+    }
 
     return (
         <Wrapper>
@@ -22,12 +26,12 @@ const SearchPage = () => {
             <Container>
                 <SearchBar
                 placeholder='검색어를 입력하세요'
-                value={clickSearchInput}
-                onChange={(e) => UpdateInput(e.target.value)}
+                value={searchWord}
+                onChange={handleChangehWord}
                 />
                 <SearhIcon src='/images/Search.png' alt='돋보기'/>
             </Container>
-            <Recommend UpdateInput={UpdateInput}/>
+            <Recommend UpdateInput={setSearchWord}/>
         </Wrapper>
     );
 };

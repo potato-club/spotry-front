@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import MainLocation from "./container/Location/MainLocation";
 import SearchPage from "./container/Search/SearchPage";
 import Main from "./container/MainPage/Main";
@@ -10,10 +11,16 @@ import SubmitMain from "./components/SubmitLogin/SubmitPage";
 import WritePost from "./components/WritingPost/WritePost";
 import WrittenBtn from "./container/MainPage/mainDocument/WrittenBtn";
 import WriteButton from "./components/WritingPost/WriteButton";
+=======
+import { BrowserRouter as Router } from "react-router-dom";
+import AppContent from "./AppContent";
+>>>>>>> 14011d2ec8d0a335fba87db9b79867c880044dee
 
 function App() {
+
   return (
     <Router>
+<<<<<<< HEAD
       <div className="main">
         <Container>
           <Routes>
@@ -27,6 +34,9 @@ function App() {
           </Routes>
         </Container>
       </div>
+=======
+      <AppContent/>
+>>>>>>> 14011d2ec8d0a335fba87db9b79867c880044dee
     </Router>
   );
 }

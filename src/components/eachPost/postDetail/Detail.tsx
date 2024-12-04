@@ -1,6 +1,6 @@
 import React from 'react';
 
-const useSearchThis = () => {
+const Detail = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const useSearchThis = () => {
     );
 };
 
-export default useSearchThis;
+export default Detail;

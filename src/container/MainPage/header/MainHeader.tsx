@@ -1,11 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { usePrevPathStore } from '../../../zustand/usePrevPathStore';
-import { useLocationStore } from '../../../zustand/useLocationStore';
 
 const MainHeader: React.FC = () => {
-
-    const {towns} = useLocationStore();
     
     const {setPrevPath} = usePrevPathStore();
 
@@ -20,37 +17,11 @@ const MainHeader: React.FC = () => {
         <HeadWrapper>
             <div>
                 <TownSelect>
-                    {towns.map((house,idx) => {
-                        if(house.neighbor){
-                            return(
-                                <TownOption 
-                                key={idx}>
-                                    {house.neighbor}
-                                </TownOption>
-                            );
-                        } else if(house.district){
-                            return (
-                                <TownOption
-                                key={idx}>
-                                    {house.district}
-                                </TownOption>
-                            );
-                        } else if(house.city){
-                            return(
-                                <TownOption
-                                key={idx}>
-                                    {house.city}
-                                </TownOption>
-                            );
-                        } else{
-                            return(
-                                <div>데이터가 없습니다</div>
-                            )
-                        }
-                    })}
+                    <TownOption/>
                 </TownSelect>        
                 <img src='/images/Search.png' alt='검색' onClick={handleToSearch}/>
             </div>
+            <StyledHr/>
         </HeadWrapper>
     );
 };
@@ -58,12 +29,15 @@ const MainHeader: React.FC = () => {
 export default MainHeader;
 
 const HeadWrapper = styled.div`
-    margin-top: 10px;
+    background-color:  #333333;
+    position: fixed;
+    
     margin-bottom: 10px;
-    width: 100%;
+    width: 375px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 10px;
     div{
         width: 90%;
         display: flex;
@@ -74,6 +48,8 @@ const HeadWrapper = styled.div`
         }
         align-items: center;
     }
+    left: calc(50%);
+    transform: translateX(-50%);
 `               
 
 const TownSelect = styled.select`
@@ -84,4 +60,10 @@ const TownSelect = styled.select`
 
 const TownOption = styled.option`
     background-color: #555555;
+`
+
+const StyledHr = styled.hr`
+    width: 100%;
+    color: white;
+    margin-bottom: 0px;
 `
