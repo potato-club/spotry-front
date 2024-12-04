@@ -34,12 +34,12 @@ const EachPage:React.FC<EachPageProps> = ({resultPost}) => {
 
     const handleClickPost = (postId:number) => {
         navigate(`/eachPost/${postId}`);
-        console.log('클릭!');
     };
 
     const checkRelativeTime = (createDate:string) => {
         const created = new Date(createDate).getTime();
         const now = new Date().getTime();
+        
         const relative = now - created;
 
         const diffInSeconds = Math.floor(relative / 1000);
@@ -69,14 +69,14 @@ const EachPage:React.FC<EachPageProps> = ({resultPost}) => {
                 console.log('추가 데이터 불러오기');
                 const newPosts = Array.from({ length: 10 }, (_, i) => ({
                 createdDate: new Date().toISOString(),
-                title: `New Post ${i + 1}`,
+                title: `더미 게시물 ${i + 1}`,
                 content: "새로운 게시물",
                 postState: "active",
-                sport: "soccer",
+                sport: "축구",
                 viewCount: Math.floor(Math.random() * 100),
                 likeCount: Math.floor(Math.random() * 50),
                 commentCount: Math.floor(Math.random() * 20),
-                tag: ["#new", "#post"],
+                tag: ["new", "post"],
                 image: "",
             }));
         setPosts((prev) => [...prev,...newPosts]);
@@ -99,11 +99,13 @@ const EachPage:React.FC<EachPageProps> = ({resultPost}) => {
         onMouseMove={handleMouseMove}
         >
             {posts.map((value,idx) => (
-                <PostInfoDiv key={idx} onClick={() => handleClickPost(idx)}>
+                <PostInfoDiv key={idx}>
                     <Category>
                         {value.sport}
                     </Category>
-                    {value.title}<br/>
+                    <div onClick={() => handleClickPost(idx)}>
+                        {value.title}
+                    </div>
                     <TagWrapper>
                         {value.tag.map((tag, index) => (
                             <Tag key={index}>#{tag}</Tag>
