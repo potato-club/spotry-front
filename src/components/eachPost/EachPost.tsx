@@ -28,4 +28,4 @@ const Separater = styled.div`
 height: 20px;
 width : 100%;
 background-color: #2B2B2B;
-`
+` 

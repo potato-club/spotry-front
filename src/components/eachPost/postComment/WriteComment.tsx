@@ -8,7 +8,7 @@ const WriteComment = () => {
         </div>
     );
 };
-
+ 
 export default WriteComment;
 
 const Wrapper = styled.div`

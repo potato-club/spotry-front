@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const Detail = () => {
 
-
     return (
         <Details>
             <ProfileWrapper>
