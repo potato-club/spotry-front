@@ -1,4 +1,4 @@
-import { url } from "./url";
+import url from "./url";
 
 export const fetchRegion = async() => {
     try {
