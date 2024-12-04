@@ -11,11 +11,7 @@ const useBarActive = () => {
     setBarActive(currentPage);
   }, [location.pathname]);
 
-<<<<<<< HEAD
-  const handlePageClick = (path: string) => {
-=======
   const handlePageClick = (path:string) => {
->>>>>>> 14011d2ec8d0a335fba87db9b79867c880044dee
     setBarActive(path);
     navigate(path);
   };
