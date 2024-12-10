@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { usePrevPathStore } from '../../zustand/usePrevPathStore';
 import { useNavigate } from 'react-router-dom';
 import Recommend from './Recommend';
 import { useState } from 'react';
@@ -7,17 +6,15 @@ import { useState } from 'react';
 const SearchPage = () => {
 
     const navigate = useNavigate();
-    const {prevPath} = usePrevPathStore();
 
     const handleClose = () => {
-        navigate(prevPath);
+        navigate(-1);
     }
 
     const [searchWord,setSearchWord] = useState<string>('');
 
     const handleChangehWord = (e:React.ChangeEvent<HTMLInputElement>) => {
         setSearchWord(e.target.value);
-
     }
 
     return (
