@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const MainHeader: React.FC = () => {
     
-    const navigation =useNavigate();
+    const navigation = useNavigate();
 
     const handleToSearch = () => {
         navigation("/search");

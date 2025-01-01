@@ -2,7 +2,7 @@ import url from "./url";
 
 export const fetchRegion = async() => {
     try {
-        const response = await url.get('/region/');
+        const response = await url.get('/region/region');
         return response.data;
     } catch (error) {
         console.error('에러입니다 : ',error);
@@ -27,5 +27,14 @@ export const fetchtowns = async(id:number) => {
     } catch (error) {
         console.error('twons 에러입니다 : ',error);
         throw error;
+    }
+}
+
+export const fetchSelectRegion = async() => {
+    try {
+        const res = await url.get('/region/');
+        return res.data;
+    } catch (error) {
+        console.log("저장 region 에러 : ",error);
     }
 }

@@ -10,6 +10,7 @@ import SearchResult from "./container/EachPage/searchResult/SearchResult";
 import MainHeader from "./container/MainPage/header/MainHeader";
 import MainBar from "./components/MenuBar/MainBar";
 import EachPost from "./components/eachPost/EachPost";
+import WritePost from "./components/WritingPost/WritePost";
 
 const AppContent = () => {
 
@@ -33,6 +34,7 @@ const AppContent = () => {
                     <Route path="/mypage" element={<MyPage/>}/>
                     <Route path="/result" element={<SearchResult/>}/>
                     <Route path="/eachPost/:postId" element={<EachPost/>}/>
+                    <Route path="/write" element={<WritePost/>}/>
                 </Routes>
             </Container>
         </div>
