@@ -19,7 +19,7 @@ const AppContent = () => {
     return (
         <div className="main">
             <Container>
-                {location.pathname !== "/" && location.pathname !== "/search" && (
+                {location.pathname !== "/" && location.pathname !== "/search" && location.pathname !== "/write" && (
                     <>
                         <MainHeader/>
                         <MainBar/>
