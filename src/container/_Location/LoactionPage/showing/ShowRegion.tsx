@@ -18,9 +18,9 @@ const tableRegion: Region[] = [
 // 여기서 각 지역을 보여줍니다.
 export const ShowRegion = ({isSelect}:{isSelect:(region:Region)=>void}) => {
     
-    // const {region} = useFetchRegionData();
+    const {region} = useFetchRegionData();
 
-    const [region,setRegion] = useState<Region[]>(tableRegion);
+    // const [region,setRegion] = useState<Region[]>(tableRegion);
 
     return (
         <ShowWrapper>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import PopularData from "../../../tableData/PopularData.json";
 import useDargX from "../../../hook/useDargX";
+import { Link } from "react-router-dom";
 
 const UpComing = () => {
 
@@ -29,7 +30,9 @@ const UpComing = () => {
                     <Category>{post.sport}</Category>
                 </CategoryDiv>
                 <div>
-                    <Titlediv>{post.title}</Titlediv>
+                    <Link to={`/eachPost/${idx}`}>
+                        <Titlediv>{post.title}</Titlediv>
+                    </Link>
                     <InfoDiv>
                         <img src="/images/thumb_up.png" alt="북바크" />
                         <span>{post.likeCount}</span>

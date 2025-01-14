@@ -28,6 +28,7 @@ const AppContent = () => {
                 <Routes>
                     <Route path="/" element={<MainLocation/>}/>
                     <Route path="/main" element={<Main/>}/>
+                    <Route path="*" element={<Main/>}/>
                     <Route path="/search" element={<SearchPage/>}/>
                     <Route path="/crew" element={<CrewPage/>}/>
                     <Route path="/post" element={<PostPage/>}/>
