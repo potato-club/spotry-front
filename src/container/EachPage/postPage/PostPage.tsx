@@ -1,6 +1,6 @@
 import React from 'react';
 import EachPage from '../EachPage';
-import { PopularData } from '../../../tableData/PopularData';
+import PopularData from '../../../tableData/PopularData.json';
 import { useState } from 'react';
 
 const PostPage = () => {

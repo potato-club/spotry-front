@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { PopularData } from '../../../tableData/PopularData';
+import PopularData from '../../../tableData/PopularData.json';
 import useDargX from '../../../hook/useDargX';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Popular = () => {
+
+    const navigate = useNavigate();
+
+    const handleToEach = (post:any) => {
+        navigate(`eachPost/${post.id}`);
+    }
 
     const {DivRef,handleMouseDown,handleMouseUp,handleMouseMove} = useDargX();
 
@@ -27,7 +34,10 @@ const Popular = () => {
                 {Populars.map((post,idx) => 
                     <PostInfo key={idx}>
                         <Category>{post.sport}</Category>
-                        <PostTitle>{post.title}</PostTitle>
+                        <Link to={`/eachPost/${idx}`}>
+                            <PostTitle>{post.title}</PostTitle>
+                        </Link>
+                        
                         <InfoDiv>
                             <img src='/images/View_fill.png' alt='눈'/>
                             <span>{post.viewCount}</span>

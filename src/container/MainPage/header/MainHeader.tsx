@@ -1,15 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { usePrevPathStore } from '../../../zustand/usePrevPathStore';
 
 const MainHeader: React.FC = () => {
     
-    const {setPrevPath} = usePrevPathStore();
-
-    const navigation =useNavigate();
+    const navigation = useNavigate();
 
     const handleToSearch = () => {
-        setPrevPath("/main");
         navigation("/search");
     };
 

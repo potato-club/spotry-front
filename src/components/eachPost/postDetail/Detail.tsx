@@ -1,7 +1,15 @@
 import styled from 'styled-components';
+import LikeIcon from '../../Data/LikeSvg';
+import { useState } from 'react';
 
 const Detail = () => {
 
+    const [isLike, setIsLike] = useState<boolean>(false);
+
+    const toggleIcon = () => {
+        setIsLike((prev) => !prev);
+    }
+    
     return (
         <Details>
             <ProfileWrapper>
@@ -13,8 +21,7 @@ const Detail = () => {
                     </ProInfo>
                 </Profile>
                 <LikeDiv>
-                    ♡
-                    5
+                    <LikeIcon isLike={isLike} toggleIcon={toggleIcon}/>
                 </LikeDiv>
             </ProfileWrapper>
             <CategoryWrapper>

@@ -10,6 +10,7 @@ import SearchResult from "./container/EachPage/searchResult/SearchResult";
 import MainHeader from "./container/MainPage/header/MainHeader";
 import MainBar from "./components/MenuBar/MainBar";
 import EachPost from "./components/eachPost/EachPost";
+import WritePost from "./components/WritingPost/WritePost";
 
 const AppContent = () => {
 
@@ -18,7 +19,7 @@ const AppContent = () => {
     return (
         <div className="main">
             <Container>
-                {location.pathname !== "/" && location.pathname !== "/search" && (
+                {location.pathname !== "/" && location.pathname !== "/search" && location.pathname !== "/write" && (
                     <>
                         <MainHeader/>
                         <MainBar/>
@@ -27,12 +28,14 @@ const AppContent = () => {
                 <Routes>
                     <Route path="/" element={<MainLocation/>}/>
                     <Route path="/main" element={<Main/>}/>
+                    <Route path="*" element={<Main/>}/>
                     <Route path="/search" element={<SearchPage/>}/>
                     <Route path="/crew" element={<CrewPage/>}/>
                     <Route path="/post" element={<PostPage/>}/>
                     <Route path="/mypage" element={<MyPage/>}/>
                     <Route path="/result" element={<SearchResult/>}/>
                     <Route path="/eachPost/:postId" element={<EachPost/>}/>
+                    <Route path="/write" element={<WritePost/>}/>
                 </Routes>
             </Container>
         </div>

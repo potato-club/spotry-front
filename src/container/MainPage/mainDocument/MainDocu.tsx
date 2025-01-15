@@ -2,7 +2,7 @@ import React from 'react';
 import Hot from './Hot';
 import Popular from './Popular';
 import UpComing from './UpComing';
-import WrittenBtn from './WrittenBtn';
+import WriteButton from '../../../components/WritingPost/WriteButton';
 
 const MainDocu = () => {
     return (
@@ -10,7 +10,7 @@ const MainDocu = () => {
             <Hot/>
             <Popular/>
             <UpComing/>
-            <WrittenBtn/>
+            <WriteButton/>
         </>
     );
 };
