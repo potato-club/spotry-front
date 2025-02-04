@@ -15,6 +15,8 @@ import WritePost from "./components/WritingPost/WritePost";
 import SplashMain from "./SplashPage/splashMain";
 import LoginPage from "./components/Login/LoginPage";
 import Comments from "./components/eachPost/postComment/Comments";
+import WritePost from "./components/WritingPost/WritePost";
+import LoginPage from "./components/Login/LoginPage";
 
 const AppContent = () => {
   const location = useLocation();
@@ -28,6 +30,7 @@ const AppContent = () => {
           location.pathname !== "/splash" &&
           location.pathname !== "/submit" &&
           location.pathname !== "/login" &&
+          location.pathname !== "/write" && 
           location.pathname !== "/comments" && (
             <>
               <MainHeader />
@@ -43,7 +46,7 @@ const AppContent = () => {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/result" element={<SearchResult />} />
           <Route path="/eachPost/:postId" element={<EachPost />} />
-
+          <Route path="*" element={<Main/>}/>
           <Route path="/write" element={<WritePost />} />
           <Route path="/splash" element={<SplashMain />} />
           <Route path="/submit" element={<SubmitMain />} />

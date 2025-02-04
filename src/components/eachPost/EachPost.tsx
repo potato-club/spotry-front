@@ -15,14 +15,16 @@ const EachPost = () => {
 export default EachPost;
 
 const Wrapper = styled.div`
-  padding-top: 40px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  padding-bottom: 58px;
-`;
+padding-top: 40px;
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+height: 100%;
+padding-bottom: 58px;
+overflow-y: hidden;
+`
+
 
 const Separater = styled.div`
   height: 20px;

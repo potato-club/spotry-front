@@ -84,11 +84,8 @@ const ShowingRegion = () => {
 
     const handlePostAddress = async () => {
         try {
-            const townIds = addressArray
-            .map((item) => item.town?.id)
-            .filter((id) => id !== undefined) as number[];
-
-            const response = await axios.post("http://sportry.site/region/select", {
+            const townIds = addressArray[0]
+            const response = await axios.post("https://sportry.site/region/select", {
             townIds: townIds, 
             });
 

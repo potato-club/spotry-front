@@ -1,0 +1,110 @@
+[
+    {
+        "createdDate": "2024-08-10T08:15:30.000Z",
+        "title": "축구 월드컵 예선전, 이 경기 어땠나요?",
+        "content": "string",
+        "postState": "string",
+        "sport": "축구",
+        "viewCount": 1500,
+        "likeCount": 120,
+        "commentCount": 45,
+        "tag": ["축구", "월드컵"],
+        "image": "images/football_match.jpg"
+    },
+    {
+        "createdDate": "2024-04-12T14:22:45.000Z",
+        "title": "러닝을 할 때 가장 좋은 신발 추천",
+        "content": "string",
+        "postState": "string",
+        "sport": "러닝",
+        "viewCount": 980,
+        "likeCount": 98,
+        "commentCount": 30,
+        "tag": ["러닝", "신발추천"],
+        "image": "images/running_shoes.jpg"
+    },
+    {
+        "createdDate": "2024-01-13T09:10:00.000Z",
+        "title": "야구 시즌 예측! 올해 우승팀은?",
+        "content": "string",
+        "postState": "string",
+        "sport": "야구",
+        "viewCount": 2000,
+        "likeCount": 150,
+        "commentCount": 67,
+        "tag": ["야구", "우승예측"],
+        "image": "images/baseball_pitch.jpg"
+    },
+    {
+        "createdDate": "2024-11-19T18:45:30.000Z",
+        "title": "배드민턴 라켓 추천 부탁드려요!",
+        "content": "string",
+        "postState": "string",
+        "sport": "배드민턴",
+        "viewCount": 850,
+        "likeCount": 85,
+        "commentCount": 23,
+        "tag": ["배드민턴", "라켓추천"],
+        "image": "images/badminton_racket.jpg"
+    },
+    {
+        "createdDate": "2024-09-11T06:30:15.000Z",
+        "title": "수영 실력 늘리는 법, 팁 좀 주세요",
+        "content": "string",
+        "postState": "string",
+        "sport": "수영",
+        "viewCount": 1600,
+        "likeCount": 112,
+        "commentCount": 40,
+        "tag": ["수영", "실력향상"],
+        "image": "images/swimming_pool.jpg"
+    },
+    {
+        "createdDate": "2024-09-08T22:50:10.000Z",
+        "title": "마라톤 대회 준비, 체력관리 비법",
+        "content": "string",
+        "postState": "string",
+        "sport": "마라톤",
+        "viewCount": 950,
+        "likeCount": 95,
+        "commentCount": 20,
+        "tag": ["마라톤", "체력관리"],
+        "image": "images/marathon_training.jpg"
+    },
+    {
+        "createdDate": "2024-09-15T07:40:05.000Z",
+        "title": "농구에서 가장 중요한 기술은?",
+        "content": "string",
+        "postState": "string",
+        "sport": "농구",
+        "viewCount": 1200,
+        "likeCount": 105,
+        "commentCount": 33,
+        "tag": ["농구", "기술"],
+        "image": "images/basketball_skills.jpg"
+    },
+    {
+        "createdDate": "2024-09-09T16:15:55.000Z",
+        "title": "클라이밍 초보자를 위한 팁 모음",
+        "content": "string",
+        "postState": "string",
+        "sport": "클라이밍",
+        "viewCount": 780,
+        "likeCount": 78,
+        "commentCount": 18,
+        "tag": ["클라이밍", "초보팁"],
+        "image": "images/climbing_tips.jpg"
+    },
+    {
+        "createdDate": "2024-09-07T10:25:45.000Z",
+        "title": "테니스 경기 예측! 나달 vs 조코비치",
+        "content": "string",
+        "postState": "string",
+        "sport": "테니스",
+        "viewCount": 1900,
+        "likeCount": 142,
+        "commentCount": 56,
+        "tag": ["테니스", "경기예측"],
+        "image": "images/tennis_match.jpg"
+    }
+]

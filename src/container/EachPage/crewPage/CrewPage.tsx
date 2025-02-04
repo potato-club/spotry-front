@@ -1,5 +1,5 @@
 import EachPage from '../EachPage';
-import { SportData } from '../../../tableData/SportData';
+import SportData from '../../../tableData/SportData.json';
 import { useState } from 'react';
 
 const CrewPage = () => {

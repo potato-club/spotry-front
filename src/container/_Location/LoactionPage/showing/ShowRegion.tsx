@@ -3,24 +3,11 @@ import useFetchRegionData from '../../fetchDatas/useFetchRegionData';
 import useFetchCities from '../../fetchDatas/useFetchCities';
 import useFetchTowns from '../../fetchDatas/useFetchTowns';
 import { Region } from '../../../../types/Region';
-import { useState } from 'react';
-
-const tableRegion: Region[] = [
-    { "name": "서울", "id": 1 },
-    { "name": "대구", "id": 2 },
-    { "name": "대전", "id": 3 },
-    { "name": "부산", "id": 4 },
-    { "name": "광주", "id": 5 },
-    { "name": "원주", "id": 6 },
-];
-
 
 // 여기서 각 지역을 보여줍니다.
 export const ShowRegion = ({isSelect}:{isSelect:(region:Region)=>void}) => {
     
-    // const {region} = useFetchRegionData();
-
-    const [region,setRegion] = useState<Region[]>(tableRegion);
+    const {region} = useFetchRegionData();
 
     return (
         <ShowWrapper>
@@ -38,9 +25,7 @@ export const ShowRegion = ({isSelect}:{isSelect:(region:Region)=>void}) => {
 
 export const ShowCities = ({id, isSelect} :{id:number, isSelect:(region:Region) => void}) => {
     
-    // const {cities} = useFetchCities(id);
-
-    const [cities,setCities] = useState<Region[]>(tableRegion);
+    const {cities} = useFetchCities(id);
 
     return (
         <ShowWrapper>
@@ -58,9 +43,7 @@ export const ShowCities = ({id, isSelect} :{id:number, isSelect:(region:Region) 
 
 export const ShowTowns = ({id,isSelect} :{id:number, isSelect:(region:Region)=>void}) => {
     
-    // const {towns} = useFetchTowns(id);
-
-    const [towns,setCities] = useState<Region[]>(tableRegion);
+    const {towns} = useFetchTowns(id);
 
     return(
         <ShowWrapper>
