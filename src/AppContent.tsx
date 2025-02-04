@@ -11,6 +11,7 @@ import MainHeader from "./container/MainPage/header/MainHeader";
 import MainBar from "./components/MenuBar/MainBar";
 import EachPost from "./components/eachPost/EachPost";
 import WritePost from "./components/WritingPost/WritePost";
+import LoginPage from "./components/Login/LoginPage";
 
 const AppContent = () => {
 
@@ -19,14 +20,19 @@ const AppContent = () => {
     return (
         <div className="main">
             <Container>
-                {location.pathname !== "/" && location.pathname !== "/search" && location.pathname !== "/write" && (
+                {location.pathname !== "/" && 
+                location.pathname !== "/search" && 
+                location.pathname !== "/write" && 
+                location.pathname !== "/location" &&
+                (
                     <>
                         <MainHeader/>
                         <MainBar/>
                     </>
                 )}
                 <Routes>
-                    <Route path="/" element={<MainLocation/>}/>
+                    <Route path="/" element={<LoginPage/>}/>
+                    <Route path="/location" element={<MainLocation/>}/>
                     <Route path="/main" element={<Main/>}/>
                     <Route path="*" element={<Main/>}/>
                     <Route path="/search" element={<SearchPage/>}/>

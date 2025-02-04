@@ -14,7 +14,7 @@ interface SelectInfoProps {
 
 const SelectInfo = ({ selectedAddressArray,onDelete }: SelectInfoProps) => {
     return (
-        <TagContainer isAdded={selectedAddressArray.length > 0}>
+        <TagContainer isadded={selectedAddressArray.length > 0}>
             <div>
                 {selectedAddressArray.length > 0 ? (
                     <>
@@ -40,11 +40,11 @@ const SelectInfo = ({ selectedAddressArray,onDelete }: SelectInfoProps) => {
 
 export default SelectInfo;
 
-const TagContainer = styled.div<{isAdded:boolean}>`
+const TagContainer = styled.div<{isadded:boolean}>`
 width: 90%;
 display: flex;
 margin-top: 10px;
-justify-content: ${(props)=>(props.isAdded) ? "flex-start" : "center"};
+justify-content: ${(props)=>(props.isadded) ? "flex-start" : "center"};
 height: 32px;
 div{
     display: flex;
