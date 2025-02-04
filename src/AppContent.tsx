@@ -11,12 +11,10 @@ import MainHeader from "./container/MainPage/header/MainHeader";
 import MainBar from "./components/MenuBar/MainBar";
 import EachPost from "./components/eachPost/EachPost";
 import SubmitMain from "./components/SubmitLogin/SubmitPage";
-import WritePost from "./components/WritingPost/WritePost";
 import SplashMain from "./SplashPage/splashMain";
 import LoginPage from "./components/Login/LoginPage";
 import Comments from "./components/eachPost/postComment/Comments";
 import WritePost from "./components/WritingPost/WritePost";
-import LoginPage from "./components/Login/LoginPage";
 
 const AppContent = () => {
   const location = useLocation();
