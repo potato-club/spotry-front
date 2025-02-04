@@ -2,10 +2,9 @@ import { BrowserRouter as Router } from "react-router-dom";
 import AppContent from "./AppContent";
 
 function App() {
-
   return (
     <Router>
-      <AppContent/>
+      <AppContent />
     </Router>
   );
 }
