@@ -1,8 +1,15 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import styled from "styled-components";
 import { checkEmail, checkId, submitSignup } from "../../api/submitApi";
+import { useNavigate } from "react-router-dom";
 
 const SubmitMain: React.FC = () => {
+
+  const navigate = useNavigate();
+
+  const toPrev = () => {
+    navigate(-1);
+  }
 
   const [form, setForm] = useState({
     userName: "",
@@ -138,7 +145,7 @@ const SubmitMain: React.FC = () => {
   return (
     <Wrapper>
       <Header>
-        <CloseButton>x</CloseButton>
+        <CloseButton onClick={toPrev}>x</CloseButton>
         <HeaderTitle>회원가입</HeaderTitle>
       </Header>
 

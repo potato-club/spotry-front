@@ -53,3 +53,19 @@ export const submitSignup = async (formData: SignupForm): Promise<void> => {
     throw new Error("회원가입 중 오류가 발생했습니다.");
   }
 };
+
+export const SubmitLogin = async (loginData: {userId: string, userPw: string} ) => {
+  try {
+    const response = await url.post("/auth/login", loginData, {
+      headers: {
+        "Content-Type" : "application/json",
+      }
+    });
+    console.log(response.headers);
+    alert("로그인 성공");
+    return response.data;
+  } catch (error) {
+    alert("로그인 실패");
+    console.error(error);
+  }
+}
