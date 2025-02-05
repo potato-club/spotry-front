@@ -10,13 +10,15 @@ import SearchResult from "./container/EachPage/searchResult/SearchResult";
 import MainHeader from "./container/MainPage/header/MainHeader";
 import MainBar from "./components/MenuBar/MainBar";
 import EachPost from "./components/eachPost/EachPost";
-import WritePost from "./components/WritingPost/WritePost";
+import SubmitMain from "./components/SubmitLogin/SubmitPage";
+import SplashMain from "./SplashPage/splashMain";
 import LoginPage from "./components/Login/LoginPage";
 import SubmitMain from "./components/SubmitLogin/SubmitPage";
+import WritePost from "./components/WritingPost/WritePost";
+
 
 const AppContent = () => {
-
-    const location = useLocation();
+  const location = useLocation();
 
     return (
         <div className="main">
@@ -44,6 +46,7 @@ const AppContent = () => {
                     <Route path="/result" element={<SearchResult/>}/>
                     <Route path="/eachPost/:postId" element={<EachPost/>}/>
                     <Route path="/write" element={<WritePost/>}/>
+                    <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SubmitMain/>}/>
                 </Routes>
             </Container>
