@@ -40,13 +40,14 @@ export const submitSignup = async (formData: SignupForm): Promise<void> => {
     alert("회원가입 성공!");
 
     console.log(response);
-    const token = response.headers['authorization'] || response.headers['Authorization']
-    if (token) {
-      localStorage.setItem("accessToken", token);
-      alert("회원가입 성공! 토큰이 저장되었습니다.");
-    } else {
-      alert("회원가입 성공! 그러나 토큰을 찾을 수 없습니다.");
-    }
+    const token = response.headers['authorization'];
+    console.log(token);
+    // if (token) {
+    //   localStorage.setItem("accessToken", token);
+    //   alert("회원가입 성공! 토큰이 저장되었습니다.");
+    // } else {
+    //   alert("회원가입 성공! 그러나 토큰을 찾을 수 없습니다.");
+    // }
   } catch (error) {
     console.error(error);
     throw new Error("회원가입 중 오류가 발생했습니다.");
