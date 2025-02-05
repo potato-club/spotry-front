@@ -12,6 +12,7 @@ import MainBar from "./components/MenuBar/MainBar";
 import EachPost from "./components/eachPost/EachPost";
 import WritePost from "./components/WritingPost/WritePost";
 import LoginPage from "./components/Login/LoginPage";
+import SubmitMain from "./components/SubmitLogin/SubmitPage";
 
 const AppContent = () => {
 
@@ -24,6 +25,7 @@ const AppContent = () => {
                 location.pathname !== "/search" && 
                 location.pathname !== "/write" && 
                 location.pathname !== "/location" &&
+                location.pathname !== "/signup" &&
                 (
                     <>
                         <MainHeader/>
@@ -42,6 +44,7 @@ const AppContent = () => {
                     <Route path="/result" element={<SearchResult/>}/>
                     <Route path="/eachPost/:postId" element={<EachPost/>}/>
                     <Route path="/write" element={<WritePost/>}/>
+                    <Route path="/signup" element={<SubmitMain/>}/>
                 </Routes>
             </Container>
         </div>

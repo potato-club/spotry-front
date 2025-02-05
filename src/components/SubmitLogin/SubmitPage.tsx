@@ -3,48 +3,63 @@ import styled from "styled-components";
 import { checkEmail, checkId, submitSignup } from "../../api/submitApi";
 
 const SubmitMain: React.FC = () => {
+
   const [form, setForm] = useState({
-    name: "",
-    gender: "",
-    birthDate: "",
+    userName: "",
+    nickName: "",
     email: "",
+    birthDay: "",
+    birthDayForm:"",
+    userId: "",
+    userPw: "",
     emailDomain: "",
-    id: "",
-    password: "",
     confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({
-    name: "",
-    gender: "",
-    birthDate: "",
+    userName: "",
+    nickName: "",
     email: "",
-    id: "",
-    password: "",
+    birthDay: "",
+    userId: "",
+    userPw: "",
     confirmPassword: "",
   });
 
   const [emailCheckMessage, setEmailCheckMessage] = useState<string>("");
   const [idCheckMessage, setIdCheckMessage] = useState<string>("");
-
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    if (name === "birthDay") {
+      const onlyNumbers = value.replace(/\D/g, ""); 
+      if (onlyNumbers.length > 8) return; 
+      setForm({ ...form, [name]: onlyNumbers });
+      if (onlyNumbers.length === 8) {
+        const formattedDate = onlyNumbers.replace(
+          /^(\d{4})(\d{2})(\d{2})$/,
+          "$1-$2-$3"
+        );
+        setForm({ ...form, birthDayForm: formattedDate, birthDay: onlyNumbers }); 
+      }
+    } else {
+      setForm({ ...form, [name]: value });
+    }
+    // setForm({ ...form, [name]: value });
 
     setErrors((prevErrors) => {
       const newErrors = { ...prevErrors };
-      if (name === "name" && value) newErrors.name = "";
-      if (name === "gender" && value) newErrors.gender = "";
+      if (name === "name" && value) newErrors.userName = "";
+      // if (name === "gender" && value) newErrors.gender = "";
       if (name === "birthDate" && value.match(/^\d{8}$/))
-        newErrors.birthDate = "";
+        newErrors.birthDay = "";
       if (name === "email" && value && form.emailDomain) newErrors.email = "";
       if (name === "emailDomain" && value && form.email) newErrors.email = "";
-      if (name === "id" && value) newErrors.id = "";
+      if (name === "id" && value) newErrors.userId = "";
       if (name === "password" && value.length >= 8 && value.length <= 16)
-        newErrors.password = "";
-      if (name === "confirmPassword" && value && value === form.password)
+        newErrors.userPw = "";
+      if (name === "confirmPassword" && value && value === form.userPw)
         newErrors.confirmPassword = "";
       return newErrors;
     });
@@ -69,9 +84,9 @@ const SubmitMain: React.FC = () => {
   };
 
   const handleIdCheck = async () => {
-    if (form.id.length >= 5 && form.id.length <= 20) {
+    if (form.userId.length >= 5 && form.userId.length <= 20) {
       try {
-        const idExists = await checkId(form.id);
+        const idExists = await checkId(form.userId);
         setIdCheckMessage(
           idExists
             ? "이미 사용 중인 아이디입니다."
@@ -87,26 +102,33 @@ const SubmitMain: React.FC = () => {
     e.preventDefault();
     const newErrors = { ...errors };
 
-    if (!form.name) newErrors.name = "이름은 필수 정보입니다.";
-    if (!form.gender) newErrors.gender = "성별을 선택하세요.";
-    if (!form.birthDate.match(/^\d{8}$/))
-      newErrors.birthDate = "생년월일은 8자리숫자로 입력해주세요.";
+    if (!form.userName) newErrors.userName = "이름은 필수 정보입니다.";
+    // if (!form.gender) newErrors.gender = "성별을 선택하세요.";
+    if (!form.birthDay.match(/^\d{8}$/))
+      newErrors.birthDay = "생년월일은 8자리숫자로 입력해주세요.";
     if (!form.email || !form.emailDomain)
       newErrors.email = "이메일을 입력하세요.";
-    if (!form.id) newErrors.id = "아이디를 입력하세요.";
-    if (form.password.length < 8 || form.password.length > 16)
-      newErrors.password =
+    if (!form.userId) newErrors.userId = "아이디를 입력하세요.";
+    if (form.userPw.length < 8 || form.userPw.length > 16)
+      newErrors.userPw =
         "비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자를 사용하세요.";
-    if (form.password !== form.confirmPassword)
+    if (form.userPw !== form.confirmPassword)
       newErrors.confirmPassword = "비밀번호가 일치하지 않습니다.";
 
     setErrors(newErrors);
 
     if (Object.values(newErrors).every((error) => !error)) {
       try {
-        console.log("Submit form:", form);
-        await submitSignup(form);
-        alert("회원가입 성공!");
+        // console.log("Submit form:", form);
+        const respose = await submitSignup({
+          userName: form.userName,
+          nickName: form.nickName,
+          email: `${form.email}@${form.emailDomain}`,
+          birthDay: form.birthDayForm,
+          userId: form.userId,
+          userPw: form.userPw,
+        });
+        console.log(respose);
       } catch (error: any) {
         alert(error.message);
       }
@@ -121,49 +143,63 @@ const SubmitMain: React.FC = () => {
       </Header>
 
       <FormContainer onSubmit={handleSubmit}>
-        <InputField error={!!errors.name}>
+        <InputField error={!!errors.userName}>
           <label htmlFor="name">이름</label>
           <input
             type="text"
-            id="name"
-            name="name"
-            value={form.name}
+            id="userName"
+            name="userName"
+            value={form.userName}
             onChange={handleInputChange}
             placeholder="이름"
           />
-          {errors.name && <SmallText>{errors.name}</SmallText>}
+          {errors.userName && <SmallText>{errors.userName}</SmallText>}
+        </InputField>
+
+        <InputField error={!!errors.nickName}>
+          <label htmlFor="nickName">닉네임</label>
+          <input
+            type="text"
+            id="nickName"
+            name="nickName"
+            value={form.nickName}
+            onChange={handleInputChange}
+            placeholder="닉네임을 입력하세요"
+          />
+          {errors.nickName && <SmallText>{errors.nickName}</SmallText>}
         </InputField>
 
         <InputField>
           <label>성별</label>
           <GenderWrapper>
             <GenderButton
-              selected={form.gender === "male"}
-              onClick={() => setForm({ ...form, gender: "male" })}
+              // selected={form.gender === "male"}
+              // onClick={() => setForm({ ...form, gender: "male" })}
             >
               남자
             </GenderButton>
             <GenderButton
-              selected={form.gender === "female"}
-              onClick={() => setForm({ ...form, gender: "female" })}
+              // selected={form.gender === "female"}
+              // onClick={() => setForm({ ...form, gender: "female" })}
             >
               여자
             </GenderButton>
           </GenderWrapper>
-          {errors.gender && <SmallText>{errors.gender}</SmallText>}
+          {/* {errors.gender && <SmallText>{errors.gender}</SmallText>} */}
         </InputField>
 
-        <InputField error={!!errors.birthDate}>
-          <label htmlFor="birthDate">생년월일</label>
+        <InputField error={!!errors.birthDay}>
+          <label htmlFor="birthDay">생년월일</label>
           <input
             type="text"
-            id="birthDate"
-            name="birthDate"
-            value={form.birthDate}
+            id="birthDay"
+            name="birthDay"
+            value={form.birthDay}
             onChange={handleInputChange}
             placeholder="생년월일 8자리"
+            maxLength={8}
           />
-          {errors.birthDate && <SmallText>{errors.birthDate}</SmallText>}
+          {errors.birthDay && <SmallText>{errors.birthDay}</SmallText>}
         </InputField>
 
         <InputField error={!!errors.email} name="email">
@@ -199,14 +235,14 @@ const SubmitMain: React.FC = () => {
           )}
         </InputField>
 
-        <InputField error={!!errors.id} name="id">
-          <label htmlFor="id">아이디</label>
+        <InputField error={!!errors.userId} name="id">
+          <label htmlFor="userId">아이디</label>
           <div>
             <input
               type="text"
-              id="id"
-              name="id"
-              value={form.id}
+              id="userId"
+              name="userId"
+              value={form.userId}
               onChange={handleInputChange}
               placeholder="아이디"
             />
@@ -225,18 +261,18 @@ const SubmitMain: React.FC = () => {
           </label>
         </InputField>
 
-        <InputField error={!!errors.password}>
-          <label htmlFor="password">비밀번호</label>
+        <InputField error={!!errors.userPw}>
+          <label htmlFor="userPw">비밀번호</label>
           <input
             type="password"
-            id="password"
-            name="password"
-            value={form.password}
+            id="userPw"
+            name="userPw"
+            value={form.userPw}
             onChange={handleInputChange}
             placeholder="비밀번호"
           />
-          {errors.password ? (
-            <SmallText>{errors.password}</SmallText>
+          {errors.userPw ? (
+            <SmallText>{errors.userPw}</SmallText>
           ) : (
             <label htmlFor="password">
               8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.
@@ -258,9 +294,8 @@ const SubmitMain: React.FC = () => {
             <SmallText>{errors.confirmPassword}</SmallText>
           )}
         </InputField>
+        <SubmitBtn type="submit">가입하기</SubmitBtn>
       </FormContainer>
-
-      <SubmitBtn>가입하기</SubmitBtn>
     </Wrapper>
   );
 };
