@@ -1,14 +1,12 @@
 import url from "./url";
 
 export interface SignupForm {
-  name: string;
-  gender: string;
-  birthDate: string;
-  email: string;
-  emailDomain: string;
-  id: string;
-  password: string;
-  confirmPassword: string;
+  userName: string,
+  nickName: string,
+  email: string,
+  birthDay: string,
+  userId: string,
+  userPw: string
 }
 
 export const checkEmail = async (email: string): Promise<boolean> => {
@@ -30,9 +28,28 @@ export const checkId = async (id: string): Promise<boolean> => {
 };
 
 export const submitSignup = async (formData: SignupForm): Promise<void> => {
+
+  console.log(formData);
   try {
-    await url.post("/signup", formData);
+    const response = await url.post("/auth/register", formData, {
+      headers: {
+        "Content-Type" : "application/json",
+      },
+    });
+
+    alert("회원가입 성공!");
+
+    console.log(response);
+    const token = response.headers['authorization'];
+    console.log(token);
+    // if (token) {
+    //   localStorage.setItem("accessToken", token);
+    //   alert("회원가입 성공! 토큰이 저장되었습니다.");
+    // } else {
+    //   alert("회원가입 성공! 그러나 토큰을 찾을 수 없습니다.");
+    // }
   } catch (error) {
+    console.error(error);
     throw new Error("회원가입 중 오류가 발생했습니다.");
   }
 };
