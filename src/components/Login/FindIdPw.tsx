@@ -1,13 +1,21 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const FindIdPw = () => {
+
+  const navigate = useNavigate();
+
+  const toSignup = () => {
+    navigate("/signup");
+  }
+
   return (
     <FindContainer>
       <FindBtn>아이디 찾기</FindBtn>
       <Separator />
       <FindBtn>비밀번호 찾기</FindBtn>
       <Separator />
-      <FindBtn>회원가입</FindBtn>
+      <FindBtn onClick={toSignup}>회원가입</FindBtn>
     </FindContainer>
   );
 };

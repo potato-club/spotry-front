@@ -1,10 +1,30 @@
 import styled from "styled-components";
 import { Btn as OrginalBtn } from "../../styles/Container";
 import useLoginInput from "../../hook/useLoginInput";
+import { SubmitLogin } from "../../api/submitApi";
 
 const IdPwInput: React.FC = () => {
   const idInput = useLoginInput("아이디 입력");
   const passwordInput = useLoginInput("비밀번호 입력");
+
+  // const [loingInfo, setLoginInfo] = useState({userId : "", userPw : ""});
+
+  const handleLogin = async () => {
+    if(idInput.value !== " " || passwordInput.value !== " "){
+        try {
+          const response = await SubmitLogin({
+            userId: idInput.value,
+            userPw: passwordInput.value
+          });
+          console.log(response);
+        } catch (error) {
+          console.log("로그인 페이지에서 에러");
+          console.error(error);
+        }    
+    } else{
+      alert("아이디와 비밀번호를 입력하세요");
+    }
+  }
 
   return (
     <LoginInput>
@@ -23,7 +43,7 @@ const IdPwInput: React.FC = () => {
         onFocus={passwordInput.onFocus}
         onBlur={passwordInput.onBlur}
       />
-      <CustomBtn>로그인</CustomBtn>
+      <CustomBtn onClick={handleLogin}>로그인</CustomBtn>
     </LoginInput>
   );
 };
