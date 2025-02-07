@@ -1,7 +1,14 @@
 import axios from "axios";
 
+const BASE_URL = "https://sportry.site"
+
 const url = axios.create({
-  baseURL: "https://sportry.site",
+  baseURL: BASE_URL,
 });
+
+const refreshJwt = async (accessToken: any, refreshToken: any) => {
+  
+
+}
 
 export default url;
