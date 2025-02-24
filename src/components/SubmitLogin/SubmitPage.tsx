@@ -13,6 +13,7 @@ const SubmitMain: React.FC = () => {
 
   const [form, setForm] = useState({
     userName: "",
+    gender:"", 
     nickName: "",
     email: "",
     birthDay: "",
@@ -26,6 +27,7 @@ const SubmitMain: React.FC = () => {
   const [errors, setErrors] = useState({
     userName: "",
     nickName: "",
+    gender:"",
     email: "",
     birthDay: "",
     userId: "",
@@ -53,12 +55,11 @@ const SubmitMain: React.FC = () => {
     } else {
       setForm({ ...form, [name]: value });
     }
-    // setForm({ ...form, [name]: value });
 
     setErrors((prevErrors) => {
       const newErrors = { ...prevErrors };
       if (name === "name" && value) newErrors.userName = "";
-      // if (name === "gender" && value) newErrors.gender = "";
+      if (name === "gender" && value) newErrors.gender = "";
       if (name === "birthDate" && value.match(/^\d{8}$/))
         newErrors.birthDay = "";
       if (name === "email" && value && form.emailDomain) newErrors.email = "";
@@ -110,7 +111,7 @@ const SubmitMain: React.FC = () => {
     const newErrors = { ...errors };
 
     if (!form.userName) newErrors.userName = "이름은 필수 정보입니다.";
-    // if (!form.gender) newErrors.gender = "성별을 선택하세요.";
+    if (!form.gender) newErrors.gender = "성별을 선택하세요.";
     if (!form.birthDay.match(/^\d{8}$/))
       newErrors.birthDay = "생년월일은 8자리숫자로 입력해주세요.";
     if (!form.email || !form.emailDomain)
@@ -130,6 +131,7 @@ const SubmitMain: React.FC = () => {
         const respose = await submitSignup({
           userName: form.userName,
           nickName: form.nickName,
+          gender: form.gender,
           email: `${form.email}@${form.emailDomain}`,
           birthDay: form.birthDayForm,
           userId: form.userId,
@@ -180,14 +182,14 @@ const SubmitMain: React.FC = () => {
           <label>성별</label>
           <GenderWrapper>
             <GenderButton
-              // selected={form.gender === "male"}
-              // onClick={() => setForm({ ...form, gender: "male" })}
+              selected={form.gender === "MALE"}
+              onClick={() => setForm({ ...form, gender: "MALE" })}
             >
               남자
             </GenderButton>
             <GenderButton
-              // selected={form.gender === "female"}
-              // onClick={() => setForm({ ...form, gender: "female" })}
+              selected={form.gender === "FEMALE"}
+              onClick={() => setForm({ ...form, gender: "FAMALE" })}
             >
               여자
             </GenderButton>
@@ -391,7 +393,7 @@ const GenderWrapper = styled.div`
   gap: 8px;
 `;
 
-const GenderButton = styled.button<{ selected?: boolean }>`
+const GenderButton = styled.button.attrs({type:"button"})<{ selected?: boolean }>`
   flex: 1;
   padding: 8px;
   font-size: 14px;
