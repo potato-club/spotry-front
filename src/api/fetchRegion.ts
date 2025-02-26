@@ -1,3 +1,4 @@
+import { getToken } from "../util/storage";
 import url from "./url";
 
 export const fetchRegion = async() => {
@@ -40,10 +41,29 @@ export const fetchSelectRegion = async() => {
     }
 }
 
-// export const PostSelectRegion = async() => {
-//     try {
-//         const res = await url.post();
-//     } catch (error) {
-        
-//     }
-// }
+export const postAddress = async (myCityId:number) => {
+    try {
+        const res = await url.post('/region/select',{
+            cityId: myCityId
+        },{
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': getToken()
+            }
+        }
+    )
+        alert('지역 설정 성공 : '+ res.data);
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const getSelectRegion = async () => {
+    try {
+        const res = await url.get('/region/')
+        return res;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}

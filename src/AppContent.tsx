@@ -13,10 +13,15 @@ import EachPost from "./components/eachPost/EachPost";
 import SubmitMain from "./components/SubmitLogin/SubmitPage";
 import LoginPage from "./components/Login/LoginPage";
 import WritePost from "./components/WritingPost/WritePost";
+import PrivateRoute from "./layout/PrivateRoute";
+import useClearToken from "./hook/useClearToken";
 
 
 const AppContent = () => {
+
   const location = useLocation();
+  
+  useClearToken();
 
     return (
         <div className="main">
@@ -34,17 +39,21 @@ const AppContent = () => {
                 )}
                 <Routes>
                     <Route path="/" element={<LoginPage/>}/>
-                    <Route path="/location" element={<MainLocation/>}/>
-                    <Route path="/main" element={<Main/>}/>
-                    <Route path="*" element={<Main/>}/>
-                    <Route path="/search" element={<SearchPage/>}/>
-                    <Route path="/crew" element={<CrewPage/>}/>
-                    <Route path="/post" element={<PostPage/>}/>
-                    <Route path="/mypage" element={<MyPage/>}/>
-                    <Route path="/result" element={<SearchResult/>}/>
-                    <Route path="/eachPost/:postId" element={<EachPost/>}/>
                     <Route path="/write" element={<WritePost/>}/>
                     <Route path="/signup" element={<SubmitMain/>}/>
+
+                    <Route element={<PrivateRoute/>}>
+                        <Route path="/location" element={<MainLocation/>}/>
+                        <Route path="/main" element={<Main/>}/>
+                        <Route path="/search" element={<SearchPage/>}/>
+                        <Route path="/crew" element={<CrewPage/>}/>
+                        <Route path="/post" element={<PostPage/>}/>
+                        <Route path="/mypage" element={<MyPage/>}/>
+                        <Route path="/result" element={<SearchResult/>}/>
+                        <Route path="/eachPost/:postId" element={<EachPost/>}/>
+                    </Route>
+
+                    <Route path="*" element={<Main/>}/>
                 </Routes>
             </Container>
         </div>

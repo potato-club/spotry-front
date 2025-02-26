@@ -2,8 +2,12 @@ import styled from "styled-components";
 import { Btn as OrginalBtn } from "../../styles/Container";
 import useLoginInput from "../../hook/useLoginInput";
 import { SubmitLogin } from "../../api/submitApi";
+import { useNavigate } from "react-router-dom";
 
 const IdPwInput: React.FC = () => {
+
+  const navigation = useNavigate();
+
   const idInput = useLoginInput("아이디 입력");
   const passwordInput = useLoginInput("비밀번호 입력");
 
@@ -16,9 +20,10 @@ const IdPwInput: React.FC = () => {
             userId: idInput.value,
             userPw: passwordInput.value
           });
-          console.log(response);
+          if(response?.status === 200){
+            navigation("/location");
+          }
         } catch (error) {
-          console.log("로그인 페이지에서 에러");
           console.error(error);
         }    
     } else{

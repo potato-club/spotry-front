@@ -5,8 +5,8 @@ import { ShowCities, ShowRegion, ShowTowns } from "./ShowRegion";
 import Process from "../process/Process";
 import styled from "styled-components";
 import SelectInfo from "../selecInfo/SelectInfo";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { postAddress } from "../../../../api/fetchRegion";
 
 interface HomeData {
     region: Region | null;
@@ -14,17 +14,20 @@ interface HomeData {
     town: Region | null;
 }
 
-
 const ShowingRegion = () => {
 
     const navigate = useNavigate();
 
-    const handleToMain = () => {
-        if(addressArray.length > 0){
-            handlePostAddress();
-            navigate("/main");
-        };
-    }
+    const handleToMain = async () => {
+        if (addressArray.length > 0) {
+            try {
+                await handlePostAddress(); 
+                navigate("/main");          
+            } catch (error) {
+                alert("주소 전송을 실패했습니다. navigation x");
+            }
+        }
+    };
 
     const [selectedRegion,setSelectedRegion] = useState<Region | null>(null);
     const [selectedCity,setSelectedCity] = useState<Region | null>(null);
@@ -84,17 +87,16 @@ const ShowingRegion = () => {
 
     const handlePostAddress = async () => {
         try {
-            const townIds = addressArray[0]
-            const response = await axios.post("https://sportry.site/region/select", {
-            townIds: townIds, 
-            });
-
-            console.log("주소 전송 성공:", response.data);
+            const townIds = addressArray[0].city?.id
+            if (townIds === undefined) {
+                alert('올바른 cityId 값을 찾을 수 없습니다.');
+                return;
+            }
+            const response = await postAddress(townIds);
         } catch (error) {
-            console.error("주소 전송 실패:", error);
+            throw error;
         };
     };
-    
 
     return (
         <Wrapper>

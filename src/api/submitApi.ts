@@ -1,4 +1,4 @@
-import { setToken } from "../util/storage";
+import { getToken, setToken } from "../util/storage";
 import url from "./url";
 
 export interface SignupForm {
@@ -52,18 +52,16 @@ export const SubmitLogin = async (loginData: { userId: string; userPw: string })
 
     if (response.status === 200) {
       const token = response.headers.authorization
-      console.log("받은 토큰:", token);
       if (token) {
         setToken(token);  
-        console.log("로그인 성공! 토큰을 확인했습니다. "+ token);
+        alert('로그인 성공')
       } else {
-        console.log("로그인 성공! 그러나 토큰을 찾을 수 없습니다.");
+        alert('토큰 에러')
       }
     }
-    return response.data;
+    return response;
   } catch (error) {
-    console.log("로그인 실패");
-    console.error("로그인 중 오류:", error);
+    alert('로그인 실패')
   }
 };
 
