@@ -137,7 +137,7 @@ const SubmitMain: React.FC = () => {
           userId: form.userId,
           userPw: form.userPw,
         });
-        console.log(respose);
+        navigate('/');
       } catch (error: any) {
         alert(error.message);
       }

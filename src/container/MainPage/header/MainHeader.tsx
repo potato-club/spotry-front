@@ -1,19 +1,38 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { getSelectRegion } from '../../../api/fetchRegion';
 
 const MainHeader: React.FC = () => {
     
+    const [myCity, setMyCity] = useState<any>();
     const navigation = useNavigate();
 
     const handleToSearch = () => {
         navigation("/search");
     };
 
+    const fetchMyCity = async () => {
+        try {
+            const response = await getSelectRegion();
+            console.log(response.data);
+            setMyCity(response.data);
+        } catch (error) {
+            alert("지역 불러오기 실패");
+        }
+    }
+
+    useEffect(() => {
+        fetchMyCity();
+    },[]);
+
     return (
         <HeadWrapper>
             <div>
                 <TownSelect>
-                    <TownOption/>
+                   <TownOption>
+                        {myCity}
+                   </TownOption>
                 </TownSelect>        
                 <img src='/images/Search.png' alt='검색' onClick={handleToSearch}/>
             </div>

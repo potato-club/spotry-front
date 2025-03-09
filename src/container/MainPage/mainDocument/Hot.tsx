@@ -12,22 +12,6 @@ const Hot = () => {
 
     const {DivRef,handleMouseDown,handleMouseUp,handleMouseMove} = useDargX();
 
-    // const[sport,setSport] = useState<Sport[]>([]);
-
-    // useEffect(()=> {
-    //     const fetchSportData = async() => {
-    //         try {
-    //             const data = await fetchSport();
-    //             setSport(data);
-    //         } catch (error) {
-    //             console.log(" 스포츠 에러입니다 : ",error);
-    //         }
-    //     }
-    //     fetchSportData();
-    // },[]);
-
-    // console.log(sport);
-
     return (
         <HotWrpaaer>
             <SectionTitle><strong>현재 HOT한 운동</strong></SectionTitle>
@@ -37,9 +21,6 @@ const Hot = () => {
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
             onMouseMove={handleMouseMove}>
-                {/* {sport.map((Item) => (
-                    <ExIcon>{Item.name}</ExIcon>
-                ))} */}
                 <ExIcon src='/images/football.png' alt='축구'/>
                 <ExIcon src='/images/running.png' alt='런닝'/>
                 <ExIcon src='/images/baseball.png' alt='야구'/>

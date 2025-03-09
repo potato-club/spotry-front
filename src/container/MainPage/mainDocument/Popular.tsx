@@ -1,23 +1,29 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import PopularData from '../../../tableData/PopularData.json';
 import useDargX from '../../../hook/useDargX';
 import { Link, useNavigate } from 'react-router-dom';
+import { getPopularPost } from '../../../api/postApi';
 
 const Popular = () => {
 
     const navigate = useNavigate();
 
-    const handleToEach = (post:any) => {
-        navigate(`eachPost/${post.id}`);
-    }
-
     const {DivRef,handleMouseDown,handleMouseUp,handleMouseMove} = useDargX();
 
-    const [Populars,setPopulars] = useState(PopularData);
+    const [populars,setPopulars] = useState([]);
 
-    // console.log(typeof(Populars));
-    // console.log(Array.isArray(Populars));
+    const getPopular = async () => {
+        try {
+            const res = await getPopularPost();
+            setPopulars(res);
+        } catch (error) {
+            alert("인기 게시글 불러오기 실패");
+        }
+    }
+
+    useEffect(() => {
+        getPopular();
+    },[]);
 
     return (
         <PopularWrapper>
@@ -31,22 +37,22 @@ const Popular = () => {
             onMouseUp={handleMouseUp}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseUp}>
-                {Populars.map((post,idx) => 
+                {populars.map((post,idx) => 
                     <PostInfo key={idx}>
-                        <Category>{post.sport}</Category>
+                        <Category></Category>
                         <Link to={`/eachPost/${idx}`}>
-                            <PostTitle>{post.title}</PostTitle>
+                            <PostTitle></PostTitle>
                         </Link>
                         
                         <InfoDiv>
                             <img src='/images/View_fill.png' alt='눈'/>
-                            <span>{post.viewCount}</span>
+                            <span></span>
                             <img src='/images/thumb_up.png' alt='코'/>
-                            <span>{post.likeCount}</span>
+                            <span></span>
                             <img src='/images/Chat_alt.png' alt='입'/>
-                            <span>{post.commentCount}</span>
+                            <span></span>
                         </InfoDiv>
-                        <PostImg src= {post.image} alt='post image'/>
+                        <PostImg src= '' alt='post image'/>
                     </PostInfo>
                 )}
             </PostDiv>
