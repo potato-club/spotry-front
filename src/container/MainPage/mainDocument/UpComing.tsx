@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PopularData from "../../../tableData/PopularData.json";
 import useDargX from "../../../hook/useDargX";
 import { Link } from "react-router-dom";
+import { getUpComingPost } from "../../../api/postApi";
 
 const UpComing = () => {
 
-    const [upComingPost, setUpComingPost] = useState(PopularData);
+    const [upComingPost, setUpComingPost] = useState([]);
     const { DivRef, handleMouseDown, handleMouseUp, handleMouseMove } = useDargX();
+
+    const getUpComing = async () => {
+        try {
+            const res = await getUpComingPost();
+            setUpComingPost(res);
+        } catch (error) {
+            alert("임박글 불러오기 성공");
+        }
+    }
+
+    useEffect(() => {
+        getUpComing();
+    },[]);
 
     return (
     <Wrapper>
@@ -27,15 +41,15 @@ const UpComing = () => {
         {upComingPost.map((post,idx) => (
             <UpcomingPost key={idx}>
                 <CategoryDiv>
-                    <Category>{post.sport}</Category>
+                    <Category></Category>
                 </CategoryDiv>
                 <div>
                     <Link to={`/eachPost/${idx}`}>
-                        <Titlediv>{post.title}</Titlediv>
+                        <Titlediv></Titlediv>
                     </Link>
                     <InfoDiv>
                         <img src="/images/thumb_up.png" alt="북바크" />
-                        <span>{post.likeCount}</span>
+                        <span></span>
                     </InfoDiv>
                 </div>
             </UpcomingPost>
