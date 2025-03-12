@@ -18,6 +18,7 @@ import useClearToken from "./hook/useClearToken";
 import FindID from "./components/FindChangeIdPw/FindID";
 import ChangePW from "./components/FindChangeIdPw/ChangePW";
 import VerifyUser from "./components/FindChangeIdPw/VerfyUser";
+import SplashMain from "./SplashPage/splashMain";
 
 const AppContent = () => {
   const location = useLocation();
@@ -28,25 +29,27 @@ const AppContent = () => {
     <div className="main">
       <Container>
         {location.pathname !== "/" &&
+          location.pathname !== "/loginPage" &&
           location.pathname !== "/search" &&
           location.pathname !== "/write" &&
           location.pathname !== "/location" &&
           location.pathname !== "/signup" &&
-          location.pathname !== "/finID" &&
+          location.pathname !== "/findID" &&
           location.pathname !== "/changePW" &&
-          location.pathname !== "/verfiyUser" && (
+          location.pathname !== "/verifyUser" && (
             <>
               <MainHeader />
               <MainBar />
             </>
           )}
         <Routes>
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/" element={<SplashMain />} />
+          <Route path="/loginPage" element={<LoginPage />} />
           <Route path="/write" element={<WritePost />} />
           <Route path="/signup" element={<SubmitMain />} />
           <Route path="/findID" element={<FindID />} />
           <Route path="/changePW" element={<ChangePW />} />
-          <Route path="/verfiyUser" element={<VerifyUser />} />
+          <Route path="/verifyUser" element={<VerifyUser />} />
 
           <Route element={<PrivateRoute />}>
             <Route path="/location" element={<MainLocation />} />

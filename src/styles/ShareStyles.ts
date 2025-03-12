@@ -36,22 +36,6 @@ export const Input = styled.input`
   font-size: 1rem;
 `;
 
-export const Button = styled.button`
-  background-color: #b0ff5e;
-  color: #000000;
-  border: none;
-  border-radius: 4px;
-  padding: 0.75rem;
-  font-size: 1rem;
-  font-weight: bold;
-  margin-top: 1rem;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #9af542;
-  }
-`;
-
 export const ResultText = styled.p`
   color: #b0ff5e;
   font-size: 1rem;

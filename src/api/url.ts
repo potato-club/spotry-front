@@ -17,7 +17,7 @@ const url = axios.create({
 
 // url.interceptors.request.use(
 //   (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-    
+
 //     const token = getAccessToken();
 //     if (!token) {
 //       console.warn("[인터셉터] 토큰이 없습니다! (undefined)");
@@ -67,12 +67,9 @@ const url = axios.create({
 
 export default url;
 
-
-
 // const beforReq = (config: any) => {
-  
-// }
 
+// }
 
 // const refreshJwt = async (accessToken: any, refreshToken: any) => {
 //   try {
@@ -87,4 +84,3 @@ export default url;
 //     throw new Error("Failed to refresh token");
 //   }
 // };
-
