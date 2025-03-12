@@ -37,37 +37,38 @@ export const submitSignup = async (formData: SignupForm): Promise<void> => {
         "Content-Type": "application/json",
       },
     });
-    
+
     alert("회원가입 성공!");
-    
   } catch (error) {
     console.error("회원가입 중 오류:", error);
     throw new Error("회원가입 중 오류가 발생했습니다.");
   }
 };
 
-export const SubmitLogin = async (loginData: { userId: string; userPw: string }) => {
+export const SubmitLogin = async (loginData: {
+  userId: string;
+  userPw: string;
+}) => {
   try {
     const response = await url.post("/auth/login", loginData);
 
     if (response.status === 200) {
-      const token = response.headers.authorization
+      const token = response.headers.authorization;
       if (token) {
-        setToken(token);  
-        alert('로그인 성공')
+        setToken(token);
+        alert("로그인 성공");
       } else {
-        alert('토큰 에러')
+        alert("토큰 에러");
       }
     }
     return response;
   } catch (error) {
-    alert('로그인 실패')
+    alert("로그인 실패");
   }
 };
 
-
 // console.log('모든 응답 헤더:', response.headers);
-      
+
 // console.log('Authorization 헤더:', response.headers.authorization);
 // console.log('Authorization 헤더 (대문자):', response.headers.Authorization);
 // console.log('Set-Cookie 헤더:', response.headers['set-cookie']);
@@ -101,8 +102,6 @@ export const SubmitLogin = async (loginData: { userId: string; userPw: string })
 //     console.error("로그인 중 오류:", error);
 //   }
 // };
-
-
 
 // export const SubmitLogin = async (loginData: {userId: string, userPw: string}) => {
 //   try {
