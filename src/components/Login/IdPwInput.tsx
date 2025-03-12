@@ -3,6 +3,7 @@ import { Btn as OrginalBtn } from "../../styles/Container";
 import useLoginInput from "../../hook/useLoginInput";
 import { SubmitLogin } from "../../api/submitApi";
 import { useNavigate } from "react-router-dom";
+import { getSelectRegion } from "../../api/fetchRegion";
 
 const IdPwInput: React.FC = () => {
 
@@ -10,8 +11,6 @@ const IdPwInput: React.FC = () => {
 
   const idInput = useLoginInput("아이디 입력");
   const passwordInput = useLoginInput("비밀번호 입력");
-
-  // const [loingInfo, setLoginInfo] = useState({userId : "", userPw : ""});
 
   const handleLogin = async () => {
     if(idInput.value !== " " || passwordInput.value !== " "){
@@ -21,7 +20,12 @@ const IdPwInput: React.FC = () => {
             userPw: passwordInput.value
           });
           if(response?.status === 200){
-            navigation("/location");
+            const selected = await getSelectRegion();
+            console.log(selected)
+            if(selected?.status === 200)
+              {navigation('/main')}
+            else
+            {navigation('/location');}
           }
         } catch (error) {
           console.error(error);

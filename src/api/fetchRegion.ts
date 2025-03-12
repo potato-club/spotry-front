@@ -60,7 +60,11 @@ export const postAddress = async (myCityId:number) => {
 
 export const getSelectRegion = async () => {
     try {
-        const res = await url.get('/region/')
+        const res = await url.get('/region/', {
+            headers:{
+                'Authorization': getToken()
+            }
+        })
         return res;
     } catch (error) {
         console.log(error);

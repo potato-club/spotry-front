@@ -4,7 +4,7 @@ const BASE_URL = "https://sportry.site";
 
 const url = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true,
+  withCredentials: true
 });
 
 // , { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse }
@@ -68,9 +68,7 @@ const url = axios.create({
 export default url;
 
 // const beforReq = (config: any) => {
-
 // }
-
 // const refreshJwt = async (accessToken: any, refreshToken: any) => {
 //   try {
 //     const res = await axios.get(

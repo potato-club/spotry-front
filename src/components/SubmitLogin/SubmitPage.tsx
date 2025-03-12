@@ -140,7 +140,7 @@ const SubmitMain: React.FC = () => {
           userId: form.userId,
           userPw: form.userPw,
         });
-        console.log("회원가입 응답:", respose);
+        navigate('/');
       } catch (error: any) {
         alert(error.message);
       }
