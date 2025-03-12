@@ -28,9 +28,10 @@ const VerifyUser: React.FC = () => {
 
     const user = dummyUsers.find((u) => u.name === name && u.email === email);
     if (user) {
-      navigate("/reset-password", { state: { userId: user.id } });
+      navigate("/changePW", { state: { userId: user.id } });
     } else {
       setError("일치하는 회원 정보가 없습니다.");
+      console.log("뭐하냐? ㅋㅋ");
     }
   };
 

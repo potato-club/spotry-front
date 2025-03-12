@@ -4,20 +4,19 @@ import { checkEmail, checkId, submitSignup } from "../../api/submitApi";
 import { useNavigate } from "react-router-dom";
 
 const SubmitMain: React.FC = () => {
-
   const navigate = useNavigate();
 
   const toPrev = () => {
     navigate(-1);
-  }
+  };
 
   const [form, setForm] = useState({
     userName: "",
-    gender:"", 
+    gender: "",
     nickName: "",
     email: "",
     birthDay: "",
-    birthDayForm:"",
+    birthDayForm: "",
     userId: "",
     userPw: "",
     emailDomain: "",
@@ -27,7 +26,7 @@ const SubmitMain: React.FC = () => {
   const [errors, setErrors] = useState({
     userName: "",
     nickName: "",
-    gender:"",
+    gender: "",
     email: "",
     birthDay: "",
     userId: "",
@@ -42,15 +41,19 @@ const SubmitMain: React.FC = () => {
   ) => {
     const { name, value } = e.target;
     if (name === "birthDay") {
-      const onlyNumbers = value.replace(/\D/g, ""); 
-      if (onlyNumbers.length > 8) return; 
+      const onlyNumbers = value.replace(/\D/g, "");
+      if (onlyNumbers.length > 8) return;
       setForm({ ...form, [name]: onlyNumbers });
       if (onlyNumbers.length === 8) {
         const formattedDate = onlyNumbers.replace(
           /^(\d{4})(\d{2})(\d{2})$/,
           "$1-$2-$3"
         );
-        setForm({ ...form, birthDayForm: formattedDate, birthDay: onlyNumbers }); 
+        setForm({
+          ...form,
+          birthDayForm: formattedDate,
+          birthDay: onlyNumbers,
+        });
       }
     } else {
       setForm({ ...form, [name]: value });
@@ -127,7 +130,7 @@ const SubmitMain: React.FC = () => {
 
     if (Object.values(newErrors).every((error) => !error)) {
       try {
-        // console.log("Submit form:", form);
+        console.log("회원가입 요청 데이터:", form);
         const respose = await submitSignup({
           userName: form.userName,
           nickName: form.nickName,
@@ -137,7 +140,7 @@ const SubmitMain: React.FC = () => {
           userId: form.userId,
           userPw: form.userPw,
         });
-        console.log(respose);
+        console.log("회원가입 응답:", respose);
       } catch (error: any) {
         alert(error.message);
       }
@@ -189,7 +192,7 @@ const SubmitMain: React.FC = () => {
             </GenderButton>
             <GenderButton
               selected={form.gender === "FEMALE"}
-              onClick={() => setForm({ ...form, gender: "FAMALE" })}
+              onClick={() => setForm({ ...form, gender: "FEMALE" })}
             >
               여자
             </GenderButton>
@@ -393,7 +396,9 @@ const GenderWrapper = styled.div`
   gap: 8px;
 `;
 
-const GenderButton = styled.button.attrs({type:"button"})<{ selected?: boolean }>`
+const GenderButton = styled.button.attrs({ type: "button" })<{
+  selected?: boolean;
+}>`
   flex: 1;
   padding: 8px;
   font-size: 14px;

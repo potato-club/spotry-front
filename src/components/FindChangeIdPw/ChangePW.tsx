@@ -20,16 +20,16 @@ const ChangePW: React.FC = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // 인증된 사용자 정보가 없으면 접근 차단
-  if (!userId) {
-    return (
-      <Container>
-        <ErrorText>
-          잘못된 접근입니다. 먼저 사용자 인증을 진행해주세요.
-        </ErrorText>
-      </Container>
-    );
-  }
+  // // 인증된 사용자 정보가 없으면 접근 차단
+  // if (!userId) {
+  //   return (
+  //     <Container>
+  //       <ErrorText>
+  //         잘못된 접근입니다. 먼저 사용자 인증을 진행해주세요.
+  //       </ErrorText>
+  //     </Container>
+  //   );
+  // }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
