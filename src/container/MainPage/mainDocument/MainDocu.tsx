@@ -1,4 +1,3 @@
-import React from 'react';
 import Hot from './Hot';
 import Popular from './Popular';
 import UpComing from './UpComing';

@@ -15,7 +15,6 @@ const MainHeader: React.FC = () => {
     const fetchMyCity = async () => {
         try {
             const response = await getSelectRegion();
-            console.log(response.data);
             setMyCity(response.data);
         } catch (error) {
             alert("지역 불러오기 실패");

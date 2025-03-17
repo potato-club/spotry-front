@@ -1,8 +1,42 @@
 import styled from 'styled-components';
 import LikeIcon from '../../Data/LikeSvg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getEachPost } from '../../../api/postApi';
+
+interface eachPost{
+    nickName: "string",
+    region: "string",
+    postDate: "string",
+    title: "string",
+    content: "string",
+    postState: "string",
+    sport: "string",
+    viewCount: 0,
+    likeCount: 0,
+    commentCount: 0,
+    tag: [
+      "string"
+    ]
+}
 
 const Detail = () => {
+
+    const [eachPost, setEachPost] = useState<eachPost>();
+    const {postId} = useParams();
+    const id = postId ? parseInt(postId) : null
+
+    useEffect(() => {
+        const fetchEachPost = async () => {
+            try {
+                const response = await getEachPost(id)
+                setEachPost(response.data)
+            } catch (error) {
+                alert("게시글을 불러오지 못했습니다")
+            }
+        }
+        fetchEachPost();
+    },[])
 
     const [isLike, setIsLike] = useState<boolean>(false);
 
@@ -16,8 +50,8 @@ const Detail = () => {
                 <Profile>
                     <img src='' alt='프로필'/>
                     <ProInfo>
-                        <span>닉네임</span>
-                        <span>위치/생성날</span>
+                        <span>{eachPost?.nickName}</span>
+                        <span>{eachPost?.region} / {eachPost?.postDate}</span>
                     </ProInfo>
                 </Profile>
                 <LikeDiv>
@@ -26,53 +60,27 @@ const Detail = () => {
             </ProfileWrapper>
             <CategoryWrapper>
                 <Category>
-                    sport
+                    {eachPost?.sport}
                 </Category>
                 <Category>
-                    모집 현황
+                    {eachPost?.postState}
                 </Category>
             </CategoryWrapper>
             <ScriptDiv>
                 <Title>
-                    제목
+                    {eachPost?.title}
                 </Title>
                 <DetailScript>
-                이 편지는 영국에서 시작되어 행운을 전하기 위해 전해져 내려오는 편지입니다.
-                이 편지를 받은 당신은 이미 행운을 손에 넣은 것입니다!
-                단, 이 편지는 24시간 이내에 꼭 7명에게 전달해야 합니다.
-                그렇지 않으면...
-                행운이 날아가버리고 작은 불행이 찾아올지도 몰라요! 🙀
-
-                ✨ 행운의 법칙 ✨
-                1️⃣ 이 편지를 받고 미소 지어보세요. 😊
-
-                오늘 하루 당신에게 좋은 일이 생길 거예요!
-                2️⃣ 이 편지를 다른 7명에게 전해주세요.
-
-                새로운 인연과 기쁜 소식이 찾아올 거예요!
-                3️⃣ 편지를 전달한 뒤, 기다려보세요.
-
-                당신이 상상하지 못한 행운이 문을 두드릴 거예요. 🚪✨
-                이 작은 편지 한 장이 당신과 주변 사람들에게 얼마나 큰 행운을 가져다줄지 모릅니다.
-                자, 지금 바로 행운을 나눠주세요! 🌟
-
-                행운이 함께하길 바라며,
-                당신의 하루가 빛나기를! 🌈
-
-                P.S.
-                믿거나 말거나, 행운은 당신의 손끝에서 시작됩니다! 😉
+                    {eachPost?.content}
                 </DetailScript>
             </ScriptDiv>
             <TagDiv>
                 <Tags>
-                    #축구
-                </Tags>
-                <Tags>
-                    #농구
+                {eachPost?.tag}
                 </Tags>
             </TagDiv>
             <ViewConut>
-                조회수
+                {eachPost?.viewCount}
             </ViewConut>
         </Details>
     );

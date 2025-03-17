@@ -20,7 +20,7 @@ const WriteButton: React.FC = () => {
 };
 
 const WriteButtonContainer = styled.button`
-  position: fixed;
+  position: absolute;
   bottom: 30px;
   right: 30px;
   width: 60px;

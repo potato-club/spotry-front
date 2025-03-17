@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import PopularData from "../../../tableData/PopularData.json";
 import useDargX from "../../../hook/useDargX";
 import { Link } from "react-router-dom";
 import { getUpComingPost } from "../../../api/postApi";
 
+interface UpComingInter{
+    id: number,
+    title: string
+    tags:string[]
+}
+
 const UpComing = () => {
 
-    const [upComingPost, setUpComingPost] = useState([]);
+    const [upComingPost, setUpComingPost] = useState<UpComingInter[]>([]);
     const { DivRef, handleMouseDown, handleMouseUp, handleMouseMove } = useDargX();
 
     const getUpComing = async () => {
@@ -44,9 +49,9 @@ const UpComing = () => {
                     <Category></Category>
                 </CategoryDiv>
                 <div>
-                    <Link to={`/eachPost/${idx}`}>
-                        <Titlediv></Titlediv>
-                    </Link>
+                    <StyledLink to={`/eachPost/${post.id}`}>
+                        <Titlediv>{post.title}</Titlediv>
+                    </StyledLink>
                     <InfoDiv>
                         <img src="/images/thumb_up.png" alt="북바크" />
                         <span></span>
@@ -141,4 +146,8 @@ align-items: center;
 span{
     margin-left: 3px;
 }
+`
+const StyledLink = styled(Link)`
+    text-decoration: none; 
+    color: white; 
 `

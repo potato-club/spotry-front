@@ -1,6 +1,107 @@
 import React, { useState } from "react";
-import axios from "axios";
 import styled from "styled-components";
+import { writePost } from "../../api/postApi";
+
+interface PostInter {
+  title: string,
+  content: string,
+  postState: string,
+  sport: string,
+  tag: string[],
+  images: string[]
+}
+
+const WritePost: React.FC = () => {
+  const [postData, setPostData] = useState<PostInter>({
+    title: "",
+    content: "",
+    postState: "",
+    sport: "",
+    tag: [""],
+    images: [],
+  });
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [state, setState] = useState("ING");
+  const [isCategoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
+  
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("content", content);
+      formData.append("postState", state);
+      formData.append("sport", "축구");
+      postData.tag.forEach(tag => {
+        formData.append("tag", tag);
+      });
+      postData.images.forEach(image => {
+        formData.append("images", image);
+      });
+      
+      const response = await writePost(formData);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <>
+      <PostCreationContainer isBlurred={isCategoryDropdownOpen}>
+        <Header>
+          <Button onClick={() => window.history.back()}>X</Button>
+          <Button onClick={() => setCategoryDropdownOpen(!isCategoryDropdownOpen)}>
+            {state}
+          </Button>
+          <Button onClick={handleSubmit}>완료</Button>
+        </Header>
+
+        <Input
+          type="text"
+          placeholder="제목을 입력해주세요."
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <TextArea
+          placeholder="본문에 #을 활용해 태그를 작성해보세요! (최대 5개)"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+      </PostCreationContainer>
+      {isCategoryDropdownOpen && (
+        <CategoryDropdown>
+          <div
+            onClick={() => {
+              setState("ING");
+              setCategoryDropdownOpen(false);
+            }}
+          >
+            모집중
+          </div>
+          <div
+            onClick={() => {
+              setState("ABOUT");
+              setCategoryDropdownOpen(false);
+            }}
+          >
+            모집임박
+          </div>
+          <div
+            onClick={() => {
+              setState("END");
+              setCategoryDropdownOpen(false);
+            }}
+          >
+            모집완료
+          </div>
+        </CategoryDropdown>
+      )}
+    </>
+  );
+};
+
+export default WritePost;
 
 const PostCreationContainer = styled.div<{ isBlurred: boolean }>`
   background-color: ${(props) =>
@@ -69,82 +170,3 @@ const TextArea = styled.textarea`
   font-size: 16px;
   height: 150px;
 `;
-
-const WritePost: React.FC = () => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [category, setCategory] = useState("모집중");
-  const [isCategoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
-
-  const handleSubmit = async () => {
-    try {
-      const postData = {
-        title,
-        content,
-        category,
-      };
-      await axios.post("/api/posts", postData);
-      alert("게시물이 성공적으로 업로드되었습니다!");
-    } catch (error) {
-      console.error("게시물 업로드에 실패했습니다.", error);
-    }
-  };
-
-  return (
-    <>
-      <PostCreationContainer isBlurred={isCategoryDropdownOpen}>
-        <Header>
-          <Button onClick={() => window.history.back()}>X</Button>
-          <Button
-            onClick={() => setCategoryDropdownOpen(!isCategoryDropdownOpen)}
-          >
-            {category}
-          </Button>
-          <Button onClick={handleSubmit}>완료</Button>
-        </Header>
-
-        <Input
-          type="text"
-          placeholder="제목을 입력해주세요."
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <TextArea
-          placeholder="본문에 #을 활용해 태그를 작성해보세요! (최대 5개)"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
-      </PostCreationContainer>
-      {isCategoryDropdownOpen && (
-        <CategoryDropdown>
-          <div
-            onClick={() => {
-              setCategory("모집중");
-              setCategoryDropdownOpen(false);
-            }}
-          >
-            모집중
-          </div>
-          <div
-            onClick={() => {
-              setCategory("모집임박");
-              setCategoryDropdownOpen(false);
-            }}
-          >
-            모집임박
-          </div>
-          <div
-            onClick={() => {
-              setCategory("모집완료");
-              setCategoryDropdownOpen(false);
-            }}
-          >
-            모집완료
-          </div>
-        </CategoryDropdown>
-      )}
-    </>
-  );
-};
-
-export default WritePost;

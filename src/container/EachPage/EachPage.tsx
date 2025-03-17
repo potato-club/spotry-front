@@ -5,55 +5,19 @@ import useDragY from '../../hook/useDragY';
 import useInfiniteScroll from '../../hook/useInfiniteScroll';
 import { useNavigate } from 'react-router-dom';
 
-interface Post {
-    createdDate: string;
-    title: string;
-    content: string;
-    postState: string;
-    sport: string;
-    viewCount: number;
-    likeCount: number;
-    commentCount: number;
-    tag: string[];
-    image: string;
-}
-
-interface EachPageProps {
-    resultPost: Post[];
-}
-
-const EachPage: React.FC<EachPageProps> = ({ resultPost }) => {
+const EachPage: React.FC<any> = ({ resultPost }) => {
 
     const navigate = useNavigate();
-
-    const calculateRelativeTime = (createDate: string) => {
-        const created = new Date(createDate).getTime();
-        const now = new Date().getTime();
-        const relative = now - created;
-
-        const diffInSeconds = Math.floor(relative / 1000);
-        const diffInMinutes = Math.floor(diffInSeconds / 60);
-        const diffInHours = Math.floor(diffInMinutes / 60);
-        const diffInDays = Math.floor(diffInHours / 24);
-        const diffInMonths = Math.floor(diffInDays / 30);
-        const diffInYears = Math.floor(diffInMonths / 12);
-
-        if (diffInYears > 0) return `${diffInYears}년전`;
-        if (diffInMonths > 0) return `${diffInMonths}개월전`;
-        if (diffInDays > 0) return `${diffInDays}일전`;
-        if (diffInHours > 0) return `${diffInHours}시간전`;
-        if (diffInMinutes > 0) return `${diffInMinutes}분전`;
-        return `${diffInSeconds}초전`;
-    };
 
     const handleClickPost = (postId:number) => {
         navigate(`/eachPost/${postId}`);
     };
     
-    const [posts, setPosts] = useState(resultPost.map(post => ({
-        ...post,
-        relativeTime: calculateRelativeTime(post.createdDate), 
-    })));
+    // resultPost.map(post => ({
+    //     ...post,
+    // }))
+
+    const [posts, setPosts] = useState<any[]>([]);
 
     const { divRef, handleMouseDown, handleMouseUp, handleMouseMove } = useDragY();
     const { isEnd } = useInfiniteScroll(divRef);
@@ -74,10 +38,9 @@ const EachPage: React.FC<EachPageProps> = ({ resultPost }) => {
                 image: '',
             })).map(post => ({
                 ...post,
-                relativeTime: calculateRelativeTime(post.createdDate),
             }));
 
-            setPosts(prev => [...prev, ...newPosts]);
+            // setPosts(prev => [...prev, ...newPosts]);
         }, 3000);
     };
 
@@ -97,27 +60,30 @@ const EachPage: React.FC<EachPageProps> = ({ resultPost }) => {
         >
             {posts.map((value, idx) => (
                 <PostInfoDiv key={idx}>
-                    <Category>{value.sport}</Category>
+                    <Category>
+                        {/* {value.sport} */}
+                    </Category>
                     <div onClick={() => {
                         handleClickPost(idx);
-                    }}>{value.title}</div>
+                    }}>
+                        {/* {value.title} */}
+                        </div>
                     <TagWrapper>
-                        {value.tag.map((tag, index) => (
+                        {/* {value.tag.map((tag, index) => (
                             <Tag key={index}>#{tag}</Tag>
-                        ))}
+                        ))} */}
                     </TagWrapper>
                     <InfoWrapper>
                         <WhenAndView>
-                            <span>{value.relativeTime}&middot;</span>
-                            <span>조회 {value.viewCount}</span>
+                            {/* <span>조회 {value.viewCount}</span> */}
                         </WhenAndView>
                         <LikeAndComment>
-                            <div>
+                            {/* <div>
                                 <img src="/images/like.png" alt="view" />
                                 <span>{value.likeCount}</span>
                                 <img src="/images/Chat_alt.png" alt="댓글" />
                                 <span>{value.commentCount}</span>
-                            </div>
+                            </div> */}
                         </LikeAndComment>
                     </InfoWrapper>
                 </PostInfoDiv>

@@ -20,12 +20,13 @@ const IdPwInput: React.FC = () => {
             userPw: passwordInput.value
           });
           if(response?.status === 200){
-            const selected = await getSelectRegion();
-            console.log(selected)
-            if(selected?.status === 200)
-              {navigation('/main')}
-            else
-            {navigation('/location');}
+            try {
+              const selected = await getSelectRegion();
+              console.log(selected)
+              navigation('/main');
+            } catch (error) {
+              navigation('/location');
+            }
           }
         } catch (error) {
           console.error(error);

@@ -38,6 +38,7 @@ export const fetchSelectRegion = async() => {
         return res.data;
     } catch (error) {
         console.log("저장 region 에러 : ",error);
+        throw error;
     }
 }
 

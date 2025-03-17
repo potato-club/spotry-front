@@ -11,8 +11,6 @@ const PrivateRoute = () => {
             setIsAuthenticated(!!getToken());
         };
 
-        
-
         window.addEventListener("storage", checkAuth);
         return () => {
             window.removeEventListener("storage", checkAuth);
