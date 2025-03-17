@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import useDargX from '../../../hook/useDargX';
 import { useEffect, useState } from 'react';
-import { fetchSport } from '../../../api/fetchSport';
+import { getSport } from '../../../api/fetchSport';
 
 interface Sport{
     id:number,
@@ -9,6 +9,20 @@ interface Sport{
 }
 
 const Hot = () => {
+
+    const [sports,setSports] = useState<Sport[]>([])
+
+    useEffect(() => {
+        const fetchSport = async () => {
+            try {
+                const response = await getSport()
+                return response.data;
+            } catch (error) {
+                alert('운동을 못 불러왔어요')
+            }
+        }
+        fetchSport();
+    },[]);
 
     const {DivRef,handleMouseDown,handleMouseUp,handleMouseMove} = useDargX();
 

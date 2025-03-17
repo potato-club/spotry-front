@@ -4,13 +4,22 @@ import useDargX from '../../../hook/useDargX';
 import { Link, useNavigate } from 'react-router-dom';
 import { getPopularPost } from '../../../api/postApi';
 
+interface popluar{
+    id: 0,
+    title: "string",
+    tags: "string",
+    viewCount: 0,
+    postLikes: 0,
+    commentCounts: 0
+}
+
 const Popular = () => {
 
     const navigate = useNavigate();
 
     const {DivRef,handleMouseDown,handleMouseUp,handleMouseMove} = useDargX();
 
-    const [populars,setPopulars] = useState([]);
+    const [populars,setPopulars] = useState<popluar[]>([]);
 
     const getPopular = async () => {
         try {
@@ -40,9 +49,9 @@ const Popular = () => {
                 {populars.map((post,idx) => 
                     <PostInfo key={idx}>
                         <Category></Category>
-                        <Link to={`/eachPost/${idx}`}>
-                            <PostTitle></PostTitle>
-                        </Link>
+                        <StyledLink to={`/eachPost/${post.id}`}>
+                            <PostTitle>{post.title}</PostTitle>
+                        </StyledLink>
                         
                         <InfoDiv>
                             <img src='/images/View_fill.png' alt='눈'/>
@@ -151,4 +160,9 @@ const InfoDiv = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+`
+
+const StyledLink = styled(Link)`
+    text-decoration: none; 
+    color: white; 
 `
