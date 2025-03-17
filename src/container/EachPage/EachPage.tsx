@@ -5,23 +5,6 @@ import useDragY from '../../hook/useDragY';
 import useInfiniteScroll from '../../hook/useInfiniteScroll';
 import { useNavigate } from 'react-router-dom';
 
-// interface Post {
-//     createdDate: string;
-//     title: string;
-//     content: string;
-//     postState: string;
-//     sport: string;
-//     viewCount: number;
-//     likeCount: number;
-//     commentCount: number;
-//     tag: string[];
-//     image: string;
-// }
-
-// interface EachPageProps {
-//     resultPost: Post[];
-// }
-
 const EachPage: React.FC<any> = ({ resultPost }) => {
 
     const navigate = useNavigate();
@@ -34,7 +17,7 @@ const EachPage: React.FC<any> = ({ resultPost }) => {
     //     ...post,
     // }))
 
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState<any[]>([]);
 
     const { divRef, handleMouseDown, handleMouseUp, handleMouseMove } = useDragY();
     const { isEnd } = useInfiniteScroll(divRef);

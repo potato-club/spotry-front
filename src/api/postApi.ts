@@ -1,15 +1,6 @@
 import { getToken } from "../util/storage";
 import url from "./url"
 
-// interface PostInter {
-//     title: string,
-//     content: string,
-//     postState: string,
-//     sport: string,
-//     tag: string[],
-//     images: string[]
-// }
-
 export const getPopularPost = async () => {
     try {
         const response = await url.get('/main/hot');
