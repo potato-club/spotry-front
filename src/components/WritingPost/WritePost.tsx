@@ -16,7 +16,7 @@ const WritePost: React.FC = () => {
     title: "",
     content: "",
     postState: "",
-    sport: "",
+    sport: "축구",
     tag: [""],
     images: [],
   });
