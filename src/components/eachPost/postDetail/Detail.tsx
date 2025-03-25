@@ -29,8 +29,8 @@ const Detail = () => {
     useEffect(() => {
         const fetchEachPost = async () => {
             try {
-                const response = await getEachPost(id)
-                setEachPost(response.data)
+                const response = await getEachPost(id);
+                setEachPost(response)
             } catch (error) {
                 alert("게시글을 불러오지 못했습니다")
             }
