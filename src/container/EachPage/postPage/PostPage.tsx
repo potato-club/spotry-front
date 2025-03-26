@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { getMainPost } from '../../../api/postApi';
 
 interface mainPost{
-    id: 0,
-    title: "string",
-    sport: "string",
-    likeCount: 0
+    id: number;
+    title: string;
+    sport: string;
+    likeCount: number;
 }
 
 const PostPage = () => {
@@ -18,7 +18,7 @@ const PostPage = () => {
         const fetchMain = async () => {
             try {
                 const response = await getMainPost();
-                console.log(response);
+                console.log(response)
                 setResultPost(response)
             } catch (error) {
                 alert('mainPost 불러오기 실패');
