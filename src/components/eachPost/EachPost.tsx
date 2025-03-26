@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Detail from "./postDetail/Detail";
 import Comments from "./postComment/Comments";
 import useDragY from "../../hook/useDragY";
-// import ShowComment from "./postComment/ShowComment";
 
 const EachPost = () => {
   
@@ -18,7 +17,6 @@ const EachPost = () => {
       <Detail />
       <Separater />
       <Comments/>
-      {/* <ShowComment /> */}
     </Wrapper>
   );
 };

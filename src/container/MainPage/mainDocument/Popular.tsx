@@ -5,12 +5,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getPopularPost } from '../../../api/postApi';
 
 interface popluar{
-    id: 0,
-    title: "string",
-    tags: "string",
-    viewCount: 0,
-    postLikes: 0,
-    commentCounts: 0
+    id: number,
+    title: string,
+    tags: string,
+    viewCount: number,
+    postLikes: number,
+    commentCounts: number
 }
 
 const Popular = () => {
@@ -55,13 +55,13 @@ const Popular = () => {
                         
                         <InfoDiv>
                             <img src='/images/View_fill.png' alt='눈'/>
-                            <span></span>
+                            <span>{post.viewCount}</span>
                             <img src='/images/thumb_up.png' alt='코'/>
-                            <span></span>
+                            <span>{post.postLikes}</span>
                             <img src='/images/Chat_alt.png' alt='입'/>
-                            <span></span>
+                            <span>{post.commentCounts}</span>
                         </InfoDiv>
-                        <PostImg src= '' alt='post image'/>
+                        <PostImg src= '' alt=''/>
                     </PostInfo>
                 )}
             </PostDiv>

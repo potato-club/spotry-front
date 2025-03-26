@@ -1,26 +1,26 @@
 import styled from 'styled-components';
 import LikeIcon from '../../Data/LikeSvg';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getEachPost } from '../../../api/postApi';
+import { useNavigate, useParams } from 'react-router-dom';
+import { clickLike, deletePost, getEachPost } from '../../../api/postApi';
 
 interface eachPost{
-    nickName: "string",
-    region: "string",
-    postDate: "string",
-    title: "string",
-    content: "string",
-    postState: "string",
-    sport: "string",
-    viewCount: 0,
-    likeCount: 0,
-    commentCount: 0,
-    tag: [
-      "string"
-    ]
+    nickName: string,
+    region: string,
+    postDate: string,
+    title: string,
+    content:string,
+    postState: string,
+    sport: string,
+    viewCount: number,
+    likeCount: number,
+    commentCount: number,
+    tag: string[]
 }
 
 const Detail = () => {
+
+    const navigate = useNavigate();
 
     const [eachPost, setEachPost] = useState<eachPost>();
     const {postId} = useParams();
@@ -40,15 +40,42 @@ const Detail = () => {
 
     const [isLike, setIsLike] = useState<boolean>(false);
 
-    const toggleIcon = () => {
+    const toggleIcon = async () => {
         setIsLike((prev) => !prev);
     }
+
+    useEffect(() => {
+        if (isLike) {
+            const likePost = async () => {
+                try {
+                    await clickLike(id);
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+            likePost();
+        }
+    }, [isLike, id]);
     
+    const handleDelete = async () => {
+        const confirmDelete = window.confirm("정말로 삭제하시겠습니까?");
+        if (!confirmDelete) return;
+
+        try {
+            const response = await deletePost(id);
+            alert("삭제되었습니다.");
+            navigate('/post')
+            return response;
+        } catch (error) {
+            alert('삭제 실패')
+        }
+    }
+
     return (
         <Details>
             <ProfileWrapper>
                 <Profile>
-                    <img src='' alt='프로필'/>
+                    <img src='' alt=''/>
                     <ProInfo>
                         <span>{eachPost?.nickName}</span>
                         <span>{eachPost?.region} / {eachPost?.postDate}</span>
@@ -80,8 +107,10 @@ const Detail = () => {
                 </Tags>
             </TagDiv>
             <ViewConut>
-                {eachPost?.viewCount}
+                조회수 : {eachPost?.viewCount}
             </ViewConut>
+            <button onClick={() => handleDelete()}>삭제</button>
+            <button>수정</button>
         </Details>
     );
 };

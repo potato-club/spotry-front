@@ -63,8 +63,8 @@ export const writePost = async (formData: FormData) => {
 
 export const getEachPost = async (id:number | null) => {
     try {
-        console.log(typeof id)
-        console.log(id)
+        // console.log(typeof id)
+        // console.log(id)
         const response = await url.get(`/post/${id}`,{
             headers:{
                 'Authorization': getToken(),
@@ -76,18 +76,28 @@ export const getEachPost = async (id:number | null) => {
     }
 }
 
-// 500 에러
-// export const writePost = async (formData: PostInter) => {
-//     try {
-//         const response = await url.post('/post',formData, {
-//             headers:{
-//                 'Authorization': getToken(),
-//             }
-//         })
-//         return response;
-//     } catch (error) {
-//         console.log('포스팅 실패')
-//         console.log(error)
-//         throw error;
-//     }
-// }
+export const clickLike = async (id:number | null) => {
+    try {
+        const response = await url.post(`/like/post/${id}`, {
+            headers:{
+                'Authorization': getToken(),
+            }
+        })
+        return response.data
+    } catch (error) {
+        throw error       
+    }
+}
+
+export const deletePost = async (id:number | null) => {
+    try {
+        const response = await url.delete(`/post/${id}`,{
+            headers:{
+                'Authorization': getToken(),
+            }
+        })
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}

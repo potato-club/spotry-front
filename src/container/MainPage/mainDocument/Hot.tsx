@@ -10,6 +10,14 @@ interface Sport{
 
 const Hot = () => {
 
+    const sportImages: Record<number, string> = {
+        1: '/images/football.png',
+        2: '/images/swimming.png',
+        3: '/images/baseball.png',
+        4: '/images/running.png',
+        5: '/images/badminton.png'
+    };
+
     const [sports,setSports] = useState<Sport[]>([])
 
     useEffect(() => {
@@ -28,27 +36,30 @@ const Hot = () => {
     const {DivRef,handleMouseDown,handleMouseUp,handleMouseMove} = useDargX();
 
     return (
-        <HotWrpaaer>
+        <HotWrapper>
             <SectionTitle><strong>현재 HOT한 운동</strong></SectionTitle>
             <HotIconsDiv 
-            ref={DivRef}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-            onMouseMove={handleMouseMove}>
-                <ExIcon src='/images/football.png' alt='축구'/>
-                <ExIcon src='/images/running.png' alt='런닝'/>
-                <ExIcon src='/images/baseball.png' alt='야구'/>
-                <ExIcon src='/images/badminton.png' alt='배드민턴'/>
-                <ExIcon src='/images/swimming.png' alt='수영'/>
+                ref={DivRef}
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseUp}
+                onMouseMove={handleMouseMove}
+            >
+                {sports.map((sport) => (
+                    <ExIcon 
+                        key={sport.id} 
+                        src={sportImages[sport.id] || ''} 
+                        alt={sport.name}
+                    />
+                ))}
             </HotIconsDiv>
-        </HotWrpaaer>
+        </HotWrapper>
     );
 };
 
 export default Hot;
 
-const HotWrpaaer = styled.div`
+const HotWrapper = styled.div`
     width: 90%;
     overflow: hidden;
 `
