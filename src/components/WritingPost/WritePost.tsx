@@ -20,7 +20,6 @@ const WritePost: React.FC = () => {
     navigate("/main");
   };
 
-  // 🔹 스포츠 리스트 상태 추가
   const [sports, setSports] = useState<{ id: number; name: string }[]>([]);
   const [detailSports, setDetailSports] = useState<{ id: number; name: string }[]>([]);
   const [postData, setPostData] = useState<PostInter>({
@@ -98,7 +97,6 @@ const WritePost: React.FC = () => {
         <Input type="text" placeholder="제목을 입력해주세요." value={title} onChange={(e) => setTitle(e.target.value)} />
         <TextArea placeholder="본문에 #을 활용해 태그를 작성해보세요! (최대 5개)" value={content} onChange={(e) => setContent(e.target.value)} />
 
-        {/* 🔹 스포츠 선택 드롭다운 추가 */}
         <Select onChange={(e) => setPostData({ ...postData, sport: e.target.value })} value={postData.sport}>
           {detailSports.map((sport) => (
             <option key={sport.id} value={sport.name}>
