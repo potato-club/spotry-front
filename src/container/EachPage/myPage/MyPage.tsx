@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { fetchMyPage } from "../../../api/fetchMyPage";
 import styled from "styled-components";
 import { removeToken } from "../../../util/storage";
-import { useNavigate } from "react-router-dom";
 
 /*
     private final String id;
@@ -15,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 interface mypage {
   id: string;
+  birthday: string,
   profileUrl: string;
   gender: string;
   nickName: string;
@@ -23,9 +23,9 @@ interface mypage {
 
 const MyPage = () => {
     
-    const navigate = useNavigate();
     const [myPageInfo, setMyPageInfo] = useState<mypage>({
         id: "",
+        birthday:"",
         profileUrl: "",
         gender: "",
         nickName: "",
@@ -37,17 +37,17 @@ const MyPage = () => {
     alert("로그아웃");
   };
 
-  //   useEffect(() => {
-  //     const getMyPage = async () => {
-  //         try {
-  //             const response = await fetchMyPage();
-  //             setMyPageInfo(response);
-  //         } catch (error) {
-  //             console.log(error);
-  //         }
-  //     }
-  //     getMyPage();
-  //   }, []);
+    useEffect(() => {
+      const getMyPage = async () => {
+          try {
+              const response = await fetchMyPage();
+              setMyPageInfo(response);
+          } catch (error) {
+              console.log(error);
+          }
+      }
+      getMyPage();
+    }, []);
 
   return (
     <Wrapper>
@@ -70,4 +70,5 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const LogoutBtn = styled.button``;
+const LogoutBtn = styled.button`
+`;

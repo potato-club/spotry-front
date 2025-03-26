@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { writePost } from "../../api/postApi";
 import { useNavigate } from "react-router-dom";
+import { getSport, getDetailSport } from "../../api/fetchSport";
 
 interface PostInter {
   title: string,
@@ -13,42 +14,69 @@ interface PostInter {
 }
 
 const WritePost: React.FC = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleFinish = () => {
-    navigate('/main');
-  }
+    navigate("/main");
+  };
 
+  // 🔹 스포츠 리스트 상태 추가
+  const [sports, setSports] = useState<{ id: number; name: string }[]>([]);
+  const [detailSports, setDetailSports] = useState<{ id: number; name: string }[]>([]);
   const [postData, setPostData] = useState<PostInter>({
     title: "",
     content: "",
     postState: "",
-    sport: "축구",
+    sport: "", 
     tag: [""],
     images: [],
   });
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [state, setState] = useState("ING");
   const [isCategoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
-  
+
+  useEffect(() => {
+    const fetchSports = async () => {
+      try {
+        const response = await getSport();
+        setSports(response);
+        if (response.length > 0) {
+          fetchDetailSport(response[0].id);
+        }
+      } catch (error) {
+        console.error("스포츠 목록을 가져오지 못했습니다.", error);
+      }
+    };
+    fetchSports();
+  }, []);
+
+  const fetchDetailSport = async (id: number) => {
+    try {
+      const response = await getDetailSport(id);
+      setDetailSports(response); 
+    } catch (error) {
+      console.error("세부 스포츠 정보를 가져오지 못했습니다.", error);
+    }
+  };
+
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("content", content);
       formData.append("postState", state);
-      formData.append("sport", "축구");
-      postData.tag.forEach(tag => {
+      formData.append("sport", postData.sport); 
+      postData.tag.forEach((tag) => {
         formData.append("tag", tag);
       });
-      postData.images.forEach(image => {
+      postData.images.forEach((image) => {
         formData.append("images", image);
       });
-      
+
       const response = await writePost(formData);
-      if(response.status === 200){
+      if (response.status === 200) {
         handleFinish();
       }
     } catch (error) {
@@ -67,18 +95,19 @@ const WritePost: React.FC = () => {
           <Button onClick={handleSubmit}>완료</Button>
         </Header>
 
-        <Input
-          type="text"
-          placeholder="제목을 입력해주세요."
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <TextArea
-          placeholder="본문에 #을 활용해 태그를 작성해보세요! (최대 5개)"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
+        <Input type="text" placeholder="제목을 입력해주세요." value={title} onChange={(e) => setTitle(e.target.value)} />
+        <TextArea placeholder="본문에 #을 활용해 태그를 작성해보세요! (최대 5개)" value={content} onChange={(e) => setContent(e.target.value)} />
+
+        {/* 🔹 스포츠 선택 드롭다운 추가 */}
+        <Select onChange={(e) => setPostData({ ...postData, sport: e.target.value })} value={postData.sport}>
+          {detailSports.map((sport) => (
+            <option key={sport.id} value={sport.name}>
+              {sport.name}
+            </option>
+          ))}
+        </Select>
       </PostCreationContainer>
+
       {isCategoryDropdownOpen && (
         <CategoryDropdown>
           <div
@@ -112,6 +141,15 @@ const WritePost: React.FC = () => {
 };
 
 export default WritePost;
+
+const Select = styled.select`
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+`;
 
 const PostCreationContainer = styled.div<{ isBlurred: boolean }>`
   background-color: ${(props) =>
