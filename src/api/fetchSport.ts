@@ -8,6 +8,7 @@ export const getSport = async() => {
                 'Authorization' : getToken()
             }
         });
+        console.log()
         return response.data;
     } catch (error) {
         console.error("getSport 에러 : ",error);

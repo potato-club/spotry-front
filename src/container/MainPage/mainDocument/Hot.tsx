@@ -1,39 +1,47 @@
 import styled from 'styled-components';
 import useDargX from '../../../hook/useDargX';
 import { useEffect, useState } from 'react';
-import { getSport } from '../../../api/fetchSport';
-
-interface Sport{
-    id:number,
-    name:string,
-}
+import { getSport, getDetailSport } from '../../../api/fetchSport';
 
 const Hot = () => {
 
-    const sportImages: Record<number, string> = {
-        1: '/images/football.png',
-        2: '/images/swimming.png',
-        3: '/images/baseball.png',
-        4: '/images/running.png',
-        5: '/images/badminton.png'
+    const [sports, setSports] = useState<{ id: number; name: string }[]>([]);
+    const [detailSports, setDetailSports] = useState<{ id: number; name: string }[]>([]);
+
+    const sportImages: Record<string, string> = {
+        '축구': '/images/football.png',
+        '수영': '/images/swimming.png',
+        '야구': '/images/baseball.png',
+        '러닝': '/images/running.png',
+        '배드민턴': '/images/badminton.png',
+        '농구': '/images/baseball.png'
     };
 
-    const [sports,setSports] = useState<Sport[]>([])
-
     useEffect(() => {
-        const fetchSport = async () => {
+        const fetchSports = async () => {
             try {
-                const response = await getSport()
-                console.log(response)
+                const response = await getSport();
                 setSports(response);
+                if (response.length > 0) {
+                    fetchDetailSport(response[0].id); 
+                }
             } catch (error) {
-                alert('운동을 못 불러왔어요')
+                console.error("스포츠 목록을 가져오지 못했습니다.", error);
             }
-        }
-        fetchSport();
-    },[]);
+        };
+        fetchSports();
+    }, []);
 
-    const {DivRef,handleMouseDown,handleMouseUp,handleMouseMove} = useDargX();
+    const fetchDetailSport = async (id: number) => {
+        try {
+            const response = await getDetailSport(id);
+            setDetailSports(response); 
+        } catch (error) {
+            console.error("세부 스포츠 정보를 가져오지 못했습니다.", error);
+        }
+    };
+
+    const {DivRef, handleMouseDown, handleMouseUp, handleMouseMove} = useDargX();
 
     return (
         <HotWrapper>
@@ -45,10 +53,10 @@ const Hot = () => {
                 onMouseLeave={handleMouseUp}
                 onMouseMove={handleMouseMove}
             >
-                {sports.map((sport) => (
+                {detailSports.map((sport) => (
                     <ExIcon 
                         key={sport.id} 
-                        src={sportImages[sport.id] || ''} 
+                        src={sportImages[sport.name] || '/images/default.png'} 
                         alt={sport.name}
                     />
                 ))}
@@ -62,21 +70,21 @@ export default Hot;
 const HotWrapper = styled.div`
     width: 90%;
     overflow: hidden;
-`
+`;
 
 const SectionTitle = styled.p`
     color: white;
-`
+`;
 
 const HotIconsDiv = styled.div`
     display: flex;
     flex-direction: row;
     overflow-x: auto;
     cursor: grab;
-    &::-webkit-scrollbar{
-        display:none;
+    &::-webkit-scrollbar {
+        display: none;
     }
-`
+`;
 
 const ExIcon = styled.img`
     width: 56px;
@@ -85,4 +93,4 @@ const ExIcon = styled.img`
     cursor: pointer;
     user-select: none;
     pointer-events: none;
-`
+`;
