@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { writePost } from "../../api/postApi";
+import { useNavigate } from "react-router-dom";
 
 interface PostInter {
   title: string,
@@ -12,6 +13,13 @@ interface PostInter {
 }
 
 const WritePost: React.FC = () => {
+
+  const navigate = useNavigate()
+
+  const handleFinish = () => {
+    navigate('/main');
+  }
+
   const [postData, setPostData] = useState<PostInter>({
     title: "",
     content: "",
@@ -40,7 +48,9 @@ const WritePost: React.FC = () => {
       });
       
       const response = await writePost(formData);
-      console.log(response);
+      if(response.status === 200){
+        handleFinish();
+      }
     } catch (error) {
       console.log(error);
     }

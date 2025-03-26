@@ -16,7 +16,8 @@ const Hot = () => {
         const fetchSport = async () => {
             try {
                 const response = await getSport()
-                return response.data;
+                console.log(response)
+                setSports(response);
             } catch (error) {
                 alert('운동을 못 불러왔어요')
             }
@@ -39,10 +40,6 @@ const Hot = () => {
                 <ExIcon src='/images/running.png' alt='런닝'/>
                 <ExIcon src='/images/baseball.png' alt='야구'/>
                 <ExIcon src='/images/badminton.png' alt='배드민턴'/>
-                <ExIcon src='/images/swimming.png' alt='수영'/>
-                <ExIcon src='/images/swimming.png' alt='수영'/>
-                <ExIcon src='/images/swimming.png' alt='수영'/>
-                <ExIcon src='/images/swimming.png' alt='수영'/>
                 <ExIcon src='/images/swimming.png' alt='수영'/>
             </HotIconsDiv>
         </HotWrpaaer>

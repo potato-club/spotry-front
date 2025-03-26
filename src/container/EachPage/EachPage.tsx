@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { EachWrapper } from '../../styles/EachWrapper';
 import useDragY from '../../hook/useDragY';
@@ -13,42 +13,14 @@ const EachPage: React.FC<any> = ({ resultPost }) => {
         navigate(`/eachPost/${postId}`);
     };
     
-    // resultPost.map(post => ({
-    //     ...post,
-    // }))
+    const [posts, setPosts] = useState<any[]>(resultPost || []);
 
-    const [posts, setPosts] = useState<any[]>([]);
+    useEffect(() => {
+        setPosts(resultPost);
+    }, [resultPost]);
 
     const { divRef, handleMouseDown, handleMouseUp, handleMouseMove } = useDragY();
     const { isEnd } = useInfiniteScroll(divRef);
-
-    const fetchMore = () => {
-        setTimeout(() => {
-            console.log('추가 데이터 불러오기');
-            const newPosts = Array.from({ length: 10 }, (_, i) => ({
-                createdDate: new Date().toISOString(),
-                title: `더미 게시물 ${i + 1}`,
-                content: '새로운 게시물',
-                postState: 'active',
-                sport: '축구',
-                viewCount: Math.floor(Math.random() * 100),
-                likeCount: Math.floor(Math.random() * 50),
-                commentCount: Math.floor(Math.random() * 20),
-                tag: ['new', 'post'],
-                image: '',
-            })).map(post => ({
-                ...post,
-            }));
-
-            // setPosts(prev => [...prev, ...newPosts]);
-        }, 3000);
-    };
-
-    useEffect(() => {
-        if (isEnd) {
-            fetchMore();
-        }
-    }, [isEnd]);
 
     return (
         <EachWrapper
@@ -61,12 +33,12 @@ const EachPage: React.FC<any> = ({ resultPost }) => {
             {posts.map((value, idx) => (
                 <PostInfoDiv key={idx}>
                     <Category>
-                        {/* {value.sport} */}
+                        {value.sport}
                     </Category>
                     <div onClick={() => {
-                        handleClickPost(idx);
+                        handleClickPost(value.id);
                     }}>
-                        {/* {value.title} */}
+                        {value.title}
                         </div>
                     <TagWrapper>
                         {/* {value.tag.map((tag, index) => (
@@ -78,12 +50,9 @@ const EachPage: React.FC<any> = ({ resultPost }) => {
                             {/* <span>조회 {value.viewCount}</span> */}
                         </WhenAndView>
                         <LikeAndComment>
-                            {/* <div>
-                                <img src="/images/like.png" alt="view" />
-                                <span>{value.likeCount}</span>
-                                <img src="/images/Chat_alt.png" alt="댓글" />
-                                <span>{value.commentCount}</span>
-                            </div> */}
+                            <div>
+                                <span>좋아요 : {value.likeCount}</span>
+                            </div>
                         </LikeAndComment>
                     </InfoWrapper>
                 </PostInfoDiv>
@@ -162,3 +131,31 @@ const WhenAndView = styled.div`
         font-size: 12px;
     }
 `;
+
+// const fetchMore = () => {
+//     setTimeout(() => {
+//         console.log('추가 데이터 불러오기');
+//         const newPosts = Array.from({ length: 10 }, (_, i) => ({
+//             createdDate: new Date().toISOString(),
+//             title: `더미 게시물 ${i + 1}`,
+//             content: '새로운 게시물',
+//             postState: 'active',
+//             sport: '축구',
+//             viewCount: Math.floor(Math.random() * 100),
+//             likeCount: Math.floor(Math.random() * 50),
+//             commentCount: Math.floor(Math.random() * 20),
+//             tag: ['new', 'post'],
+//             image: '',
+//         })).map(post => ({
+//             ...post,
+//         }));
+
+//         // setPosts(prev => [...prev, ...newPosts]);
+//     }, 3000);
+// };
+
+    // useEffect(() => {
+    //     if (isEnd) {
+    //         fetchMore();
+    //     }
+    // }, [isEnd]);
