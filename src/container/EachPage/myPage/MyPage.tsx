@@ -35,7 +35,6 @@ const MyPage = () => {
   const handleLogout = () => {
     removeToken();
     alert("로그아웃");
-    navigate('/main')
   };
 
   //   useEffect(() => {

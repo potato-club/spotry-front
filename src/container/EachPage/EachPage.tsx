@@ -36,7 +36,7 @@ const EachPage: React.FC<any> = ({ resultPost }) => {
                         {value.sport}
                     </Category>
                     <div onClick={() => {
-                        handleClickPost(idx);
+                        handleClickPost(value.id);
                     }}>
                         {value.title}
                         </div>

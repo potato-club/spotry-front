@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { getToken } from '../util/storage';
 
 const PrivateRoute = () => {
-
     const [isAuthenticated, setIsAuthenticated] = useState(!!getToken());
 
     useEffect(() => {
@@ -11,10 +10,8 @@ const PrivateRoute = () => {
             setIsAuthenticated(!!getToken());
         };
 
-        window.addEventListener("storage", checkAuth);
-        return () => {
-            window.removeEventListener("storage", checkAuth);
-        };
+        const interval = setInterval(checkAuth, 1000);
+        return () => clearInterval(interval);
     }, []);
 
     return isAuthenticated ? <Outlet /> : <Navigate to={"/"} replace />;
