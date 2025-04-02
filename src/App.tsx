@@ -1,9 +1,11 @@
+import { BrowserRouter as Router } from "react-router-dom";
+import AppContent from "./AppContent";
 
 function App() {
   return (
-    <div>
-      <p>ㅇㅇㅇ</p>
-    </div>
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
 
