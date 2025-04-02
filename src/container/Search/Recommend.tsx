@@ -1,28 +1,23 @@
+import React from 'react';
 import styled from 'styled-components';
 
-interface RecommenProps{
-    UpdateInput: (input:string) => void;
+interface RecommendProps {
+  UpdateInput: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const Recommend:React.FC<RecommenProps> = ({UpdateInput}) => {
+const Recommend = ({ UpdateInput }: RecommendProps) => {
+  const handleUpdateInput = (input: string) => {
+    const updatedArray = input.split(' '); 
+    UpdateInput(updatedArray);
+  };
 
-    const word = ['서울','축구인원모집','러닝크루모집','브랜드 추천','검색어 추천','신고합니다','민폐','부산'];
-
-    return (
-        <Wrapper>
-            <p>추천 검색어</p>
-            <RecoWordDiv>
-                {word.map((value,idx) => (
-                    <RecoWord 
-                    key={idx}
-                    onClick={() => UpdateInput(value)}
-                    >
-                        {value}
-                    </RecoWord>
-                ))}
-            </RecoWordDiv>
-        </Wrapper>
-    );
+  return (
+    <Wrapper>
+        <RecoWordDiv>
+      <RecoWord onClick={() => handleUpdateInput("추천 검색어")}>추천 검색어</RecoWord>
+      </RecoWordDiv>
+    </Wrapper>
+  );
 };
 
 export default Recommend;

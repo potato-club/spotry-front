@@ -18,7 +18,6 @@ const PostPage = () => {
         const fetchMain = async () => {
             try {
                 const response = await getMainPost();
-                // console.log(response)
                 setResultPost(response)
             } catch (error) {
                 alert('mainPost 불러오기 실패');

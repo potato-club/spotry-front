@@ -46,13 +46,13 @@ export const getCrewPost = async () => {
 }
 
 export const writePost = async (formData: FormData) => {
-    console.log(formData);
     try {
         const response = await url.post('/post',formData, {
             headers:{
                 'Authorization': getToken(),
             }
         })
+        console.log(formData.get('sport'));
         return response;
     } catch (error) {
         console.log('포스팅 실패')

@@ -29,6 +29,7 @@ const Detail = () => {
     useEffect(() => {
         const fetchEachPost = async () => {
             try {
+
                 const response = await getEachPost(id);
                 setEachPost(response)
             } catch (error) {
@@ -48,7 +49,10 @@ const Detail = () => {
         if (isLike) {
             const likePost = async () => {
                 try {
-                    await clickLike(id);
+                    console.log(id)
+                    console.log(typeof id)
+                    const response = await clickLike(id);
+                    console.log(response);
                 } catch (error) {
                     console.log(error);
                 }
