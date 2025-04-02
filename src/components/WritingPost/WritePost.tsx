@@ -54,11 +54,21 @@ const WritePost: React.FC = () => {
   const fetchDetailSport = async (id: number) => {
     try {
       const response = await getDetailSport(id);
-      setDetailSports(response); 
+      setDetailSports(response);
+  
+      if (response.length > 0) {
+        setPostData((prev) => ({ ...prev, sport: response[0].name }));
+      }
     } catch (error) {
       console.error("세부 스포츠 정보를 가져오지 못했습니다.", error);
     }
   };
+  
+  useEffect(() => {
+    if (detailSports.length > 0) {
+      setPostData((prev) => ({ ...prev, sport: detailSports[0].name }));
+    }
+  }, [detailSports]);
 
   const handleSubmit = async () => {
     try {
@@ -94,10 +104,13 @@ const WritePost: React.FC = () => {
           <Button onClick={handleSubmit}>완료</Button>
         </Header>
 
-        <Input type="text" placeholder="제목을 입력해주세요." value={title} onChange={(e) => setTitle(e.target.value)} />
+        <Input type="text" placeholder="제목을 입력해주세요." value={title} onChange={(e) => {
+          setTitle(e.target.value)}} />
         <TextArea placeholder="본문에 #을 활용해 태그를 작성해보세요! (최대 5개)" value={content} onChange={(e) => setContent(e.target.value)} />
 
-        <Select onChange={(e) => setPostData({ ...postData, sport: e.target.value })} value={postData.sport}>
+        <Select onChange={(e) => {
+          setPostData({ ...postData, sport: e.target.value })
+          }} value={postData.sport}>
           {detailSports.map((sport) => (
             <option key={sport.id} value={sport.name}>
               {sport.name}
