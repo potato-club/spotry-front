@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #121212; /* 어두운 배경 */
+  background-color: #2b2b2b;
   min-height: 100vh;
   padding: 1rem;
 `;
@@ -46,4 +46,15 @@ export const ErrorText = styled.p`
   color: #ff4040;
   font-size: 0.9rem;
   margin-top: 1rem;
+`;
+
+export const NormalText = styled.p`
+  color: white;
+  font-size: 16px;
+`;
+
+export const SelectSection = styled.div`
+  width: 373px;
+  height: 40px;
+  color: #8d8d8d;
 `;
