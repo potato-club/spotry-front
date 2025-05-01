@@ -8,16 +8,16 @@ const FindIdPw = () => {
     navigate("/signup");
   };
 
-  const toFindId = () => {
-    navigate("/findID");
+  const toFindIdPw = () => {
+    navigate("/findPage");
   };
   const toChangePw = () => {
-    navigate("/verifyUser");
+    navigate("/findPage");
   };
 
   return (
     <FindContainer>
-      <FindBtn onClick={toFindId}>아이디 찾기</FindBtn>
+      <FindBtn onClick={toFindIdPw}>아이디 찾기</FindBtn>
       <Separator />
       <FindBtn onClick={toChangePw}>비밀번호 찾기</FindBtn>
       <Separator />

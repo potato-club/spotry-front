@@ -15,10 +15,10 @@ import LoginPage from "./components/Login/LoginPage";
 import WritePost from "./components/WritingPost/WritePost";
 import PrivateRoute from "./layout/PrivateRoute";
 import useClearToken from "./hook/useClearToken";
-import FindID from "./components/FindChangeIdPw/FindID";
-import ChangePW from "./components/FindChangeIdPw/ChangePW";
+import FindIdPwPage from "./components/FindChangeIdPw/FindIdPwPage";
 import VerifyUser from "./components/FindChangeIdPw/VerfyUser";
 import SplashMain from "./SplashPage/splashMain";
+import FindResult from "./components/FindChangeIdPw/FindResult";
 
 const AppContent = () => {
   const location = useLocation();
@@ -34,9 +34,9 @@ const AppContent = () => {
           location.pathname !== "/write" &&
           location.pathname !== "/location" &&
           location.pathname !== "/signup" &&
-          location.pathname !== "/findID" &&
-          location.pathname !== "/changePW" &&
-          location.pathname !== "/verifyUser" && (
+          location.pathname !== "/findPage" &&
+          location.pathname !== "/verifyUser" &&
+          !location.pathname.startsWith("/findResult/") && (
             <>
               <MainHeader />
               <MainBar />
@@ -47,9 +47,9 @@ const AppContent = () => {
           <Route path="/loginPage" element={<LoginPage />} />
           <Route path="/write" element={<WritePost />} />
           <Route path="/signup" element={<SubmitMain />} />
-          <Route path="/findID" element={<FindID />} />
-          <Route path="/changePW" element={<ChangePW />} />
+          <Route path="/findPage" element={<FindIdPwPage />} />
           <Route path="/verifyUser" element={<VerifyUser />} />
+          <Route path="/findResult/:userId" element={<FindResult />} />
 
           <Route element={<PrivateRoute />}>
             <Route path="/location" element={<MainLocation />} />
