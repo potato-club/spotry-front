@@ -1,26 +1,26 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  width: 375px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #2b2b2b;
+  background-color: #333333;
   min-height: 100vh;
-  padding: 1rem;
+  padding: none;
 `;
 
 export const Title = styled.h1`
   color: #ffffff;
-  font-size: 1.5rem;
+  font-size: 16px;
   margin-bottom: 1.5rem;
 `;
 
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  width: 80%;
-  max-width: 400px;
+  align-items: center;
 `;
 
 export const Label = styled.label`
@@ -29,11 +29,24 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
-  padding: 0.75rem;
-  border-radius: 4px;
+  width: 343px;
+  height: 44px;
+  border-radius: 12px;
   border: none;
   margin-bottom: 0.75rem;
   font-size: 1rem;
+  background-color: #444444;
+`;
+
+export const EmailInput = styled.input`
+  width: 157px;
+  padding: 0px;
+  font-size: 14px;
+  background: #444444;
+  color: #8d8d8d;
+  border: 1px solid #555;
+  border-radius: 12px;
+  height: 44px;
 `;
 
 export const ResultText = styled.p`
@@ -56,5 +69,5 @@ export const NormalText = styled.p`
 export const SelectSection = styled.div`
   width: 373px;
   height: 40px;
-  color: #8d8d8d;
+  color: 8D8D8D;
 `;
