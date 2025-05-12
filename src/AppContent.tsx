@@ -19,6 +19,7 @@ import FindIdPwPage from "./components/FindChangeIdPw/FindIdPwPage";
 import VerifyUser from "./components/FindChangeIdPw/VerfyUser";
 import SplashMain from "./SplashPage/splashMain";
 import FindResult from "./components/FindChangeIdPw/FindResult";
+import ResetSuccess from "./components/FindChangeIdPw/ResetSuccess";
 
 const AppContent = () => {
   const location = useLocation();
@@ -50,6 +51,7 @@ const AppContent = () => {
           <Route path="/findPage" element={<FindIdPwPage />} />
           <Route path="/verifyUser" element={<VerifyUser />} />
           <Route path="/findResult/:userId" element={<FindResult />} />
+          <Route path="/reset-success" element={<ResetSuccess />} />
 
           <Route element={<PrivateRoute />}>
             <Route path="/location" element={<MainLocation />} />
