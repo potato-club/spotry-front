@@ -101,24 +101,19 @@ const VerifyUser: React.FC = () => {
   const [error, setError] = useState("");
   const [userPk, setUserPk] = useState<number | null>(null);
 
-  // 완전한 이메일 조합
   const fullEmail = `${emailLocal}@${emailDomain}`;
 
-  // 1) 아이디·닉네임·이메일 확인 → PK 리턴 → 메일 발송
   const handleSendCode = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     try {
-      // 1-1: 사용자 정보 검증
       const res = await verifyUserInfo(userId, name, fullEmail);
-      // 서버가 반환하는 숫자형 PK(id) 저장
+
       setUserPk(res.data as number);
 
-      // 1-2: 인증 코드 메일 발송
       await sendVerificationEmail(fullEmail);
 
-      // 다음 단계로
       setStep("code");
     } catch (err: any) {
       setError(
@@ -133,14 +128,13 @@ const VerifyUser: React.FC = () => {
     );
   };
 
-  // 2) 메일로 받은 코드 검증 → 성공 시 ChangePW 로 이동
   const handleVerifyCode = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     try {
       await verifyEmailCode(fullEmail, code);
-      // 인증 코드가 맞으면 비밀번호 변경 페이지로 이동, PK 전달
+
       navigate("/changePW", { state: { id: userPk } });
     } catch (err: any) {
       setError(err.response?.data?.message || "인증 코드가 올바르지 않습니다.");

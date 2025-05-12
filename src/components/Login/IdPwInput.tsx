@@ -6,35 +6,34 @@ import { useNavigate } from "react-router-dom";
 import { getSelectRegion } from "../../api/fetchRegion";
 
 const IdPwInput: React.FC = () => {
-
   const navigation = useNavigate();
 
   const idInput = useLoginInput("아이디 입력");
   const passwordInput = useLoginInput("비밀번호 입력");
 
   const handleLogin = async () => {
-    if(idInput.value !== " " || passwordInput.value !== " "){
-        try {
-          const response = await SubmitLogin({
-            userId: idInput.value,
-            userPw: passwordInput.value
-          });
-          if(response?.status === 200){
-            try {
-              const selected = await getSelectRegion();
-              console.log(selected)
-              navigation('/main');
-            } catch (error) {
-              navigation('/location');
-            }
+    if (idInput.value !== " " || passwordInput.value !== " ") {
+      try {
+        const response = await SubmitLogin({
+          userId: idInput.value,
+          userPw: passwordInput.value,
+        });
+        if (response?.status === 200) {
+          try {
+            const selected = await getSelectRegion();
+            console.log(selected);
+            navigation("/main");
+          } catch (error) {
+            navigation("/location");
           }
-        } catch (error) {
-          console.error(error);
-        }    
-    } else{
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
       alert("아이디와 비밀번호를 입력하세요");
     }
-  }
+  };
 
   return (
     <LoginInput>
@@ -103,5 +102,5 @@ const CustomBtn = styled(OrginalBtn)`
   font-size: 16px;
   color: #000000;
 `;
-
+//2B2B2B
 export default IdPwInput;

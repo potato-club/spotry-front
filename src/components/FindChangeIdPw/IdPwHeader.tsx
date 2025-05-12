@@ -10,11 +10,13 @@ const IdPwHeader: React.FC<HeaderProps> = ({ title }) => {
 };
 
 const HeaderWrapper = styled.div`
-  background-color: #444444;
-  width: 373px;
-  height: 40px;
+  background-color: #333333;
+  width: 375px;
+  height: 56px;
   text-align: center;
-  font-size: 16px;
+  font-size: 18px;
+  color: #ffffff;
+  align-content: center;
 `;
 
 export default IdPwHeader;
