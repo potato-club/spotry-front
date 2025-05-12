@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const SplashMain: React.FC = () => {
+  const navigte = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigte("/loginPage", { replace: true });
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [navigte]);
+
   return (
     <SplashWrapper>
       <ImageContainer>
@@ -27,7 +38,7 @@ const SplashWrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #333;
+  background-color: #2b2b2b;
 `;
 
 const ImageContainer = styled.div`
