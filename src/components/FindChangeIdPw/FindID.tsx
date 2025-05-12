@@ -11,6 +11,7 @@ import {
 import { Btn } from "../../styles/Container";
 import { findUserID } from "../../api/fidIDapi";
 import EmailSelect from "../Login/EmailSelect";
+import { EmailInput } from "../../styles/ShareStyles";
 
 const FindID: React.FC = () => {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ const FindID: React.FC = () => {
         />
         <Label htmlFor="userEmail">이메일</Label>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <Input
+          <EmailInput
             id="userEmail"
             type="text"
             value={userEmail}
