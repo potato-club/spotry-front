@@ -37,6 +37,7 @@ const AppContent = () => {
           location.pathname !== "/signup" &&
           location.pathname !== "/findPage" &&
           location.pathname !== "/verifyUser" &&
+          location.pathname !== "/comments" &&
           !location.pathname.startsWith("/findResult/") && (
             <>
               <MainHeader />

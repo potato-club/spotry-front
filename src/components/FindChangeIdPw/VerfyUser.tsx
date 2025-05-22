@@ -110,12 +110,19 @@ const VerifyUser: React.FC = () => {
     try {
       const res = await verifyUserInfo(userId, name, fullEmail);
 
+      console.log("[사용자 확인 응답]", res.data);
+
       setUserPk(res.data as number);
+
+      console.log("[코드 전송 요청]", fullEmail);
 
       await sendVerificationEmail(fullEmail);
 
+      //console.log("[코드 전송 응답]", res.data);
+
       setStep("code");
     } catch (err: any) {
+      console.error("[❌ 이메일 전송 오류]", err.response?.data);
       setError(
         err.response?.data?.message ||
           "사용자 확인 또는 메일 발송 중 오류가 발생했습니다."
