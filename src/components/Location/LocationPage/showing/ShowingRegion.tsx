@@ -4,7 +4,7 @@ import { Region } from "../../../../types/Region";
 import { ShowCities, ShowRegion, ShowTowns } from "./ShowRegion";
 import Process from "../process/Process";
 import styled from "styled-components";
-import SelectInfo from "../selecInfo/SelectInfo";
+import SelectInfo from "../selectInfo/SelectInfo";
 import { useNavigate } from "react-router-dom";
 import { postAddress } from "../../../../api/fetchRegion";
 

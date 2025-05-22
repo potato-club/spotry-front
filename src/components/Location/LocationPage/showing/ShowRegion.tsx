@@ -11,7 +11,7 @@ export const ShowRegion = ({isSelect}:{isSelect:(region:Region)=>void}) => {
 
     return (
         <ShowWrapper>
-            {region.map((value)=>(
+            {region.map((value: Region)=>(
                 <NameDiv 
                 key={value.id}
                 onClick={()=>isSelect(value)}
@@ -29,7 +29,7 @@ export const ShowCities = ({id, isSelect} :{id:number, isSelect:(region:Region) 
 
     return (
         <ShowWrapper>
-            {cities.map((value)=>(
+            {cities.map((value: Region)=>(
                 <NameDiv 
                 key={value.id}
                 onClick={()=>isSelect(value)}
@@ -47,7 +47,7 @@ export const ShowTowns = ({id,isSelect} :{id:number, isSelect:(region:Region)=>v
 
     return(
         <ShowWrapper>
-            {towns.map((value)=>(
+            {towns.map((value: Region)=>(
                 <NameDiv 
                 key={value.id}
                 onClick={()=>isSelect(value)}
