@@ -4,7 +4,7 @@ const BASE_URL = "https://sportry.site";
 
 const url = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true
+  withCredentials: true,
 });
 
 // , { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse }

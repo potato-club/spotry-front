@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import styled from "styled-components";
 import { checkEmail, checkId, submitSignup } from "../../api/submitApi";
 import { useNavigate } from "react-router-dom";
+import EmailSelect from "../Login/EmailSelect";
 
 const SubmitMain: React.FC = () => {
   const navigate = useNavigate();
@@ -140,7 +141,7 @@ const SubmitMain: React.FC = () => {
           userId: form.userId,
           userPw: form.userPw,
         });
-        navigate('/');
+        navigate("/");
       } catch (error: any) {
         alert(error.message);
       }
@@ -233,12 +234,7 @@ const SubmitMain: React.FC = () => {
               name="emailDomain"
               value={form.emailDomain}
               onChange={handleInputChange}
-            >
-              <option value="">선택</option>
-              <option value="naver.com">naver.com</option>
-              <option value="gmail.com">gmail.com</option>
-              <option value="hanmail.net">hanmail.net</option>
-            </EmailSelect>
+            />
           </div>
           {emailCheckMessage && (
             <SmallText success={emailCheckMessage.includes("가능")}>
@@ -407,18 +403,6 @@ const GenderButton = styled.button.attrs({ type: "button" })<{
   border: 1px solid ${(props) => (props.selected ? "#C1F84D" : "#555")};
   border-radius: 12px;
   width: 165.5px;
-  height: 44px;
-`;
-
-const EmailSelect = styled.select`
-  width: 157px;
-
-  padding: 0px;
-  font-size: 14px;
-  background: #444444;
-  color: #8d8d8d;
-  border: 1px solid #555;
-  border-radius: 12px;
   height: 44px;
 `;
 

@@ -1,120 +1,219 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Comment } from "../../../types/Post";
 import useComments from "../../../hook/useComments";
+import { Comment } from "../../../types/Comment";
 
-const Comments: React.FC = () => {
-  const { comments, inputValue, setInputValue, addComment, likeComment } =
-    useComments();
+const Comments: React.FC<{ postId: number }> = ({ postId }) => {
+  const { comments, inputValue, setInputValue, add, edit, remove, reply } =
+    useComments(postId);
+
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editValue, setEditValue] = useState("");
+  const [replyToId, setReplyToId] = useState<number | null>(null);
+  const [replyValue, setReplyValue] = useState("");
+  const [showMenuId, setShowMenuId] = useState<number | null>(null);
+
+  const renderComment = (comment: Comment, isReply = false) => (
+    <CommentBox key={comment.id} style={{ marginLeft: isReply ? 32 : 0 }}>
+      <CommentContent>
+        <Header>
+          <UserInfo>
+            {comment.nickName} · {comment.region} ·{" "}
+            {Math.floor(
+              (Date.now() - new Date(comment.commentDate).getTime()) / 60000
+            )}
+            분 전
+          </UserInfo>
+          <MenuWrapper>
+            <MenuButton
+              onClick={() =>
+                setShowMenuId(showMenuId === comment.id ? null : comment.id)
+              }
+            >
+              ...
+            </MenuButton>
+            {showMenuId === comment.id && (
+              <Menu>
+                <MenuItem
+                  onClick={() => {
+                    setEditingId(comment.id);
+                    setEditValue(comment.content);
+                    setShowMenuId(null);
+                  }}
+                >
+                  수정
+                </MenuItem>
+                <MenuItem
+                  onClick={async () => {
+                    try {
+                      await remove(comment.id);
+                    } catch {
+                      alert("권한이 없습니다!");
+                    }
+                    setShowMenuId(null);
+                  }}
+                >
+                  삭제
+                </MenuItem>
+              </Menu>
+            )}
+          </MenuWrapper>
+          <ReplyButton
+            onClick={() => {
+              setReplyToId(comment.id);
+              setReplyValue("");
+            }}
+          >
+            답글
+          </ReplyButton>
+        </Header>
+
+        {editingId === comment.id ? (
+          <EditForm>
+            <Input
+              value={editValue}
+              onChange={(e) => setEditValue(e.target.value)}
+            />
+            <Button
+              onClick={() => {
+                edit(comment.id, editValue);
+                setEditingId(null);
+              }}
+            >
+              저장
+            </Button>
+            <Button onClick={() => setEditingId(null)}>취소</Button>
+          </EditForm>
+        ) : (
+          <Text>{comment.content}</Text>
+        )}
+
+        {replyToId === comment.id && (
+          <ReplyForm>
+            <Input
+              value={replyValue}
+              onChange={(e) => setReplyValue(e.target.value)}
+            />
+            <Button
+              onClick={() => {
+                reply(comment.id, replyValue);
+                setReplyToId(null);
+              }}
+            >
+              답글달기
+            </Button>
+            <Button onClick={() => setReplyToId(null)}>취소</Button>
+          </ReplyForm>
+        )}
+
+        {comment.replies && comment.replies.map((r) => renderComment(r, true))}
+      </CommentContent>
+    </CommentBox>
+  );
 
   return (
     <Container>
-      {/* 댓글 리스트 */}
       {comments.length === 0 ? (
         <p>아직 작성된 댓글이 없습니다.</p>
       ) : (
-        comments.map((comment: Comment) => (
-          <CommentBox key={comment.id}>
-            <ProfileImage src={comment.user.profileImage} alt="Profile" />
-            <CommentContent>
-              <Header>
-                <UserInfo>
-                  {comment.user.name} · {comment.user.location} ·{" "}
-                  {Math.floor(
-                    (new Date().getTime() - comment.createdAt.getTime()) / 60000
-                  )}{" "}
-                  분 전
-                </UserInfo>
-                <LikeButton onClick={() => likeComment(comment.id)}>
-                  좋아요 {comment.likes}
-                </LikeButton>
-              </Header>
-              <Text>{comment.text}</Text>
-            </CommentContent>
-          </CommentBox>
-        ))
+        comments.map((c) => renderComment(c))
       )}
-
-      {/* 댓글 입력란 */}
       <CommentInputContainer>
         <Input
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="댓글을 입력하세요"
         />
-        <Button onClick={addComment}>작성</Button>
+        <Button onClick={add}>작성</Button>
       </CommentInputContainer>
     </Container>
   );
 };
 
+export default Comments;
+
+// === styled-components ===
 const Container = styled.div`
-  width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  padding-bottom: 70px;
 `;
-
 const CommentBox = styled.div`
   display: flex;
   margin-bottom: 16px;
   border-bottom: 1px solid #ddd;
   padding-bottom: 16px;
 `;
-
-const ProfileImage = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 12px;
-`;
-
 const CommentContent = styled.div`
   flex: 1;
 `;
-
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
-
 const UserInfo = styled.div`
   font-size: 14px;
   color: #555;
 `;
-
 const Text = styled.p`
   margin: 8px 0;
 `;
-
-const LikeButton = styled.button`
+const MenuWrapper = styled.div`
+  position: relative;
+  margin-left: 8px;
+`;
+const MenuButton = styled.button`
+  border: none;
+  background: none;
+  font-size: 20px;
+  cursor: pointer;
+`;
+const Menu = styled.div`
+  position: absolute;
+  right: 0;
+  top: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  z-index: 10;
+`;
+const MenuItem = styled.div`
+  padding: 8px 16px;
+  cursor: pointer;
+  &:hover {
+    background: #f1f1f1;
+  }
+`;
+const ReplyButton = styled.button`
   border: none;
   background: none;
   color: #007bff;
   cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
-
+const EditForm = styled.div`
+  display: flex;
+  gap: 8px;
+  margin: 8px 0;
+`;
+const ReplyForm = styled.div`
+  display: flex;
+  gap: 8px;
+  margin: 8px 0 0 0;
+`;
 const CommentInputContainer = styled.div`
   position: fixed;
   bottom: 0;
   width: 100%;
   padding: 10px;
-  background-color: #f9f9f9;
+  background: #f9f9f9;
   border-top: 1px solid #ddd;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 `;
-
 const Input = styled.input`
   flex: 1;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
 `;
-
 const Button = styled.button`
   padding: 10px 16px;
   margin-left: 8px;
@@ -122,10 +221,7 @@ const Button = styled.button`
   background-color: #007bff;
   color: #fff;
   border-radius: 4px;
-
   &:hover {
     background-color: #0056b3;
   }
 `;
-
-export default Comments;
