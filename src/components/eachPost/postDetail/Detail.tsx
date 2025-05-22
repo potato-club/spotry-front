@@ -36,8 +36,6 @@ const Detail = () => {
     if (isLike) {
       const likePost = async () => {
         try {
-          console.log(id);
-          console.log(typeof id);
           const response = await clickLike(id);
           console.log(response);
         } catch (error) {

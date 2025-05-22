@@ -63,8 +63,7 @@ export const writePost = async (formData: FormData) => {
 
 export const getEachPost = async (id:number | null) => {
     try {
-        // console.log(typeof id)
-        // console.log(id)
+
         const response = await url.get(`/post/${id}`,{
             headers:{
                 'Authorization': getToken(),
@@ -78,7 +77,7 @@ export const getEachPost = async (id:number | null) => {
 
 export const clickLike = async (id:number | null) => {
     try {
-        const response = await url.post(`/like/post/${id}`, {
+        const response = await url.post(`/like/post/${id}`, {},{
             headers:{
                 'Authorization': getToken(),
             }
