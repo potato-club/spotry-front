@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import * as api from "../api/comentsApi";
+import * as api from "../api/commentsApi";
 import { Comment } from "../types/Comment";
 
 const useComments = (postId: number) => {
@@ -33,8 +33,11 @@ const useComments = (postId: number) => {
   };
 
   const reply = async (parentId: number, content: string) => {
+    console.log("▶︎ 대댓글 작성 시작", parentId, content);
     await api.addReply(postId, parentId, content);
-    fetch();
+    console.log("▶︎ 대댓글 작성 완료, 이제 댓글 목록 리페치");
+    await fetch();
+    console.log("▶︎ 댓글 목록 리페치 완료", comments);
   };
 
   return {

@@ -3,44 +3,41 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Detail from "./postDetail/Detail";
 import Comments from "./postComment/Comments";
-import useDragY from "../../hook/useDragY";
 
 const EachPost: React.FC = () => {
   const { postId } = useParams<{ postId: string }>();
   const id = postId ? parseInt(postId, 10) : null;
-  const { divRef, handleMouseDown, handleMouseUp, handleMouseMove } =
-    useDragY();
 
-  if (id === null) return <div>잘못된 접근입니다.</div>;
+  if (id === null) {
+    return <div>잘못된 접근입니다.</div>;
+  }
 
   return (
-    <Wrapper
-      ref={divRef}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
-      onMouseMove={handleMouseMove}
-    >
-      <Detail />
+    <PageWrapper>
+      <ContentWrapper>
+        <Detail />
 
-      <Separator />
+        <Separator />
 
-      <Comments postId={id} />
-    </Wrapper>
+        <Comments />
+      </ContentWrapper>
+    </PageWrapper>
   );
 };
 
 export default EachPost;
 
-const Wrapper = styled.div`
-  padding-top: 40px;
-  width: 100%;
-  height: 100%;
+const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  height: 100vh;
+`;
+
+const ContentWrapper = styled.div`
+  flex: 1;
   overflow-y: auto;
-  padding-bottom: 58px;
+  padding: 0 16px;
+  box-sizing: border-box;
 `;
 
 const Separator = styled.div`
