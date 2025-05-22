@@ -1,20 +1,27 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 import useComments from "../../../hook/useComments";
 import { Comment } from "../../../types/Comment";
 
-const Comments: React.FC<{ postId: number }> = ({ postId }) => {
-  const { comments, inputValue, setInputValue, add, edit, remove, reply } =
-    useComments(postId);
+const Comments: React.FC = () => {
+  const { postId } = useParams<{ postId: string }>();
+  const id = postId ? parseInt(postId, 10) : NaN;
 
+  const { comments, inputValue, setInputValue, add, edit, remove, reply } =
+    useComments(id);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editValue, setEditValue] = useState("");
   const [replyToId, setReplyToId] = useState<number | null>(null);
   const [replyValue, setReplyValue] = useState("");
   const [showMenuId, setShowMenuId] = useState<number | null>(null);
 
-  const renderComment = (comment: Comment, isReply = false) => (
-    <CommentBox key={comment.id} style={{ marginLeft: isReply ? 32 : 0 }}>
+  if (isNaN(id)) {
+    return <p>잘못된 접근입니다.</p>;
+  }
+
+  const renderComment = (comment: Comment, depth = 0): JSX.Element => (
+    <CommentBox key={comment.id} style={{ marginLeft: depth * 20 }}>
       <CommentContent>
         <Header>
           <UserInfo>
@@ -30,7 +37,7 @@ const Comments: React.FC<{ postId: number }> = ({ postId }) => {
                 setShowMenuId(showMenuId === comment.id ? null : comment.id)
               }
             >
-              ...
+              …
             </MenuButton>
             {showMenuId === comment.id && (
               <Menu>
@@ -106,7 +113,7 @@ const Comments: React.FC<{ postId: number }> = ({ postId }) => {
           </ReplyForm>
         )}
 
-        {comment.replies && comment.replies.map((r) => renderComment(r, true))}
+        {comment.replies?.map((r) => renderComment(r, depth + 1))}
       </CommentContent>
     </CommentBox>
   );
@@ -116,7 +123,7 @@ const Comments: React.FC<{ postId: number }> = ({ postId }) => {
       {comments.length === 0 ? (
         <p>아직 작성된 댓글이 없습니다.</p>
       ) : (
-        comments.map((c) => renderComment(c))
+        comments.map((c) => renderComment(c, 0))
       )}
       <CommentInputContainer>
         <Input
@@ -132,42 +139,49 @@ const Comments: React.FC<{ postId: number }> = ({ postId }) => {
 
 export default Comments;
 
-// === styled-components ===
 const Container = styled.div`
   max-width: 600px;
   margin: 0 auto;
 `;
+
 const CommentBox = styled.div`
   display: flex;
   margin-bottom: 16px;
   border-bottom: 1px solid #ddd;
   padding-bottom: 16px;
 `;
+
 const CommentContent = styled.div`
   flex: 1;
 `;
+
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
+
 const UserInfo = styled.div`
   font-size: 14px;
   color: #555;
 `;
+
 const Text = styled.p`
   margin: 8px 0;
 `;
+
 const MenuWrapper = styled.div`
   position: relative;
   margin-left: 8px;
 `;
+
 const MenuButton = styled.button`
   border: none;
   background: none;
   font-size: 20px;
   cursor: pointer;
 `;
+
 const Menu = styled.div`
   position: absolute;
   right: 0;
@@ -177,6 +191,7 @@ const Menu = styled.div`
   border-radius: 4px;
   z-index: 10;
 `;
+
 const MenuItem = styled.div`
   padding: 8px 16px;
   cursor: pointer;
@@ -184,36 +199,42 @@ const MenuItem = styled.div`
     background: #f1f1f1;
   }
 `;
+
 const ReplyButton = styled.button`
   border: none;
   background: none;
   color: #007bff;
   cursor: pointer;
 `;
+
 const EditForm = styled.div`
   display: flex;
   gap: 8px;
   margin: 8px 0;
 `;
+
 const ReplyForm = styled.div`
   display: flex;
   gap: 8px;
   margin: 8px 0 0 0;
 `;
+
 const CommentInputContainer = styled.div`
-  position: fixed;
+  position: sticky;
   bottom: 0;
   width: 100%;
   padding: 10px;
   background: #f9f9f9;
   border-top: 1px solid #ddd;
 `;
+
 const Input = styled.input`
   flex: 1;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
 `;
+
 const Button = styled.button`
   padding: 10px 16px;
   margin-left: 8px;
