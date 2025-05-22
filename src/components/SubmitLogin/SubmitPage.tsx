@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import styled from "styled-components";
-import { checkEmail, checkId, submitSignup } from "../../api/submitApi";
+import { checkEmail, checkUserId, registerUser } from "../../api/authApi";
 import { useNavigate } from "react-router-dom";
 import EmailSelect from "../Login/EmailSelect";
 
@@ -98,7 +98,7 @@ const SubmitMain: React.FC = () => {
   const handleIdCheck = async () => {
     if (form.userId.length >= 5 && form.userId.length <= 20) {
       try {
-        const idExists = await checkId(form.userId);
+        const idExists = await checkUserId(form.userId);
         setIdCheckMessage(
           idExists
             ? "이미 사용 중인 아이디입니다."
@@ -132,7 +132,7 @@ const SubmitMain: React.FC = () => {
     if (Object.values(newErrors).every((error) => !error)) {
       try {
         console.log("회원가입 요청 데이터:", form);
-        const respose = await submitSignup({
+        const respose = await registerUser({
           userName: form.userName,
           nickName: form.nickName,
           gender: form.gender,

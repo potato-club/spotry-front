@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Region } from '../../../types/Region';
-import { fetchRegion } from '../../../api/fetchRegion';
+import { getRegions } from '../../../api/regionApi';
 
 const useFetchRegionData = () => {
 
@@ -9,7 +9,7 @@ const useFetchRegionData = () => {
     useEffect(() => {
         const fetchRegionData = async() => {
             try {
-                const data = await fetchRegion();
+                const data = await getRegions();
                 console.log('region data fetch 성공')
                 setRegion(data);
             } catch (error) {

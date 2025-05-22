@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import * as api from "../api/commentsApi";
+import * as api from "../api/commentApi";
 import { Comment } from "../types/Comment";
 
 const useComments = (postId: number) => {

@@ -83,7 +83,7 @@ import {
   verifyUserInfo,
   sendVerificationEmail,
   verifyEmailCode,
-} from "../../api/verifyUserApi";
+} from "../../api/userApi";
 import url from "../../api/url";
 
 const VerifyUser: React.FC = () => {

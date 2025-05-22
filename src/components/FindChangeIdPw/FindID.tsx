@@ -9,7 +9,7 @@ import {
   Input,
 } from "../../styles/ShareStyles";
 import { Btn } from "../../styles/Container";
-import { findUserID } from "../../api/fidIDapi";
+import { findUserId } from "../../api/userApi";
 import EmailSelect from "../Login/EmailSelect";
 import { EmailInput } from "../../styles/ShareStyles";
 
@@ -27,7 +27,7 @@ const FindID: React.FC = () => {
     const userEmailFull = `${userEmail}@${emailDomain}`;
 
     try {
-      const response = await findUserID(nickName, userEmailFull);
+      const response = await findUserId(nickName, userEmailFull);
 
       if (response) {
         console.log("아이디 찾기 성공:", response);

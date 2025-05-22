@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { getSelectRegion } from '../../../api/fetchRegion';
+import { getUserRegion } from '../../../api/regionApi';
 
 const MainHeader: React.FC = () => {
     
@@ -14,7 +14,7 @@ const MainHeader: React.FC = () => {
 
     const fetchMyCity = async () => {
         try {
-            const response = await getSelectRegion();
+            const response = await getUserRegion();
             setMyCity(response.data);
         } catch (error) {
             alert("지역 불러오기 실패");

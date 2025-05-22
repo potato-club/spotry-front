@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Region } from "../../../types/Region";
-import { fetchtowns } from "../../../api/fetchRegion";
+import { getTowns } from "../../../api/regionApi";
 
 const useFetchTowns = (id:number) => {
 
@@ -9,7 +9,7 @@ const useFetchTowns = (id:number) => {
     useEffect(() => {
         const fetchTownsData = async() => {
             try {
-                const data = await fetchtowns(id);
+                const data = await getTowns(id);
                 setTowns(data);
             } catch (error) {
                 console.log("twons fetch 에러 : ",error);

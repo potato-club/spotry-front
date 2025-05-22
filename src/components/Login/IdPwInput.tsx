@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Btn as OrginalBtn } from "../../styles/Container";
 import useLoginInput from "../../hook/useLoginInput";
-import { SubmitLogin } from "../../api/submitApi";
+import { loginUser } from "../../api/authApi";
 import { useNavigate } from "react-router-dom";
-import { getSelectRegion } from "../../api/fetchRegion";
+import { getUserRegion } from "../../api/regionApi";
 
 const IdPwInput: React.FC = () => {
   const navigation = useNavigate();
@@ -14,13 +14,13 @@ const IdPwInput: React.FC = () => {
   const handleLogin = async () => {
     if (idInput.value !== " " || passwordInput.value !== " ") {
       try {
-        const response = await SubmitLogin({
+        const response = await loginUser({
           userId: idInput.value,
           userPw: passwordInput.value,
         });
         if (response?.status === 200) {
           try {
-            const selected = await getSelectRegion();
+            const selected = await getUserRegion();
             console.log(selected);
             navigation("/main");
           } catch (error) {

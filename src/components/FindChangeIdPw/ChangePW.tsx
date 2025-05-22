@@ -88,7 +88,7 @@ import {
   ErrorText,
 } from "../../styles/ShareStyles";
 import { Btn } from "../../styles/Container";
-import { resetPassword } from "../../api/verifyUserApi";
+import { resetPassword } from "../../api/userApi";
 
 interface LocationState {
   id?: number;

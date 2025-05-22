@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import useDargX from '../../../hook/useDargX';
 import { useEffect, useState } from 'react';
-import { getSport, getDetailSport } from '../../../api/fetchSport';
+import { getSports, getSportDetail } from '../../../api/sportApi';
 
 const Hot = () => {
 
@@ -20,7 +20,7 @@ const Hot = () => {
     useEffect(() => {
         const fetchSports = async () => {
             try {
-                const response = await getSport();
+                const response = await getSports();
                 setSports(response);
                 if (response.length > 0) {
                     fetchDetailSport(response[0].id); 
@@ -34,7 +34,7 @@ const Hot = () => {
 
     const fetchDetailSport = async (id: number) => {
         try {
-            const response = await getDetailSport(id);
+            const response = await getSportDetail(id);
             setDetailSports(response); 
         } catch (error) {
             console.error("세부 스포츠 정보를 가져오지 못했습니다.", error);

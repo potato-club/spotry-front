@@ -6,7 +6,7 @@ import Process from "../process/Process";
 import styled from "styled-components";
 import SelectInfo from "../selectInfo/SelectInfo";
 import { useNavigate } from "react-router-dom";
-import { postAddress } from "../../../../api/fetchRegion";
+import { setUserRegion } from "../../../../api/regionApi";
 
 interface HomeData {
     region: Region | null;
@@ -92,7 +92,7 @@ const ShowingRegion = () => {
                 alert('올바른 cityId 값을 찾을 수 없습니다.');
                 return;
             }
-            const response = await postAddress(townIds);
+            const response = await setUserRegion(townIds);
         } catch (error) {
             throw error;
         };

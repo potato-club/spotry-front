@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchMyPage } from "../../../api/fetchMyPage";
+import { getUserProfile } from "../../../api/userApi";
 import styled from "styled-components";
 import { removeToken } from "../../../util/storage";
 
@@ -40,7 +40,7 @@ const MyPage = () => {
     useEffect(() => {
       const getMyPage = async () => {
           try {
-              const response = await fetchMyPage();
+              const response = await getUserProfile();
               console.log(response)
               setMyPageInfo(response);
           } catch (error) {
