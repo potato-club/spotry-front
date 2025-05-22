@@ -58,49 +58,62 @@ const IdPwInput: React.FC = () => {
 };
 
 const LoginInput = styled.div`
-  width: 343px;
-  height: 200px;
-  margin-top: 32px;
+  width: ${({ theme }) => theme.sizes.component.loginInput.width};
+  height: ${({ theme }) => theme.sizes.component.loginInput.height};
+  margin-top: ${({ theme }) => theme.sizes.spacing.xxl};
 `;
 
 const IdInput = styled.input`
   width: 100%;
-  height: 56px;
-  margin-bottom: 16px;
-  border-radius: 10px;
+  height: ${({ theme }) => theme.sizes.component.input.xlarge.height};
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.lg};
+  border-radius: ${({ theme }) => theme.sizes.spacing.sm};
   border: none;
   padding: 0;
-  background-color: #444444;
-  color: #bbbbbb;
-  text-indent: 15px;
+  background-color: ${({ theme }) => theme.colors.background.tertiary};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  text-indent: ${({ theme }) => theme.sizes.spacing.md};
+  box-sizing: border-box;
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
 
   &:focus {
-    border: 1px solid #c1f84d;
+    border: 1px solid ${({ theme }) => theme.colors.interactive.focus};
     outline: none;
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.text.secondary};
   }
 `;
 const PasswordInput = styled.input`
   width: 100%;
-  height: 56px;
-  margin-bottom: 16px;
-  border-radius: 10px;
+  height: ${({ theme }) => theme.sizes.component.input.xlarge.height};
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.lg};
+  border-radius: ${({ theme }) => theme.sizes.spacing.sm};
   border: none;
   padding: 0;
-  background-color: #444444;
-  color: #bbbbbb;
-  text-indent: 15px;
+  background-color: ${({ theme }) => theme.colors.background.tertiary};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  text-indent: ${({ theme }) => theme.sizes.spacing.md};
+  box-sizing: border-box;
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
 
   &:focus {
-    border: 1px solid #c1f84d;
+    border: 1px solid ${({ theme }) => theme.colors.interactive.focus};
     outline: none;
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.text.secondary};
   }
 `;
 
 const CustomBtn = styled(OrginalBtn)`
-  width: 343px;
-  height: 56px;
-  font-size: 16px;
-  color: #000000;
+  width: ${({ theme }) => theme.sizes.component.button.xlarge.width};
+  height: ${({ theme }) => theme.sizes.component.button.xlarge.height};
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+  color: ${({ theme }) => theme.colors.utility.black};
 `;
 //2B2B2B
 export default IdPwInput;

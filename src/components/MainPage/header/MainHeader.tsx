@@ -43,41 +43,50 @@ const MainHeader: React.FC = () => {
 export default MainHeader;
 
 const HeadWrapper = styled.div`
-    background-color:  #333333;
-    position: fixed;
-    
-    margin-bottom: 10px;
-    width: 375px;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  position: fixed;
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.sm};
+  width: ${({ theme }) => theme.sizes.component.header.width};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: ${({ theme }) => theme.sizes.spacing.sm};
+  z-index: ${({ theme }) => theme.sizes.zIndex.header};
+  
+  div {
+    width: 90%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    padding-top: 10px;
-    div{
-        width: 90%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        img{
-            cursor: pointer;
-        }
-        align-items: center;
+    
+    img {
+      cursor: pointer;
     }
-    left: calc(50%);
-    transform: translateX(-50%);
-`               
+  }
+  
+  left: 50%;
+  transform: translateX(-50%);
+`;               
 
 const TownSelect = styled.select`
-    background-color: transparent;
-    color: white;
-    border: none;
-`
+  background-color: ${({ theme }) => theme.colors.utility.transparent};
+  color: ${({ theme }) => theme.colors.text.primary};
+  border: none;
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  cursor: pointer;
+`;
 
 const TownOption = styled.option`
-    background-color: #555555;
-`
+  background-color: ${({ theme }) => theme.colors.background.quaternary};
+  color: ${({ theme }) => theme.colors.text.primary};
+`;
 
 const StyledHr = styled.hr`
-    width: 100%;
-    color: white;
-    margin-bottom: 0px;
-`
+  width: 100%;
+  color: ${({ theme }) => theme.colors.text.primary};
+  margin-bottom: 0;
+  border: none;
+  height: 1px;
+  background-color: ${({ theme }) => theme.colors.background.quaternary};
+`;

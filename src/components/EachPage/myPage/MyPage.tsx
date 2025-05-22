@@ -64,13 +64,34 @@ const Wrapper = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: ${({ theme }) => theme.sizes.spacing.xxxl};
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.xxxl};
   justify-content: center;
   align-items: center;
+  padding: ${({ theme }) => theme.sizes.spacing.lg};
+  box-sizing: border-box;
 `;
 
-const LogoutBtn = styled.button``
+const LogoutBtn = styled.button`
+  background-color: ${({ theme }) => theme.colors.status.error};
+  color: ${({ theme }) => theme.colors.text.primary};
+  border: none;
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.medium};
+  padding: ${({ theme }) => theme.sizes.spacing.md} ${({ theme }) => theme.sizes.spacing.xl};
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  cursor: pointer;
+  margin-top: ${({ theme }) => theme.sizes.spacing.xl};
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.status.warning};
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+`;
 const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -78,25 +99,44 @@ const ProfileContainer = styled.div`
   align-items: center;
   width: 70%;
   height: 100%;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  border-radius: 20px;
-  background-color: #f0f0f0;
-`
+  margin-top: ${({ theme }) => theme.sizes.spacing.xxxl};
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.xxxl};
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.xxlarge};
+  background-color: ${({ theme }) => theme.colors.background.light};
+  padding: ${({ theme }) => theme.sizes.spacing.xl};
+  box-shadow: 0 4px 12px ${({ theme }) => theme.colors.utility.shadow};
+`;
+
 const ProfileImg = styled.img`
-  width: 100px;
-  height: 100px;
-`
-const ProfileWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`
-const NickName = styled.div``
-const Email = styled.div``
-const Gender = styled.div``
-const Birthday = styled.div``
-const EditBtn = styled.button``
+  width: ${({ theme }) => theme.sizes.component.icon.profile.width};
+  height: ${({ theme }) => theme.sizes.component.icon.profile.height};
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.round};
+  object-fit: cover;
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.lg};
+  border: 3px solid ${({ theme }) => theme.colors.primary.main};
+`;
+
+const NickName = styled.div`
+  font-size: ${({ theme }) => theme.typography.fontSize.xl};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  color: ${({ theme }) => theme.colors.utility.black};
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.sm};
+`;
+
+const Email = styled.div`
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
+  color: ${({ theme }) => theme.colors.text.quaternary};
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.sm};
+`;
+
+const Gender = styled.div`
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
+  color: ${({ theme }) => theme.colors.text.tertiary};
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.sm};
+`;
+
+const Birthday = styled.div`
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
+  color: ${({ theme }) => theme.colors.text.tertiary};
+`;
 

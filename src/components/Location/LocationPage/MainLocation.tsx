@@ -14,8 +14,12 @@ const MainLocation = () => {
 export default MainLocation;
 
 const Wrapper = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  padding: ${({ theme }) => theme.sizes.spacing.lg};
+  box-sizing: border-box;
+`;

@@ -68,29 +68,50 @@ const Hot = () => {
 export default Hot;
 
 const HotWrapper = styled.div`
-    width: 90%;
-    overflow: hidden;
+  width: 90%;
+  overflow: hidden;
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.lg};
 `;
 
 const SectionTitle = styled.p`
-    color: white;
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.md};
+  margin-top: 0;
 `;
 
 const HotIconsDiv = styled.div`
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    cursor: grab;
-    &::-webkit-scrollbar {
-        display: none;
-    }
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  cursor: grab;
+  padding: ${({ theme }) => theme.sizes.spacing.sm} 0;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  &:active {
+    cursor: grabbing;
+  }
 `;
 
 const ExIcon = styled.img`
-    width: 56px;
-    height: 78px;
-    margin-right: 10px;
-    cursor: pointer;
-    user-select: none;
-    pointer-events: none;
+  width: ${({ theme }) => theme.sizes.component.icon.medium.width};
+  height: ${({ theme }) => theme.sizes.component.icon.medium.height};
+  margin-right: ${({ theme }) => theme.sizes.spacing.sm};
+  cursor: pointer;
+  user-select: none;
+  pointer-events: none;
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.medium};
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+  
+  &:last-child {
+    margin-right: 0;
+  }
 `;

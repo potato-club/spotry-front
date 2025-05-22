@@ -72,19 +72,26 @@ const Container = styled.div`
 `;
 
 const SearchBar = styled.input`
-  background-color: #444444;
-  color: white;
-  border-radius: 8px;
+  background-color: ${({ theme }) => theme.colors.background.tertiary};
+  color: ${({ theme }) => theme.colors.text.primary};
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.medium};
   width: 100%;
-  height: 48px;
+  height: ${({ theme }) => theme.sizes.component.searchBar.height};
   border: none;
-  margin-top: 10px;
-  padding-left: 10px;
+  margin-top: ${({ theme }) => theme.sizes.spacing.sm};
+  padding-left: ${({ theme }) => theme.sizes.spacing.sm};
   box-sizing: border-box;
   padding-right: 30px;
-  caret-color: white;
+  caret-color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  
   &:focus {
     outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.interactive.focus};
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.text.quaternary};
   }
 `;
 

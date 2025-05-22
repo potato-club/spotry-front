@@ -23,16 +23,28 @@ const WriteButtonContainer = styled.button`
   position: absolute;
   bottom: 30px;
   right: 30px;
-  width: 60px;
-  height: 60px;
-  background-color: #c6ff00;
+  width: ${({ theme }) => theme.sizes.component.icon.large.width};
+  height: ${({ theme }) => theme.sizes.component.icon.large.height};
+  background-color: ${({ theme }) => theme.colors.primary.main};
   border: none;
-  border-radius: 50%;
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.round};
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 8px ${({ theme }) => theme.colors.utility.shadow};
   cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary.light};
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px ${({ theme }) => theme.colors.utility.shadow};
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px ${({ theme }) => theme.colors.utility.shadow};
+  }
 `;
 
 const IconImage = styled.img`

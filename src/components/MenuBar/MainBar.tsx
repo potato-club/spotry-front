@@ -36,58 +36,67 @@ const MainBar = () => {
 
 const MenuBar = styled.div`
   display: flex;
-  width: 375px;
-  height: 58px;
+  width: ${({ theme }) => theme.sizes.component.menuBar.width};
+  height: ${({ theme }) => theme.sizes.component.menuBar.height};
   justify-content: space-around;
   align-content: center;
   flex-wrap: wrap;
-  background-color: #333333;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
   position: fixed;
   bottom: 0;
-  z-index: 1000;
+  z-index: ${({ theme }) => theme.sizes.zIndex.menuBar};
 `;
 
 const BarBtn = styled.div<BarBtnProps>`
   display: flex;
-  width: 75px;
-  height: 40px;
+  width: ${({ theme }) => theme.sizes.component.barButton.width};
+  height: ${({ theme }) => theme.sizes.component.barButton.height};
   flex-wrap: wrap;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.small};
+  background-color: ${({ isActive, theme }) => 
+    isActive ? theme.colors.interactive.hover : theme.colors.utility.transparent};
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 
-  background-color: ${({ isActive }) => (isActive ? "#373934" : "transparent")};
-
-  ${({ isActive }) =>
+  ${({ isActive, theme }) =>
     isActive &&
     `
-  
+    div {
+      color: ${theme.colors.primary.main};
+    }
+  `}
 
-  div {
-    color: #c1f84d;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.interactive.hover};
   }
-`}
 `;
 const IconWrapper = styled.div<{ isActive: boolean }>`
-  width: 28px;
-  height: 28px;
+  width: ${({ theme }) => theme.sizes.component.icon.small.width};
+  height: ${({ theme }) => theme.sizes.component.icon.small.height};
 
   svg {
-    stroke: ${({ isActive }) => (isActive ? "#c1f84d" : "#666666")};
-    fill: ${({ isActive }) => (isActive ? "#c1f84d" : "none")};
+    stroke: ${({ isActive, theme }) => 
+      isActive ? theme.colors.primary.main : theme.colors.text.inactive};
+    fill: ${({ isActive, theme }) => 
+      isActive ? theme.colors.primary.main : 'none'};
+    transition: stroke 0.2s ease, fill 0.2s ease;
 
     #postLine1,
     #postLine2 {
-      stroke: ${({ isActive }) => (isActive ? "#666666" : "#666666")};
+      stroke: ${({ theme }) => theme.colors.text.inactive};
     }
 
     #circle4 {
-      fill: ${({ isActive }) => (isActive ? "#c1f84d" : "#666666")};
+      fill: ${({ isActive, theme }) => 
+        isActive ? theme.colors.primary.main : theme.colors.text.inactive};
     }
 
     #circle1,
     #circle3,
     #circle5 {
-      fill: ${({ isActive }) => (isActive ? "#333333" : "#666666")};
+      fill: ${({ isActive, theme }) => 
+        isActive ? theme.colors.background.secondary : theme.colors.text.inactive};
     }
   }
 `;
@@ -95,12 +104,14 @@ const IconWrapper = styled.div<{ isActive: boolean }>`
 const Name = styled.div<{ isActive: boolean }>`
   flex-wrap: wrap;
   display: flex;
-  font-size: 10px;
-  width: 75px;
+  font-size: ${({ theme }) => theme.typography.fontSize.xs};
+  width: ${({ theme }) => theme.sizes.component.barButton.width};
   height: 12px;
   align-content: center;
   justify-content: center;
-  color: #666666;
+  color: ${({ isActive, theme }) => 
+    isActive ? theme.colors.primary.main : theme.colors.text.inactive};
+  transition: color 0.2s ease;
 `;
 
 export default MainBar;
