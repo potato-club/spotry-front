@@ -30,18 +30,26 @@ export default EachPost;
 const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  width: 100%;
+  max-width: ${({ theme }) => theme.sizes.container.mobile};
+  margin: 0 auto;
 `;
 
 const ContentWrapper = styled.div`
   flex: 1;
   overflow-y: auto;
-  padding: 0 16px;
+  padding: ${({ theme }) => theme.sizes.spacing.lg};
+  padding-top: ${({ theme }) => theme.sizes.spacing.xxxl};
+  padding-bottom: ${({ theme }) => `calc(${theme.sizes.component.menuBar.height} + ${theme.sizes.spacing.xl})`};
   box-sizing: border-box;
 `;
 
 const Separator = styled.div`
-  height: 20px;
+  height: ${({ theme }) => theme.sizes.spacing.xl};
   width: 100%;
-  background-color: #2b2b2b;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  margin: ${({ theme }) => theme.sizes.spacing.lg} 0;
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.small};
 `;

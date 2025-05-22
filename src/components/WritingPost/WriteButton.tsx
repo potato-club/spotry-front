@@ -20,9 +20,9 @@ const WriteButton: React.FC = () => {
 };
 
 const WriteButtonContainer = styled.button`
-  position: absolute;
-  bottom: 30px;
-  right: 30px;
+  position: fixed;
+  bottom: ${({ theme }) => `calc(${theme.sizes.component.menuBar.height} + ${theme.sizes.spacing.lg})`};
+  right: ${({ theme }) => theme.sizes.spacing.lg};
   width: ${({ theme }) => theme.sizes.component.icon.large.width};
   height: ${({ theme }) => theme.sizes.component.icon.large.height};
   background-color: ${({ theme }) => theme.colors.primary.main};
@@ -34,15 +34,19 @@ const WriteButtonContainer = styled.button`
   box-shadow: 0 4px 8px ${({ theme }) => theme.colors.utility.shadow};
   cursor: pointer;
   transition: all 0.2s ease;
+  z-index: ${({ theme }) => theme.sizes.zIndex.modal};
+  
+  /* 375px 컨테이너 내부에 위치하도록 조정 */
+  transform: translateX(-${({ theme }) => theme.sizes.spacing.lg});
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary.light};
-    transform: translateY(-2px);
+    transform: translateX(-${({ theme }) => theme.sizes.spacing.lg}) translateY(-2px);
     box-shadow: 0 6px 12px ${({ theme }) => theme.colors.utility.shadow};
   }
 
   &:active {
-    transform: translateY(0);
+    transform: translateX(-${({ theme }) => theme.sizes.spacing.lg}) translateY(0);
     box-shadow: 0 2px 4px ${({ theme }) => theme.colors.utility.shadow};
   }
 `;

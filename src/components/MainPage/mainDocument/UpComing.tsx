@@ -63,87 +63,135 @@ const UpComing = () => {
 export default UpComing;
 
 const Wrapper = styled.div`
-width: 90%;
-margin-top: 10px;
+  width: 90%;
+  margin-top: ${({ theme }) => theme.sizes.spacing.lg};
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.lg};
 `;
 
 const UpComingTitle = styled.p`
-color: white;
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  margin: 0;
 `;
 
 const MoreBtn = styled.div`
-color: #afafaf;
-font-size: 14px;
-cursor: pointer;
+  color: ${({ theme }) => theme.colors.text.quaternary};
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary.main};
+  }
 `;
 
 const TitleDiv = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.md};
 `;
 
 const UpComingPostDiv = styled.div`
-display: flex;
-flex-direction: row;
-overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  padding: ${({ theme }) => theme.sizes.spacing.sm} 0;
+  cursor: grab;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  &:active {
+    cursor: grabbing;
+  }
 `;
 
 const UpcomingPost = styled.div`
-width: 140px;
-height: 170px;
-background-color: #444444;
-border-radius: 12px;
-margin-right: 10px;
-margin-bottom: 10px;
-flex-shrink: 0;
-cursor: pointer;
-color: white;
-display: flex;
-flex-direction: column;
-padding: 10px;
-box-sizing: border-box;
-overflow: hidden;
-position: relative;
-justify-content: space-between;
+  width: 140px;
+  height: 180px;
+  background-color: ${({ theme }) => theme.colors.background.tertiary};
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.large};
+  margin-right: ${({ theme }) => theme.sizes.spacing.sm};
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.sm};
+  flex-shrink: 0;
+  cursor: pointer;
+  color: ${({ theme }) => theme.colors.text.primary};
+  display: flex;
+  flex-direction: column;
+  padding: ${({ theme }) => theme.sizes.spacing.md};
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+  border: 1px solid ${({ theme }) => theme.colors.background.quaternary};
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px ${({ theme }) => theme.colors.utility.shadow};
+    border-color: ${({ theme }) => theme.colors.primary.main};
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
 `;
 
 const Titlediv = styled.div`
-overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap;
-word-break: break-all;
-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+  color: ${({ theme }) => theme.colors.text.primary};
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.sm};
 `;
 
 const CategoryDiv = styled.div`
-display: flex;
-flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.sm};
 `;
 
 const Category = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: center;
-border-radius: 10px;
-width: auto;
-background-color: #383838;
-color: white;
-padding: 4px;
-box-sizing: border-box;
-font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.medium};
+  background-color: ${({ theme }) => theme.colors.background.quaternary};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  padding: ${({ theme }) => theme.sizes.spacing.xs} ${({ theme }) => theme.sizes.spacing.sm};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs};
 `;
 
 const InfoDiv = styled.div`
-display: flex;
-flex-direction: row;
-align-items: center;
-span{
-    margin-left: 3px;
-}
-`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: ${({ theme }) => theme.sizes.spacing.xs};
+  
+  img {
+    width: 14px;
+    height: 14px;
+    opacity: 0.7;
+  }
+  
+  span {
+    font-size: ${({ theme }) => theme.typography.fontSize.sm};
+    color: ${({ theme }) => theme.colors.text.quaternary};
+  }
+`;
+
 const StyledLink = styled(Link)`
-    text-decoration: none; 
-    color: white; 
-`
+  text-decoration: none;
+  color: inherit;
+  
+  &:hover {
+    color: inherit;
+  }
+`;

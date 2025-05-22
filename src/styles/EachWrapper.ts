@@ -6,9 +6,10 @@ export const EachWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
-  overflow-y: hidden;
-  padding-bottom: ${({ theme }) => theme.sizes.component.menuBar.height};
+  min-height: 100vh;
+  overflow-y: auto;
+  padding-bottom: ${({ theme }) => `calc(${theme.sizes.component.menuBar.height} + ${theme.sizes.spacing.xxxl})`};
+  box-sizing: border-box;
 `;
 
 
