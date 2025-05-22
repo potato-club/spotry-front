@@ -12,18 +12,11 @@ import { removeToken } from "../../../util/storage";
     private final String email;
 */
  
-interface mypage {
-  id: string;
-  birthday: string,
-  profileUrl: string;
-  gender: string;
-  nickName: string;
-  email: string;
-}
+import { UserProfile } from "../../../types/User";
 
 const MyPage = () => {
     
-    const [myPageInfo, setMyPageInfo] = useState<mypage>({
+    const [myPageInfo, setMyPageInfo] = useState<UserProfile>({
         id: "",
         birthday:"",
         profileUrl: "",

@@ -3,16 +3,11 @@ import EachPage from '../EachPage';
 import { useState } from 'react';
 import { getMainPost } from '../../../api/postApi';
 
-interface mainPost{
-    id: number;
-    title: string;
-    sport: string;
-    likeCount: number;
-}
+import { MainPost } from '../../../types/Post';
 
 const PostPage = () => {
     
-    const [resultPost,setResultPost] = useState<mainPost[]>([]);
+    const [resultPost,setResultPost] = useState<MainPost[]>([]);
 
     useEffect(()=> {
         const fetchMain = async () => {

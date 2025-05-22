@@ -4,15 +4,11 @@ import useDargX from "../../../hook/useDargX";
 import { Link } from "react-router-dom";
 import { getUpComingPost } from "../../../api/postApi";
 
-interface UpComingInter{
-    id: number,
-    title: string
-    tags:string[]
-}
+import { UpComingPost } from '../../../types/Post';
 
 const UpComing = () => {
 
-    const [upComingPost, setUpComingPost] = useState<UpComingInter[]>([]);
+    const [upComingPost, setUpComingPost] = useState<UpComingPost[]>([]);
     const { DivRef, handleMouseDown, handleMouseUp, handleMouseMove } = useDargX();
 
     const getUpComing = async () => {

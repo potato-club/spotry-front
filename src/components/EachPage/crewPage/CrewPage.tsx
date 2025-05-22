@@ -2,22 +2,11 @@ import EachPage from '../EachPage';
 import { useEffect, useState } from 'react';
 import { getCrewPost } from '../../../api/postApi';
 
-interface crewInter{
-    id: number;
-    region: string;
-    postDate: string;
-    title: string;
-    postState: string;
-    sport: string;
-    viewCount: number;
-    likeCount: number;
-    commentCount: number;
-    tag: string[];
-}
+import { CrewPost } from '../../../types/Post';
 
 const CrewPage = () => {
 
-    const [resultPost,setResultPost] = useState<crewInter[]>([]);
+    const [resultPost,setResultPost] = useState<CrewPost[]>([]);
 
     useEffect(() => {
         const fetchCrewPage = async () => {

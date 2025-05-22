@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import styled from "styled-components";
 import { checkEmail, checkUserId, registerUser } from "../../api/authApi";
+import { SignupFormData } from "../../types/User";
 import { useNavigate } from "react-router-dom";
 import EmailSelect from "../Login/EmailSelect";
 
@@ -13,7 +14,7 @@ const SubmitMain: React.FC = () => {
 
   const [form, setForm] = useState({
     userName: "",
-    gender: "",
+    gender: "" as "MALE" | "FEMALE" | "",
     nickName: "",
     email: "",
     birthDay: "",
@@ -135,7 +136,7 @@ const SubmitMain: React.FC = () => {
         const respose = await registerUser({
           userName: form.userName,
           nickName: form.nickName,
-          gender: form.gender,
+          gender: form.gender as "MALE" | "FEMALE",
           email: `${form.email}@${form.emailDomain}`,
           birthDay: form.birthDayForm,
           userId: form.userId,

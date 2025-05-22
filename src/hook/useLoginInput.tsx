@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { UseInputFieldResult } from "../types/Login";
+import { UseInputFieldResult } from "../types/User";
 
 const useLoginInput = (initialPlaceholder: string): UseInputFieldResult => {
   const [value, setValue] = useState<string>("");

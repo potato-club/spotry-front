@@ -4,14 +4,7 @@ import useDargX from '../../../hook/useDargX';
 import { Link, useNavigate } from 'react-router-dom';
 import { getPopularPost } from '../../../api/postApi';
 
-interface popluar{
-    id: number,
-    title: string,
-    tags: string,
-    viewCount: number,
-    postLikes: number,
-    commentCounts: number
-}
+import { PopularPost } from '../../../types/Post';
 
 const Popular = () => {
 
@@ -19,7 +12,7 @@ const Popular = () => {
 
     const {DivRef,handleMouseDown,handleMouseUp,handleMouseMove} = useDargX();
 
-    const [populars,setPopulars] = useState<popluar[]>([]);
+    const [populars,setPopulars] = useState<PopularPost[]>([]);
 
     const getPopular = async () => {
         try {

@@ -1,27 +1,16 @@
 import styled from "styled-components";
 import LikeIcon from "../../Data/LikeSvg";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useAppNavigation } from "../../../router";
 import { clickLike, deletePost, getEachPost } from "../../../api/postApi";
 
-interface eachPost {
-  nickName: string;
-  region: string;
-  postDate: string;
-  title: string;
-  content: string;
-  postState: string;
-  sport: string;
-  viewCount: number;
-  likeCount: number;
-  commentCount: number;
-  tag: string[];
-}
+import { PostDetail } from "../../../types/Post";
 
 const Detail = () => {
-  const navigate = useNavigate();
+  const { routes } = useAppNavigation();
 
-  const [eachPost, setEachPost] = useState<eachPost>();
+  const [eachPost, setEachPost] = useState<PostDetail>();
   const { postId } = useParams();
   const id = postId ? parseInt(postId) : null;
 
@@ -66,7 +55,7 @@ const Detail = () => {
     try {
       const response = await deletePost(id);
       alert("삭제되었습니다.");
-      navigate("/post");
+      routes.post();
       return response;
     } catch (error) {
       alert("삭제 실패");

@@ -1,24 +1,6 @@
 import { setToken } from "../util/storage";
 import url from "./url";
-
-// ========================================
-// 타입 정의
-// ========================================
-
-export interface SignupForm {
-    userName: string;
-    nickName: string;
-    gender: string;
-    email: string;
-    birthDay: string;
-    userId: string;
-    userPw: string;
-}
-
-export interface LoginForm {
-    userId: string;
-    userPw: string;
-}
+import { SignupFormData, LoginFormData } from "../types/User";
 
 // ========================================
 // 회원가입 관련
@@ -42,7 +24,7 @@ export const checkUserId = async (id: string): Promise<boolean> => {
     }
 };
 
-export const registerUser = async (formData: SignupForm): Promise<void> => {
+export const registerUser = async (formData: SignupFormData): Promise<void> => {
     console.log("회원가입 요청 데이터:", formData);
     try {
         const response = await url.post("/auth/register", formData, {
@@ -61,7 +43,7 @@ export const registerUser = async (formData: SignupForm): Promise<void> => {
 // 로그인 관련
 // ========================================
 
-export const loginUser = async (loginData: LoginForm) => {
+export const loginUser = async (loginData: LoginFormData) => {
     try {
         const response = await url.post("/auth/login", loginData);
 
