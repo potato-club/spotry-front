@@ -1,8 +1,16 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const WriteButton: React.FC = () => {
+interface WriteButtonProps {
+  className?: string;
+}
+
+/**
+ * 글쓰기 버튼 컴포넌트 - React.memo로 최적화
+ * props가 변경되지 않으면 리렌더링하지 않음
+ */
+const WriteButton: React.FC<WriteButtonProps> = memo(({ className }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -10,14 +18,16 @@ const WriteButton: React.FC = () => {
   };
 
   return (
-    <WriteButtonContainer onClick={handleClick}>
+    <WriteButtonContainer onClick={handleClick} className={className}>
       <IconImage
         src={`${process.env.PUBLIC_URL}/images/writeBtn.png`}
         alt="write icon"
       />
     </WriteButtonContainer>
   );
-};
+});
+
+WriteButton.displayName = 'WriteButton';
 
 const WriteButtonContainer = styled.button`
   position: fixed;

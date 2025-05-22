@@ -1,47 +1,70 @@
 import styled from 'styled-components';
 import useDargX from '../../../hook/useDargX';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { getSports, getSportDetail } from '../../../api/sportApi';
+import { Sport } from '../../../types/Sport';
 
 const Hot = () => {
+    const [sports, setSports] = useState<Sport[]>([]);
+    const [detailSports, setDetailSports] = useState<Sport[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    const [sports, setSports] = useState<{ id: number; name: string }[]>([]);
-    const [detailSports, setDetailSports] = useState<{ id: number; name: string }[]>([]);
-
-    const sportImages: Record<string, string> = {
+    // 스포츠 이미지 매핑 (메모이제이션)
+    const sportImages: Record<string, string> = useMemo(() => ({
         '축구': '/images/football.png',
         '수영': '/images/swimming.png',
         '야구': '/images/baseball.png',
         '러닝': '/images/running.png',
         '배드민턴': '/images/badminton.png',
         '농구': '/images/baseball.png'
-    };
+    }), []);
 
     useEffect(() => {
-        const fetchSports = async () => {
+        const fetchData = async () => {
             try {
-                const response = await getSports();
-                setSports(response);
-                if (response.length > 0) {
-                    fetchDetailSport(response[0].id); 
+                setLoading(true);
+                setError(null);
+                
+                const sportsResponse = await getSports();
+                setSports(sportsResponse);
+                
+                if (sportsResponse.length > 0) {
+                    const detailResponse = await getSportDetail(sportsResponse[0].id);
+                    setDetailSports(detailResponse);
                 }
             } catch (error) {
-                console.error("스포츠 목록을 가져오지 못했습니다.", error);
+                console.error("스포츠 데이터를 가져오는데 실패했습니다:", error);
+                setError("스포츠 정보를 불러올 수 없습니다.");
+            } finally {
+                setLoading(false);
             }
         };
-        fetchSports();
+
+        fetchData();
     }, []);
 
-    const fetchDetailSport = async (id: number) => {
-        try {
-            const response = await getSportDetail(id);
-            setDetailSports(response); 
-        } catch (error) {
-            console.error("세부 스포츠 정보를 가져오지 못했습니다.", error);
-        }
-    };
-
     const {DivRef, handleMouseDown, handleMouseUp, handleMouseMove} = useDargX();
+
+    // 로딩 상태 처리
+    if (loading) {
+        return (
+            <HotWrapper>
+                <SectionTitle><strong>현재 HOT한 운동</strong></SectionTitle>
+                <LoadingContainer>로딩 중...</LoadingContainer>
+            </HotWrapper>
+        );
+    }
+
+    // 에러 상태 처리
+    if (error) {
+        return (
+            <HotWrapper>
+                <SectionTitle><strong>현재 HOT한 운동</strong></SectionTitle>
+                <ErrorContainer>{error}</ErrorContainer>
+            </HotWrapper>
+        );
+    }
 
     return (
         <HotWrapper>
@@ -53,7 +76,7 @@ const Hot = () => {
                 onMouseLeave={handleMouseUp}
                 onMouseMove={handleMouseMove}
             >
-                {detailSports.map((sport) => (
+                {detailSports.map((sport: Sport) => (
                     <ExIcon 
                         key={sport.id} 
                         src={sportImages[sport.name] || '/images/default.png'} 
@@ -114,4 +137,22 @@ const ExIcon = styled.img`
   &:last-child {
     margin-right: 0;
   }
+`;
+
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: ${({ theme }) => theme.sizes.component.icon.medium.height};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
+`;
+
+const ErrorContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: ${({ theme }) => theme.sizes.component.icon.medium.height};
+  color: ${({ theme }) => theme.colors.status.error};
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
 `;

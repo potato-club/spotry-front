@@ -1,4 +1,4 @@
-import { setToken } from "../util/storage";
+import { tokenManager } from "../util/tokenUtils";
 import url from "./url";
 import { SignupFormData, LoginFormData } from "../types/User";
 
@@ -50,7 +50,7 @@ export const loginUser = async (loginData: LoginFormData) => {
         if (response.status === 200) {
             const token = response.headers.authorization;
             if (token) {
-                setToken(token);
+                tokenManager.setToken(token);
                 alert("로그인 성공");
             } else {
                 alert("토큰 에러");

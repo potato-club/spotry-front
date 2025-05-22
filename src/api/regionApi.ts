@@ -1,9 +1,6 @@
 import { getToken } from "../util/storage";
 import url from "./url";
 
-// ========================================
-// 지역 데이터 조회
-// ========================================
 
 export const getRegions = async () => {
     try {
@@ -35,9 +32,6 @@ export const getTowns = async (cityId: number) => {
     }
 };
 
-// ========================================
-// 사용자 지역 설정
-// ========================================
 
 export const getUserRegion = async () => {
     try {
