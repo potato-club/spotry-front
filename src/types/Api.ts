@@ -1,10 +1,4 @@
-// ========================================
-// API 응답 관련 타입 정의
-// ========================================
 
-/**
- * 기본 API 응답 구조
- */
 export interface ApiResponse<T = any> {
   success: boolean;
   data: T;
@@ -12,9 +6,6 @@ export interface ApiResponse<T = any> {
   error?: string;
 }
 
-/**
- * 페이지네이션 응답
- */
 export interface PaginatedResponse<T> {
   data: T[];
   totalCount: number;
@@ -23,9 +14,7 @@ export interface PaginatedResponse<T> {
   hasNext: boolean;
 }
 
-/**
- * 로그인 응답
- */
+
 export interface LoginResponse {
   accessToken: string;
   refreshToken?: string;
@@ -36,9 +25,7 @@ export interface LoginResponse {
   };
 }
 
-/**
- * 에러 응답
- */
+
 export interface ErrorResponse {
   success: false;
   error: string;

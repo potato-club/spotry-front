@@ -2,10 +2,6 @@ import { tokenManager } from "../util/tokenUtils";
 import url from "./url";
 import { SignupFormData, LoginFormData } from "../types/User";
 
-// ========================================
-// 회원가입 관련
-// ========================================
-
 export const checkEmail = async (email: string): Promise<boolean> => {
     try {
         const response = await url.post("/check-email", { email });
@@ -38,10 +34,6 @@ export const registerUser = async (formData: SignupFormData): Promise<void> => {
         throw new Error("회원가입 중 오류가 발생했습니다.");
     }
 };
-
-// ========================================
-// 로그인 관련
-// ========================================
 
 export const loginUser = async (loginData: LoginFormData) => {
     try {

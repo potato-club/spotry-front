@@ -1,4 +1,3 @@
-// 여기서는 어떤 지역을 보여줄지 정하고 그 지역을 보여줍니다.
 import { useState } from "react";
 import { Region } from "../../../../types/Region";
 import { ShowCities, ShowRegion, ShowTowns } from "./ShowRegion";

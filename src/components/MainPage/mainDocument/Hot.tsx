@@ -10,7 +10,6 @@ const Hot = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    // 스포츠 이미지 매핑 (메모이제이션)
     const sportImages: Record<string, string> = useMemo(() => ({
         '축구': '/images/football.png',
         '수영': '/images/swimming.png',
@@ -46,7 +45,6 @@ const Hot = () => {
 
     const {DivRef, handleMouseDown, handleMouseUp, handleMouseMove} = useDargX();
 
-    // 로딩 상태 처리
     if (loading) {
         return (
             <HotWrapper>
@@ -56,7 +54,6 @@ const Hot = () => {
         );
     }
 
-    // 에러 상태 처리
     if (error) {
         return (
             <HotWrapper>

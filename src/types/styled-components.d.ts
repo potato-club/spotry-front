@@ -1,6 +1,5 @@
 import 'styled-components';
 
-// 테마 타입 정의
 export interface Theme {
   colors: {
     primary: {
@@ -128,7 +127,6 @@ export interface Theme {
   };
 }
 
-// styled-components의 DefaultTheme을 우리 테마로 확장
 declare module 'styled-components' {
   export interface DefaultTheme extends Theme {}
 }

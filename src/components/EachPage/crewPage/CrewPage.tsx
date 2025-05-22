@@ -12,7 +12,6 @@ const CrewPage = () => {
         const fetchCrewPage = async () => {
             try {
                 const response = await getCrewPost();
-                // console.log("crew 페이지 배열 확인 :",response);
                 setResultPost(response);
             } catch (error) {
                 alert('fetch 실패')

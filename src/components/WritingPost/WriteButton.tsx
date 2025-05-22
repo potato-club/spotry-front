@@ -6,10 +6,6 @@ interface WriteButtonProps {
   className?: string;
 }
 
-/**
- * 글쓰기 버튼 컴포넌트 - React.memo로 최적화
- * props가 변경되지 않으면 리렌더링하지 않음
- */
 const WriteButton: React.FC<WriteButtonProps> = memo(({ className }) => {
   const navigate = useNavigate();
 
@@ -46,7 +42,6 @@ const WriteButtonContainer = styled.button`
   transition: all 0.2s ease;
   z-index: ${({ theme }) => theme.sizes.zIndex.modal};
   
-  /* 375px 컨테이너 내부에 위치하도록 조정 */
   transform: translateX(-${({ theme }) => theme.sizes.spacing.lg});
 
   &:hover {

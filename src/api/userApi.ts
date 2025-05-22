@@ -1,10 +1,6 @@
 import { getToken } from "../util/storage";
 import url from "./url";
 
-// ========================================
-// 사용자 프로필 관련
-// ========================================
-
 export const getUserProfile = async () => {
     try {
         const response = await url.get('/mypage', {
@@ -17,10 +13,6 @@ export const getUserProfile = async () => {
         throw error;
     }
 };
-
-// ========================================
-// 아이디 찾기
-// ========================================
 
 export const findUserId = async (nickName: string, userEmail: string) => {
     try {
@@ -37,13 +29,6 @@ export const findUserId = async (nickName: string, userEmail: string) => {
     }
 };
 
-// ========================================
-// 비밀번호 재설정 관련
-// ========================================
-
-/**
- * 사용자 정보 확인 (비밀번호 재설정용)
- */
 export const verifyUserInfo = (
     userId: string,
     nickName: string,
@@ -55,21 +40,15 @@ export const verifyUserInfo = (
         userEmail,
     });
 
-/**
- * 인증 코드 발송
- */
+
 export const sendVerificationEmail = (email: string) =>
     url.post("/auth/register/send-email", { email });
 
-/**
- * 인증 코드 검증
- */
+
 export const verifyEmailCode = (email: string, code: string) =>
     url.post("/auth/register/verify-code", { email, code });
 
-/**
- * 비밀번호 재설정
- */
+
 export const resetPassword = (id: number, newPassword: string) => {
     return url.post("/auth/password/reset", {
         id,

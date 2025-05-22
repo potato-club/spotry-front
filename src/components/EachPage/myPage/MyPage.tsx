@@ -2,17 +2,8 @@ import { useEffect, useState } from "react";
 import { getUserProfile } from "../../../api/userApi";
 import styled from "styled-components";
 import { removeToken } from "../../../util/storage";
-
-/*
-    private final String id;
-    private final String profileUrl;
-    private final LocalDate birthday;
-    private final Gender gender;
-    private final String nickName;
-    private final String email;
-*/
- 
 import { UserProfile } from "../../../types/User";
+import ProfileImage from "../../common/ProfileImage";
 
 const MyPage = () => {
     
@@ -46,7 +37,16 @@ const MyPage = () => {
   return (
     <Wrapper>
       <ProfileContainer>
-        <ProfileImg src={myPageInfo.profileUrl} alt="profile" />
+        <ProfileImageWrapper>
+          <ProfileImage
+            profileUrl={myPageInfo.profileUrl}
+            name={myPageInfo.nickName}
+            gender={myPageInfo.gender}
+            size={120}
+            showBorder={true}
+            showOnlineStatus={false}
+          />
+        </ProfileImageWrapper>
         <NickName>{myPageInfo.nickName}</NickName>
         <Email>{myPageInfo.email}</Email>
         <Birthday>{myPageInfo.birthday}</Birthday>
@@ -107,13 +107,10 @@ const ProfileContainer = styled.div`
   box-shadow: 0 4px 12px ${({ theme }) => theme.colors.utility.shadow};
 `;
 
-const ProfileImg = styled.img`
-  width: ${({ theme }) => theme.sizes.component.icon.profile.width};
-  height: ${({ theme }) => theme.sizes.component.icon.profile.height};
-  border-radius: ${({ theme }) => theme.sizes.borderRadius.round};
-  object-fit: cover;
+
+
+const ProfileImageWrapper = styled.div`
   margin-bottom: ${({ theme }) => theme.sizes.spacing.lg};
-  border: 3px solid ${({ theme }) => theme.colors.primary.main};
 `;
 
 const NickName = styled.div`

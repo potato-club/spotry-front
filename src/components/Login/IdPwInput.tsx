@@ -115,5 +115,4 @@ const CustomBtn = styled(OrginalBtn)`
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   color: ${({ theme }) => theme.colors.utility.black};
 `;
-//2B2B2B
 export default IdPwInput;

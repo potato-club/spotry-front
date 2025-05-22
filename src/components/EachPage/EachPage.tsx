@@ -41,13 +41,10 @@ const EachPage: React.FC<any> = ({ resultPost }) => {
                         {value.title}
                         </div>
                     <TagWrapper>
-                        {/* {value.tag.map((tag, index) => (
-                            <Tag key={index}>#{tag}</Tag>
-                        ))} */}
+
                     </TagWrapper>
                     <InfoWrapper>
                         <WhenAndView>
-                            {/* <span>조회 {value.viewCount}</span> */}
                         </WhenAndView>
                         <LikeAndComment>
                             <div>

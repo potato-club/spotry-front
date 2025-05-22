@@ -1,9 +1,6 @@
 import { getToken } from "../util/storage";
 import url from "./url";
 
-// ========================================
-// 스포츠 관련 API
-// ========================================
 
 export const getSports = async () => {
     try {

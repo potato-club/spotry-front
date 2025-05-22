@@ -3,37 +3,28 @@ import { RouteObject } from "react-router-dom";
 import PrivateRoute from "../layout/PrivateRoute";
 import { ROUTES } from "./routes";
 
-// ========================================
-// 컴포넌트 Lazy Import (성능 최적화)
-// ========================================
 
-// 인증 관련
 const SplashMain = lazy(() => import("../SplashPage/splashMain"));
 const LoginPage = lazy(() => import("../components/Login/LoginPage"));
 const SubmitMain = lazy(() => import("../components/SubmitLogin/SubmitPage"));
 
-// 비밀번호 찾기
 const FindIdPwPage = lazy(() => import("../components/FindChangeIdPw/FindIdPwPage"));
 const VerifyUser = lazy(() => import("../components/FindChangeIdPw/VerfyUser"));
 const FindResult = lazy(() => import("../components/FindChangeIdPw/FindResult"));
 const ResetSuccess = lazy(() => import("../components/FindChangeIdPw/ResetSuccess"));
 
-// 메인 기능
 const Main = lazy(() => import("../components/MainPage/Main"));
 const MainLocation = lazy(() => import("../components/Location/LocationPage/MainLocation"));
 const SearchPage = lazy(() => import("../components/Search/SearchPage"));
 const WritePost = lazy(() => import("../components/WritingPost/WritePost"));
 
-// 각 페이지
 const CrewPage = lazy(() => import("../components/EachPage/crewPage/CrewPage"));
 const PostPage = lazy(() => import("../components/EachPage/postPage/PostPage"));
 const MyPage = lazy(() => import("../components/EachPage/myPage/MyPage"));
 const SearchResult = lazy(() => import("../components/EachPage/searchResult/SearchResult"));
 const EachPost = lazy(() => import("../components/eachPost/EachPost"));
 
-// ========================================
-// 로딩 컴포넌트
-// ========================================
+
 const LoadingSpinner = () => (
   <div style={{ 
     display: 'flex', 
@@ -46,15 +37,8 @@ const LoadingSpinner = () => (
   </div>
 );
 
-// ========================================
-// 라우트 설정
-// ========================================
 
-/**
- * 애플리케이션 라우트 구성
- */
 export const routeConfig: RouteObject[] = [
-  // 공개 라우트
   {
     path: ROUTES.SPLASH,
     element: (
@@ -88,7 +72,6 @@ export const routeConfig: RouteObject[] = [
     ),
   },
   
-  // 비밀번호 찾기 관련
   {
     path: ROUTES.FIND_ID_PW,
     element: (
@@ -122,7 +105,6 @@ export const routeConfig: RouteObject[] = [
     ),
   },
 
-  // 보호된 라우트 (인증 필요)
   {
     element: <PrivateRoute />,
     children: [
@@ -193,7 +175,6 @@ export const routeConfig: RouteObject[] = [
     ],
   },
 
-  // 기본 경로 (404 처리)
   {
     path: "*",
     element: (

@@ -1,11 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 
-/**
- * 최적화된 무한 스크롤 훅
- * - 불필요한 리렌더링 방지
- * - throttling 적용
- * - 메모리 누수 방지
- */
+
 const useInfiniteScroll = (containerRef: React.RefObject<HTMLElement>, threshold: number = 1) => {
     const [isEnd, setIsEnd] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +13,6 @@ const useInfiniteScroll = (containerRef: React.RefObject<HTMLElement>, threshold
 
         const { scrollTop, scrollHeight, clientHeight } = container;
         
-        // 아래로 스크롤할 때만 실행
         if (scrollTop <= lastScrollTop.current) {
             lastScrollTop.current = scrollTop;
             return;
@@ -26,7 +20,6 @@ const useInfiniteScroll = (containerRef: React.RefObject<HTMLElement>, threshold
         
         lastScrollTop.current = scrollTop;
         
-        // 끝에 도달했는지 확인 (threshold 적용)
         if (scrollTop + clientHeight >= scrollHeight - threshold) {
             setIsEnd(true);
         }
@@ -38,7 +31,7 @@ const useInfiniteScroll = (containerRef: React.RefObject<HTMLElement>, threshold
         throttleTimer.current = setTimeout(() => {
             handleScroll();
             throttleTimer.current = null;
-        }, 100); // 100ms throttle
+        }, 100); 
     }, [handleScroll]);
 
     useEffect(() => {
@@ -55,7 +48,6 @@ const useInfiniteScroll = (containerRef: React.RefObject<HTMLElement>, threshold
         };
     }, [containerRef, throttledHandleScroll]);
 
-    // isEnd 상태 리셋
     useEffect(() => {
         if (isEnd) {
             const timer = setTimeout(() => {
@@ -70,7 +62,6 @@ const useInfiniteScroll = (containerRef: React.RefObject<HTMLElement>, threshold
         isEnd,
         isLoading,
         setIsLoading,
-        // 수동 리셋 함수
         resetScroll: () => {
             setIsEnd(false);
             setIsLoading(false);

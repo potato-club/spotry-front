@@ -34,7 +34,7 @@ const useComments = (postId: number) => {
     try {
       await api.addComment(postId, inputValue.trim());
       setInputValue("");
-      await fetchComments(); // 댓글 새로고침
+      await fetchComments(); 
     } catch (error) {
       console.error("댓글 추가 실패:", error);
       throw error;
@@ -87,7 +87,6 @@ const useComments = (postId: number) => {
 
 export default useComments;
 
-// 트리 구조 변환
 function buildCommentTree(flat: Comment[]): Comment[] {
   const map = new Map<number, Comment>();
   const roots: Comment[] = [];

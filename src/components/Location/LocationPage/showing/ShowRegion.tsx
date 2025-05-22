@@ -4,7 +4,6 @@ import useFetchCities from '../../fetchDatas/useFetchCities';
 import useFetchTowns from '../../fetchDatas/useFetchTowns';
 import { Region } from '../../../../types/Region';
 
-// 여기서 각 지역을 보여줍니다.
 export const ShowRegion = ({isSelect}:{isSelect:(region:Region)=>void}) => {
     
     const {region} = useFetchRegionData();

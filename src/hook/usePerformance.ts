@@ -1,9 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-/**
- * 컴포넌트 렌더링 성능을 모니터링하는 개발용 훅
- * 프로덕션에서는 비활성화됨
- */
+
 export const useRenderMonitor = (componentName: string) => {
   const renderCount = useRef(0);
   const lastRenderTime = useRef(Date.now());
@@ -27,9 +24,7 @@ export const useRenderMonitor = (componentName: string) => {
   return renderCount.current;
 };
 
-/**
- * 메모리 사용량을 모니터링하는 훅
- */
+
 export const useMemoryMonitor = (componentName: string) => {
   useEffect(() => {
     if (process.env.NODE_ENV === 'development' && 'memory' in performance) {
@@ -43,9 +38,7 @@ export const useMemoryMonitor = (componentName: string) => {
   });
 };
 
-/**
- * API 호출 지연시간을 측정하는 유틸리티
- */
+
 export const measureApiCall = async <T>(
   apiCall: () => Promise<T>,
   apiName: string
@@ -78,14 +71,11 @@ export const measureApiCall = async <T>(
   }
 };
 
-/**
- * 성능 최적화 팁을 제공하는 개발용 함수
- */
+
 export const performanceReport = () => {
   if (process.env.NODE_ENV === 'development') {
     console.group('🔍 성능 최적화 리포트');
     
-    // 토큰 관리자 상태 확인
     import('../util/tokenUtils').then(({ tokenManager }) => {
       console.log('✅ 토큰 관리: 이벤트 기반 (1초 polling 제거됨)');
       console.log('📊 토큰 상태:', {
@@ -95,7 +85,6 @@ export const performanceReport = () => {
       });
     });
     
-    // 메모리 정보
     if ('memory' in performance) {
       const memory = (performance as any).memory;
       console.log('💾 메모리 사용량:', {

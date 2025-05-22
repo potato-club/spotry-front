@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 const useDargX = () => {
 
     const [isDargX,setIsDargX] = useState<boolean>(false);
-    const [ClickPoint, setClickPoint] = useState<number>(0); // div위에서 어디가 클릭되었는지, 시작점
+    const [ClickPoint, setClickPoint] = useState<number>(0); 
     const [ScrollLeft,setScrollLeft] = useState<number>(0); 
     const DivRef = useRef<HTMLDivElement>(null);
 
@@ -13,10 +13,8 @@ const useDargX = () => {
             setIsDargX(true);
             setClickPoint(e.pageX - Scroll.offsetLeft);
             setScrollLeft(Scroll.scrollLeft);
-            // console.log(e.pageX);
-            // console.log(Scroll.offsetLeft);
+
         };
-        // console.log(StartScroll);
     };
 
     const handleMouseUp = () => {
