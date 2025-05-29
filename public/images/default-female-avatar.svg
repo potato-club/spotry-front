@@ -1,0 +1,13 @@
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경 원 -->
+  <circle cx="50" cy="50" r="50" fill="#E74C3C"/>
+  
+  <!-- 머리 -->
+  <circle cx="50" cy="35" r="15" fill="#FFFFFF"/>
+  
+  <!-- 몸체 -->
+  <ellipse cx="50" cy="75" rx="18" ry="25" fill="#FFFFFF"/>
+  
+  <!-- 여성적 특징 (긴 머리) -->
+  <path d="M35 30 Q30 40 35 50 Q40 45 50 45 Q60 45 65 50 Q70 40 65 30 Q60 25 50 25 Q40 25 35 30" fill="#FFFFFF"/>
+</svg>

@@ -1,8 +1,12 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const WriteButton: React.FC = () => {
+interface WriteButtonProps {
+  className?: string;
+}
+
+const WriteButton: React.FC<WriteButtonProps> = memo(({ className }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -10,29 +14,46 @@ const WriteButton: React.FC = () => {
   };
 
   return (
-    <WriteButtonContainer onClick={handleClick}>
+    <WriteButtonContainer onClick={handleClick} className={className}>
       <IconImage
         src={`${process.env.PUBLIC_URL}/images/writeBtn.png`}
         alt="write icon"
       />
     </WriteButtonContainer>
   );
-};
+});
+
+WriteButton.displayName = 'WriteButton';
 
 const WriteButtonContainer = styled.button`
-  position: absolute;
-  bottom: 30px;
-  right: 30px;
-  width: 60px;
-  height: 60px;
-  background-color: #c6ff00;
+  position: fixed;
+  bottom: ${({ theme }) => `calc(${theme.sizes.component.menuBar.height} + ${theme.sizes.spacing.lg})`};
+  right: ${({ theme }) => theme.sizes.spacing.lg};
+  width: ${({ theme }) => theme.sizes.component.icon.large.width};
+  height: ${({ theme }) => theme.sizes.component.icon.large.height};
+  background-color: ${({ theme }) => theme.colors.primary.main};
   border: none;
-  border-radius: 50%;
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.round};
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 8px ${({ theme }) => theme.colors.utility.shadow};
   cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: ${({ theme }) => theme.sizes.zIndex.modal};
+  
+  transform: translateX(-${({ theme }) => theme.sizes.spacing.lg});
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary.light};
+    transform: translateX(-${({ theme }) => theme.sizes.spacing.lg}) translateY(-2px);
+    box-shadow: 0 6px 12px ${({ theme }) => theme.colors.utility.shadow};
+  }
+
+  &:active {
+    transform: translateX(-${({ theme }) => theme.sizes.spacing.lg}) translateY(0);
+    box-shadow: 0 2px 4px ${({ theme }) => theme.colors.utility.shadow};
+  }
 `;
 
 const IconImage = styled.img`

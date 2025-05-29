@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import styled from "styled-components";
-import { checkEmail, checkId, submitSignup } from "../../api/submitApi";
+import { checkEmail, checkUserId, registerUser } from "../../api/authApi";
+import { SignupFormData } from "../../types/User";
 import { useNavigate } from "react-router-dom";
 import EmailSelect from "../Login/EmailSelect";
 
@@ -13,7 +14,7 @@ const SubmitMain: React.FC = () => {
 
   const [form, setForm] = useState({
     userName: "",
-    gender: "",
+    gender: "" as "MALE" | "FEMALE" | "",
     nickName: "",
     email: "",
     birthDay: "",
@@ -98,7 +99,7 @@ const SubmitMain: React.FC = () => {
   const handleIdCheck = async () => {
     if (form.userId.length >= 5 && form.userId.length <= 20) {
       try {
-        const idExists = await checkId(form.userId);
+        const idExists = await checkUserId(form.userId);
         setIdCheckMessage(
           idExists
             ? "이미 사용 중인 아이디입니다."
@@ -132,10 +133,10 @@ const SubmitMain: React.FC = () => {
     if (Object.values(newErrors).every((error) => !error)) {
       try {
         console.log("회원가입 요청 데이터:", form);
-        const respose = await submitSignup({
+        const respose = await registerUser({
           userName: form.userName,
           nickName: form.nickName,
-          gender: form.gender,
+          gender: form.gender as "MALE" | "FEMALE",
           email: `${form.email}@${form.emailDomain}`,
           birthDay: form.birthDayForm,
           userId: form.userId,
@@ -313,38 +314,48 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #333333;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
 `;
 
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
-  background-color: #333333;
-  color: #fff;
+  padding: ${({ theme }) => theme.sizes.spacing.lg};
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  color: ${({ theme }) => theme.colors.text.primary};
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: ${({ theme }) => theme.sizes.zIndex.header};
 `;
 
 const CloseButton = styled.button`
   background: none;
   border: none;
-  color: #fff;
-  font-size: 18px;
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.xl};
+  cursor: pointer;
+  padding: ${({ theme }) => theme.sizes.spacing.sm};
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.small};
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.interactive.hover};
+  }
 `;
 
 const HeaderTitle = styled.h1`
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   margin: 0;
   text-align: center;
   flex: 1;
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 const FormContainer = styled.form`
   flex: 1;
-  padding: 16px;
+  padding: ${({ theme }) => theme.sizes.spacing.lg};
   overflow-y: auto;
 `;
 
@@ -352,13 +363,13 @@ const InputField = styled.div<{
   error?: boolean;
   name?: string;
 }>`
-  margin-bottom: 24px;
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.xl};
 
   label {
     display: block;
-    font-size: 14px;
-    margin-bottom: 8px;
-    color: #b1b1b1;
+    font-size: ${({ theme }) => theme.typography.fontSize.md};
+    margin-bottom: ${({ theme }) => theme.sizes.spacing.sm};
+    color: ${({ theme }) => theme.colors.text.tertiary};
   }
 
   div {
@@ -369,77 +380,118 @@ const InputField = styled.div<{
   input {
     width: ${(props) =>
       props.name === "email"
-        ? "155px"
+        ? props.theme.sizes.component.input.small.width
         : props.name === "id"
-        ? "250px"
-        : "343px"};
-    font-size: 14px;
-    color: #fff;
-    background: #444444;
-    border: 1px solid ${(props) => (props.error ? "#FF6666" : "#555")};
-    border-radius: 12px;
-    height: 44px;
+        ? props.theme.sizes.component.input.medium.width
+        : props.theme.sizes.component.input.large.width};
+    font-size: ${({ theme }) => theme.typography.fontSize.md};
+    color: ${({ theme }) => theme.colors.text.primary};
+    background: ${({ theme }) => theme.colors.background.tertiary};
+    border: 1px solid ${(props) => 
+      props.error ? props.theme.colors.status.warning : props.theme.colors.background.quaternary};
+    border-radius: ${({ theme }) => theme.sizes.borderRadius.large};
+    height: ${({ theme }) => theme.sizes.component.input.large.height};
+    padding: 0 ${({ theme }) => theme.sizes.spacing.md};
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: ${({ theme }) => theme.colors.interactive.focus};
+    }
+
+    &::placeholder {
+      color: ${({ theme }) => theme.colors.text.quaternary};
+    }
   }
 `;
 
 const At = styled.div`
-  color: #8d8d8d;
-  margin: 0px 8px 0px 8px;
+  color: ${({ theme }) => theme.colors.text.quaternary};
+  margin: 0 ${({ theme }) => theme.sizes.spacing.sm};
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
 `;
 
 const GenderWrapper = styled.div`
   display: flex;
-  gap: 8px;
+  gap: ${({ theme }) => theme.sizes.spacing.sm};
 `;
 
 const GenderButton = styled.button.attrs({ type: "button" })<{
   selected?: boolean;
 }>`
   flex: 1;
-  padding: 8px;
-  font-size: 14px;
-  color: ${(props) => (props.selected ? "#C1F84D" : "#b1b1b1")};
-  background: transparent;
-  border: 1px solid ${(props) => (props.selected ? "#C1F84D" : "#555")};
-  border-radius: 12px;
-  width: 165.5px;
-  height: 44px;
+  padding: ${({ theme }) => theme.sizes.spacing.sm};
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
+  color: ${(props) => 
+    props.selected ? props.theme.colors.primary.main : props.theme.colors.text.tertiary};
+  background: ${({ theme }) => theme.colors.utility.transparent};
+  border: 1px solid ${(props) => 
+    props.selected ? props.theme.colors.primary.main : props.theme.colors.background.quaternary};
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.large};
+  width: ${({ theme }) => theme.sizes.component.button.medium.width};
+  height: ${({ theme }) => theme.sizes.component.input.large.height};
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.primary.main};
+    color: ${({ theme }) => theme.colors.primary.main};
+  }
 `;
 
 const CheckButton = styled.button`
-  background-color: #5d5d5d;
-  color: #a7a7a7;
-  font-size: 14px;
+  background-color: ${({ theme }) => theme.colors.interactive.disabled};
+  color: ${({ theme }) => theme.colors.text.disabled};
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
   border: none;
-  border-radius: 12px;
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.large};
   cursor: pointer;
-  height: 44px;
-  width: 83px;
-  padding: 0px;
-  margin-left: 8px;
+  height: ${({ theme }) => theme.sizes.component.input.large.height};
+  width: ${({ theme }) => theme.sizes.component.button.small.width};
+  padding: 0;
+  margin-left: ${({ theme }) => theme.sizes.spacing.sm};
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary.main};
+    color: ${({ theme }) => theme.colors.utility.black};
+  }
 `;
 
 const SmallText = styled.small<{ success?: boolean }>`
-  color: ${(props) => (props.success ? "#C1F84D" : "#FF6666")};
-  font-size: 12px;
+  color: ${(props) => 
+    props.success ? props.theme.colors.status.success : props.theme.colors.status.warning};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm};
   display: block;
-  margin-top: 4px;
+  margin-top: ${({ theme }) => theme.sizes.spacing.xs};
 `;
 
 const SubmitBtn = styled.button`
   cursor: pointer;
-  padding: 12px;
-  background-color: #c1f84d;
+  padding: ${({ theme }) => theme.sizes.spacing.md};
+  background-color: ${({ theme }) => theme.colors.primary.main};
   border: none;
-  border-radius: 12px;
-  color: #000;
-  font-weight: bold;
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.large};
+  color: ${({ theme }) => theme.colors.utility.black};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
   position: sticky;
   bottom: 0;
-  width: 343px;
-  height: 44px;
+  width: ${({ theme }) => theme.sizes.component.button.large.width};
+  height: ${({ theme }) => theme.sizes.component.input.large.height};
   margin: auto;
-  padding: 0px;
+  padding: 0;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary.light};
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 `;
 
 export default SubmitMain;

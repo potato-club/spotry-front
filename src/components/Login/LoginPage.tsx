@@ -16,9 +16,12 @@ const LoginPage = () => {
 };
 
 const LoginMain = styled.div`
-  color: white;
-  font-size: 28px;
-  margin-top: 50px;
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.xxl};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.normal};
+  line-height: ${({ theme }) => theme.typography.lineHeight.relaxed};
+  margin-top: ${({ theme }) => theme.sizes.spacing.xxxl};
+  text-align: center;
 `;
 
 export default LoginPage;

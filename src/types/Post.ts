@@ -1,13 +1,31 @@
+
 export interface Post {
+  id: number;
   createdDate: string;
   title: string;
-  conten: string;
+  content: string;           
   postState: string;
   sport: string;
   viewCount: number;
   likeCount: number;
   commentCount: number;
-  tag: [string];
+  tag: string[];             
+}
+
+
+export interface PostDetail {
+  id: number;
+  nickName: string;
+  region: string;
+  postDate: string;
+  title: string;
+  content: string;
+  postState: string;
+  sport: string;
+  viewCount: number;
+  likeCount: number;
+  commentCount: number;
+  tag: string[];
 }
 
 export interface MainPost {
@@ -17,20 +35,39 @@ export interface MainPost {
   likeCount: number;
 }
 
-export interface CrewPost extends MainPost {
+export interface CrewPost {
   id: number;
+  region: string;
+  postDate: string;
+  title: string;
+  postState: string;
+  sport: string;
+  viewCount: number;
+  likeCount: number;
+  commentCount: number;
+  tag: string[];
 }
 
-export interface User {
-  name: string;
-  profileImage: string;
-  location: string;
+export interface PopularPost {
+  id: number;
+  title: string;
+  tags: string;
+  viewCount: number;
+  postLikes: number;
+  commentCounts: number;
 }
 
-export interface Comment {
+export interface UpComingPost {
   id: number;
-  user: User;
-  text: string;
-  createdAt: Date;
-  likes: number;
+  title: string;
+  tags: string[];
 }
+
+export interface PostFormData {
+  title: string;
+  content: string;
+  sport: string;
+  postState: string;
+  tag: string[];
+}
+

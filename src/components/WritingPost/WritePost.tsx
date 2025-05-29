@@ -155,77 +155,141 @@ export default WritePost;
 
 const Select = styled.select`
   width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  margin-top: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  padding: ${({ theme }) => theme.sizes.spacing.sm};
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  margin-top: ${({ theme }) => theme.sizes.spacing.sm};
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.small};
+  border: 1px solid ${({ theme }) => theme.colors.background.quaternary};
+  background-color: ${({ theme }) => theme.colors.background.tertiary};
+  color: ${({ theme }) => theme.colors.text.primary};
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.colors.interactive.focus};
+  }
+
+  option {
+    background-color: ${({ theme }) => theme.colors.background.tertiary};
+    color: ${({ theme }) => theme.colors.text.primary};
+  }
 `;
 
 const PostCreationContainer = styled.div<{ isBlurred: boolean }>`
-  background-color: ${(props) =>
-    props.isBlurred ? "rgba(0, 0, 0, 0.2)" : "#333333"};
-  color: #ffffff;
+  background-color: ${({ isBlurred, theme }) =>
+    isBlurred ? theme.colors.utility.overlay : theme.colors.background.secondary};
+  color: ${({ theme }) => theme.colors.text.primary};
   height: 100vh;
-  padding: 16px;
-  filter: ${(props) => (props.isBlurred ? "blur(1px)" : "none")};
+  padding: ${({ theme }) => theme.sizes.spacing.lg};
+  filter: ${({ isBlurred }) => (isBlurred ? "blur(1px)" : "none")};
   transition: filter 0.3s ease;
+  box-sizing: border-box;
 `;
 
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.lg};
 `;
 
 const Button = styled.button`
   background: none;
   border: none;
-  color: #ffffff;
-  font-size: 16px;
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
   cursor: pointer;
+  padding: ${({ theme }) => theme.sizes.spacing.sm};
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.small};
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.interactive.hover};
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
 `;
 
 const CategoryDropdown = styled.div`
   position: fixed;
   bottom: 0;
-  width: 343px;
+  width: ${({ theme }) => theme.sizes.component.button.large.width};
   height: 200px;
-  background-color: #333333;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  padding: 16px;
-  z-index: 100;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  border-top-left-radius: ${({ theme }) => theme.sizes.borderRadius.xlarge};
+  border-top-right-radius: ${({ theme }) => theme.sizes.borderRadius.xlarge};
+  padding: ${({ theme }) => theme.sizes.spacing.lg};
+  z-index: ${({ theme }) => theme.sizes.zIndex.dropdown};
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 -4px 12px ${({ theme }) => theme.colors.utility.shadow};
 
   div {
-    padding: 16px;
+    padding: ${({ theme }) => theme.sizes.spacing.lg};
     text-align: center;
     cursor: pointer;
+    color: ${({ theme }) => theme.colors.text.primary};
+    font-size: ${({ theme }) => theme.typography.fontSize.lg};
+    border-radius: ${({ theme }) => theme.sizes.borderRadius.medium};
+    margin-bottom: ${({ theme }) => theme.sizes.spacing.sm};
+    transition: background-color 0.2s ease;
+    
     &:hover {
-      background-color: #444444;
+      background-color: ${({ theme }) => theme.colors.background.tertiary};
+    }
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 `;
 
 const Input = styled.input`
   display: flex;
-  padding: 12px;
+  padding: ${({ theme }) => theme.sizes.spacing.md};
   border: none;
-  border-bottom: 1px solid #444444;
-  background-color: transparent;
-  color: #ffffff;
-  font-size: 16px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  background-color: ${({ theme }) => theme.colors.utility.transparent};
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-bottom-color: ${({ theme }) => theme.colors.interactive.focus};
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.text.quaternary};
+  }
 `;
 
 const TextArea = styled.textarea`
   display: flex;
   resize: none;
-  padding: 12px;
+  padding: ${({ theme }) => theme.sizes.spacing.md};
   border: none;
-  border-bottom: 1px solid #444444;
-  background-color: transparent;
-  color: #ffffff;
-  font-size: 16px;
-  height: 150px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.background.tertiary};
+  background-color: ${({ theme }) => theme.colors.utility.transparent};
+  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  height: ${({ theme }) => theme.sizes.component.input.textarea.height};
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  line-height: ${({ theme }) => theme.typography.lineHeight.normal};
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-bottom-color: ${({ theme }) => theme.colors.interactive.focus};
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.text.quaternary};
+  }
 `;

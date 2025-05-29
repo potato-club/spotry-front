@@ -1,18 +1,30 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getToken } from '../util/storage';
+import { isTokenValid } from '../util/tokenUtils';
+
 
 const PrivateRoute = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(!!getToken());
+    const [isAuthenticated, setIsAuthenticated] = useState(() => {
+        return isTokenValid();
+    });
 
     useEffect(() => {
         const checkAuth = () => {
-            setIsAuthenticated(!!getToken());
+            const currentlyValid = isTokenValid();
+            if (currentlyValid !== isAuthenticated) {
+                setIsAuthenticated(currentlyValid);
+            }
         };
 
-        const interval = setInterval(checkAuth, 1000);
-        return () => clearInterval(interval);
-    }, []);
+        checkAuth();
+
+        const handleFocus = () => checkAuth();
+        window.addEventListener('focus', handleFocus);
+
+        return () => {
+            window.removeEventListener('focus', handleFocus);
+        };
+    }, [isAuthenticated]);
 
     return isAuthenticated ? <Outlet /> : <Navigate to={"/"} replace />;
 };

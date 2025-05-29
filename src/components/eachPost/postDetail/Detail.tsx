@@ -1,27 +1,16 @@
 import styled from "styled-components";
 import LikeIcon from "../../Data/LikeSvg";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useAppNavigation } from "../../../router";
 import { clickLike, deletePost, getEachPost } from "../../../api/postApi";
 
-interface eachPost {
-  nickName: string;
-  region: string;
-  postDate: string;
-  title: string;
-  content: string;
-  postState: string;
-  sport: string;
-  viewCount: number;
-  likeCount: number;
-  commentCount: number;
-  tag: string[];
-}
+import { PostDetail } from "../../../types/Post";
 
 const Detail = () => {
-  const navigate = useNavigate();
+  const { routes } = useAppNavigation();
 
-  const [eachPost, setEachPost] = useState<eachPost>();
+  const [eachPost, setEachPost] = useState<PostDetail>();
   const { postId } = useParams();
   const id = postId ? parseInt(postId) : null;
 
@@ -47,8 +36,6 @@ const Detail = () => {
     if (isLike) {
       const likePost = async () => {
         try {
-          console.log(id);
-          console.log(typeof id);
           const response = await clickLike(id);
           console.log(response);
         } catch (error) {
@@ -66,7 +53,7 @@ const Detail = () => {
     try {
       const response = await deletePost(id);
       alert("삭제되었습니다.");
-      navigate("/post");
+      routes.post();
       return response;
     } catch (error) {
       alert("삭제 실패");
@@ -101,8 +88,10 @@ const Detail = () => {
         <Tags>{eachPost?.tag}</Tags>
       </TagDiv>
       <ViewConut>조회수 : {eachPost?.viewCount}</ViewConut>
-      <button onClick={() => handleDelete()}>삭제</button>
-      <button>수정</button>
+      <ButtonWrapper>
+        <DeleteButton onClick={() => handleDelete()}>삭제</DeleteButton>
+        <EditButton>수정</EditButton>
+      </ButtonWrapper>
     </Details>
   );
 };
@@ -111,96 +100,184 @@ export default Detail;
 
 const Details = styled.div`
   width: 100%;
-  color: white;
-  padding: 15px;
+  color: ${({ theme }) => theme.colors.text.primary};
+  background-color: ${({ theme }) => theme.colors.background.secondary};
+  padding: ${({ theme }) => theme.sizes.spacing.lg};
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.large};
   box-sizing: border-box;
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.lg};
 `;
 
 const ProfileWrapper = styled.div`
-  margin-top: 14px;
+  margin-top: ${({ theme }) => theme.sizes.spacing.md};
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.lg};
 `;
 
 const Profile = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  
   img {
     width: 32px;
     height: 32px;
+    border-radius: ${({ theme }) => theme.sizes.borderRadius.round};
+    background-color: ${({ theme }) => theme.colors.background.quaternary};
+    object-fit: cover;
   }
 `;
 
 const ProInfo = styled.div`
-  margin-left: 8px;
+  margin-left: ${({ theme }) => theme.sizes.spacing.sm};
   display: flex;
   flex-direction: column;
-  font-size: 12px;
+  gap: ${({ theme }) => theme.sizes.spacing.xs};
+  
+  span:first-child {
+    font-size: ${({ theme }) => theme.typography.fontSize.md};
+    font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+    color: ${({ theme }) => theme.colors.text.primary};
+  }
+  
+  span:last-child {
+    font-size: ${({ theme }) => theme.typography.fontSize.sm};
+    color: ${({ theme }) => theme.colors.text.quaternary};
+  }
 `;
 
 const LikeDiv = styled.div`
   width: 65px;
   height: 25px;
-  border: 1px solid #8d8d8d;
-  border-radius: 10px;
+  border: 1px solid ${({ theme }) => theme.colors.text.quaternary};
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.medium};
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  color: #8d8d8d;
+  color: ${({ theme }) => theme.colors.text.quaternary};
+  background-color: ${({ theme }) => theme.colors.utility.transparent};
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.primary.main};
+    color: ${({ theme }) => theme.colors.primary.main};
+  }
 `;
 
 const CategoryWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  gap: ${({ theme }) => theme.sizes.spacing.sm};
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.lg};
 `;
 
 const Category = styled.div`
-  display: flex;
-  flex-direction: row;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  border-radius: 10px;
-  background-color: #444444;
-  color: white;
-  padding: 4px 8px 4px 8px;
-  box-sizing: border-box;
-  font-size: 14px;
-  margin-top: 14px;
-  margin-bottom: 20px;
-  margin-left: 6px;
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.medium};
+  background-color: ${({ theme }) => theme.colors.background.tertiary};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  padding: ${({ theme }) => theme.sizes.spacing.xs} ${({ theme }) => theme.sizes.spacing.md};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm};
 `;
 
 const Title = styled.div`
-  font-weight: bold;
-  margin-bottom: 8px;
-  font-size: 15px;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.sm};
+  font-size: ${({ theme }) => theme.typography.fontSize.xl};
+  color: ${({ theme }) => theme.colors.text.primary};
+  line-height: ${({ theme }) => theme.typography.lineHeight.normal};
 `;
 
 const ScriptDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.lg};
 `;
 
 const DetailScript = styled.div`
   display: flex;
   width: 100%;
   word-break: break-word;
-  font-size: 15px;
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  color: ${({ theme }) => theme.colors.text.primary};
+  line-height: ${({ theme }) => theme.typography.lineHeight.relaxed};
+  white-space: pre-wrap;
 `;
 
 const TagDiv = styled.div`
   display: flex;
   flex-direction: row;
-  margin-bottom: 18px;
-`;
-const Tags = styled.div`
-  margin-right: 8px;
-  color: #6983a9;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.sizes.spacing.sm};
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.lg};
 `;
 
-const ViewConut = styled.div``;
+const Tags = styled.div`
+  color: ${({ theme }) => theme.colors.primary.main};
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
+  cursor: pointer;
+  
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary.light};
+  }
+`;
+
+const ViewConut = styled.div`
+  color: ${({ theme }) => theme.colors.text.quaternary};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  margin-bottom: ${({ theme }) => theme.sizes.spacing.lg};
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.sizes.spacing.sm};
+  justify-content: flex-end;
+`;
+
+const DeleteButton = styled.button`
+  background-color: ${({ theme }) => theme.colors.status.error};
+  color: ${({ theme }) => theme.colors.text.primary};
+  border: none;
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.medium};
+  padding: ${({ theme }) => theme.sizes.spacing.sm} ${({ theme }) => theme.sizes.spacing.lg};
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.status.warning};
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
+const EditButton = styled.button`
+  background-color: ${({ theme }) => theme.colors.primary.main};
+  color: ${({ theme }) => theme.colors.utility.black};
+  border: none;
+  border-radius: ${({ theme }) => theme.sizes.borderRadius.medium};
+  padding: ${({ theme }) => theme.sizes.spacing.sm} ${({ theme }) => theme.sizes.spacing.lg};
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary.light};
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+`;

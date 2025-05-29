@@ -1,72 +1,3 @@
-// import React, { useState } from "react";
-// import {
-//   Container,
-//   Title,
-//   Form,
-//   Label,
-//   ErrorText,
-//   Input,
-// } from "../../styles/ShareStyles";
-// import { Btn } from "../../styles/Container";
-// import { useNavigate } from "react-router-dom";
-
-// // 임시 유저 데이터
-// const dummyUsers = [
-//   { id: "ssoo3423", name: "이성주", email: "ssoo3432@naver.com" },
-//   { id: "choi3432", name: "최동인", email: "choi3432@naver.com" },
-// ];
-
-// const VerifyUser: React.FC = () => {
-//   const [name, setName] = useState("");
-//   const [email, setEmail] = useState("");
-//   const [error, setError] = useState("");
-//   const navigate = useNavigate();
-
-//   const handleSubmit = (e: React.FormEvent) => {
-//     e.preventDefault();
-//     setError("");
-
-//     const user = dummyUsers.find((u) => u.name === name && u.email === email);
-//     if (user) {
-//       navigate("/changePW", { state: { userId: user.id } });
-//     } else {
-//       setError("일치하는 회원 정보가 없습니다.");
-//       console.log("뭐하냐? ㅋㅋ");
-//     }
-//   };
-
-//   return (
-//     <Container>
-//       <Title>비밀번호 재설정을 위해 정보를 입력해주세요.</Title>
-//       <Form onSubmit={handleSubmit}>
-//         <Label htmlFor="name">이름</Label>
-//         <Input
-//           id="name"
-//           type="text"
-//           placeholder="이름을 입력하세요"
-//           value={name}
-//           onChange={(e) => setName(e.target.value)}
-//           required
-//         />
-
-//         <Label htmlFor="email">이메일</Label>
-//         <Input
-//           id="email"
-//           type="email"
-//           placeholder="이메일을 입력하세요"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           required
-//         />
-
-//         <Btn type="submit">비밀번호 재설정</Btn>
-//       </Form>
-//       {error && <ErrorText>{error}</ErrorText>}
-//     </Container>
-//   );
-// };
-
-// export default VerifyUser;
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -83,19 +14,17 @@ import {
   verifyUserInfo,
   sendVerificationEmail,
   verifyEmailCode,
-} from "../../api/verifyUserApi";
+} from "../../api/userApi";
 import url from "../../api/url";
 
 const VerifyUser: React.FC = () => {
   const navigate = useNavigate();
 
-  // 1) 사용자 입력
   const [name, setName] = useState("");
   const [userId, setUserId] = useState("");
   const [emailLocal, setEmailLocal] = useState("");
   const [emailDomain, setEmailDomain] = useState("");
 
-  // 2) 인증 흐름 상태
   const [step, setStep] = useState<"info" | "code">("info");
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
@@ -117,8 +46,6 @@ const VerifyUser: React.FC = () => {
       console.log("[코드 전송 요청]", fullEmail);
 
       await sendVerificationEmail(fullEmail);
-
-      //console.log("[코드 전송 응답]", res.data);
 
       setStep("code");
     } catch (err: any) {
